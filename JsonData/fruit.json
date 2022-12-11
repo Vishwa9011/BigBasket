@@ -1,25 +1,89 @@
 {
 	"fruits": [
 		{
-			"name": "Apple",
-			"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_Apple.jpg/265px-Red_Apple.jpg",
-			"price": 35
+			"id": 101,
+			"title": "Apple",
+			"image": "https://freepngimg.com/thumb/apple/9-apple-png-image-thumb.png",
+			"price": 35,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+
+		{
+			"id": 102,
+			"title": "Banana",
+			"image": "https://freepngimg.com/thumb/banana/26-banana-png-image-bananas-picture-download-thumb.png",
+			"price": 12,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"name": "Banana",
-			"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/320px-Bananas_white_background_DS.jpg",
-			"price": 12
+			"id": 103,
+			"title": "Grapes",
+			"image": "https://freepngimg.com/thumb/grape/4-grape-png-image-download-picture-thumb.png",
+			"price": 45,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"name": "Grapes",
-			"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Table_grapes_on_white.jpg/320px-Table_grapes_on_white.jpg",
-			"weight": 0.1,
-			"price": 45
+			"id": 104,
+			"title": "Pineapple",
+			"image": "https://freepngimg.com/thumb/pineapple/5-pineapple-png-image-download-thumb.png",
+			"price": 200,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"name": "Pineapple",
-			"image": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Pineapple_and_cross_section.jpg/286px-Pineapple_and_cross_section.jpg",
-			"price": 200
+			"id": 105,
+			"title": "Mango",
+			"image": "https://freepngimg.com/thumb/mango/1-2-mango-png-thumb.png",
+			"price": 35,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 106,
+			"title": "Water melon",
+			"image": "https://freepngimg.com/thumb/watermelon/1-watermelon-png-image-thumb.png",
+			"price": 50,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 107,
+			"title": "Pomegranate",
+			"image": "https://freepngimg.com/thumb/pomegranate/5-pomegranate-png-image-thumb.png",
+			"price": 60,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 108,
+			"title": "Guava",
+			"image": "https://freepngimg.com/thumb/guava/2-2-guava-transparent-thumb.png",
+			"price": 32,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 109,
+			"title": "Blackberry",
+			"image": "https://freepngimg.com/thumb/blackberry/4-2-blackberry-fruit-png-image-thumb.png",
+			"price": 86,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 110,
+			"title": "Kiwi",
+			"image": "https://freepngimg.com/thumb/kiwi/3-kiwi-png-image-fruit-kiwi-png-pictures-download-thumb.png",
+			"price": 74,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 111,
+			"title": "Papaya",
+			"image": "https://freepngimg.com/thumb/papaya/24520-1-papaya-photos-thumb.png",
+			"price": 68,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 112,
+			"title": "Strawberry",
+			"image": "https://freepngimg.com/thumb/strawberry/6-strawberry-png-images-thumb.png",
+			"price": 120,
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		}
 	]
 }

@@ -1,0 +1,67 @@
+{
+	"dairyBarkery": [
+		{
+			"id": 601,
+			"price": 30,
+			"title": "Amul milk",
+			"image": "https://w7.pngwing.com/pngs/998/299/png-transparent-milk-bag-buttermilk-amul-toned-milk-milk-cream-textile-material-thumbnail.png",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 602,
+			"price": 15,
+			"title": "Milky Mist Curd",
+			"image": "https://www.bigbasket.com/media/uploads/p/s/40003162_5-milky-mist-curd-farm-fresh.jpg",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 603,
+			"price": 15,
+			"title": "Amul Butter",
+			"image": "https://www.bigbasket.com/media/uploads/p/s/1204991_3-amul-butter-pasteurized.jpg",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 604,
+			"price": 91,
+			"title": "Amul Butter",
+			"image": "https://www.bigbasket.com/media/uploads/p/s/1214334_4-britannia-treat-croissant-cocoa-creme-roll-100-veg.jpg",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 605,
+			"price": 31,
+			"title": "Brown Bread",
+			"image": "https://www.bigbasket.com/media/uploads/p/s/70001169_11-english-oven-bread-brown.jpg",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 606,
+			"price": 66,
+			"title": "Oat meal",
+			"image": "https://www.bigbasket.com/media/uploads/p/s/40219512_3-tasties-oatmeal-cookies-sugar-free.jpg",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 607,
+			"price": 20,
+			"title": "Monnaco cracker",
+			"image": "https://p.kindpng.com/picc/s/333-3334058_parle-monaco-pizza-biscuit-hd-png-download.png",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 608,
+			"price": 30,
+			"title": "Horlicks Biscuits",
+			"image": "https://p.kindpng.com/picc/s/333-3334285_horlicks-biscuits-150gm-hd-png-download.png",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		},
+		{
+			"id": 609,
+			"price": 130,
+			"title": "Walkers Biscuits pack",
+			"image": "https://p.kindpng.com/picc/s/181-1812878_biscuit-packet-png-transparent-png.png",
+			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
+		}
+	]
+}

@@ -1,0 +1,22 @@
+.scaleOfferImage:hover {
+     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+     animation: scaleImage 1s linear
+}
+
+.offerCard:hover {
+     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+@keyframes scaleImage {
+     0% {
+          scale: 1;
+     }
+
+     50% {
+          scale: 1.07;
+     }
+
+     100% {
+          scale: 1;
+     }
+}
