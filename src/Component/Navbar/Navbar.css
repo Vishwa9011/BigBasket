@@ -1,0 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&display=swap');
+
+.logoText {
+     font-family: 'Commissioner', sans-serif;
+     font-family: 'Comfortaa', cursive;
+     font-weight: 900;
+}
+
+.flex {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
