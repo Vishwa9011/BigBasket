@@ -2,5 +2,103 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
+:root {
+  --medium-text: .8em;
+  --normal-text: 1em
+}
+
+body {
+  position: relative;
+}
+
+/* universal css */
+
+.mediumtext {
+  font-size: var(--medium-text) !important;
+}
+
+.normalText {
+  font-size: var(--normal-text) !important;
+}
+
+/* universal css */
+
+
+.BtnClickEffect {
+  transition: 200ms;
+}
+
+.BtnClickEffect:active {
+  scale: .9;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+.offerCard {
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+.scaleOfferImage {
+  transition: all 600ms ease;
+  cursor: pointer;
+}
+
+.scaleOfferImage:hover {
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  scale: 1.05;
+}
+
+
+.offerCard:hover {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+@media screen and (width <=1020px) {
+  .mediumtext {
+    font-size: .7em !important;
+  }
+
+  .normalText {
+    font-size: .8em !important;
+  }
+}
+
+@media screen and (width <=840px) {
+  .mediumtext {
+    font-size: .7em !important;
+  }
+
+  .normalText {
+    font-size: .8em !important;
+  }
+}
+
+
+@media screen and (width <=720px) {
+  .mediumtext {
+    font-size: .6em !important;
+  }
+
+  .normalText {
+    font-size: .7em !important;
+  }
+}
+
+
+@media only screen and (width<=420px) {
+  .mediumtext {
+    font-size: var(--medium-text) !important;
+  }
+
+  .normalText {
+    font-size: var(--normal-text) !important;
+  }
+}

@@ -1,0 +1,87 @@
+.productmain {
+     width: 100%;
+     position: relative;
+     overflow: hidden;
+     scroll-behavior: smooth;
+}
+
+.productmain:hover .sliderBtn {
+     opacity: .9;
+}
+
+.productContainer {
+     display: flex;
+}
+
+.productContainer>div {
+     min-width: 25%;
+     min-height: 350px;
+}
+
+.sliderBtn {
+     top: 50%;
+     margin: 2px;
+     opacity: 0;
+     z-index: 10;
+     display: flex;
+     color: white;
+     cursor: pointer;
+     font-weight: 700;
+     font-size: 1.4em;
+     border-radius: 50%;
+     position: absolute;
+     align-items: center;
+     background-color: #333;
+     justify-content: center;
+     transition: opacity 600ms;
+     transform: translateY(-50%);
+}
+
+.sliderBtn:hover {
+     opacity: 1;
+     background: rgb(196, 15, 15);
+}
+
+.sliderBtn:active {
+     scale: .9;
+     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.sliderPrev {
+     left: 0;
+}
+
+.sliderNext {
+     right: 0;
+}
+
+@media only screen and (width<=850px) {
+     .productContainer>div {
+          min-width: 33%;
+          min-height: 350px;
+     }
+
+}
+
+@media only screen and (width<=720px) {
+     .productContainer>div {
+          min-width: 33%;
+          min-height: 350px;
+     }
+
+}
+
+@media only screen and (width<=550px) {
+     .productContainer>div {
+          min-width: 50%;
+          min-height: 350px;
+     }
+
+}
+
+@media only screen and (width<=420px) {
+     .productContainer>div {
+          min-width: 100%;
+          min-height: 350px;
+     }
+}

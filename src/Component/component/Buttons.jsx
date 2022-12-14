@@ -20,8 +20,7 @@ const Buttons = () => {
                     <Box as='div' key={el} className='flex' cursor={'pointer'} m={{ base: '2', md: "3" }}>
                          <Image src={el} alt='' w='100%' />
                     </Box>
-               ))
-               }
+               ))}
           </Grid>
      )
 

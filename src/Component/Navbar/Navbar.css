@@ -11,3 +11,42 @@
      justify-content: center;
      align-items: center;
 }
+
+.categoryContainer {
+     height: calc(100vh - 80px);
+}
+
+.sideCategory {
+     background: white;
+}
+
+.sideCategory li {
+     border-bottom: 2px solid rgb(238, 238, 238);
+     padding: 15px 25px;
+     cursor: pointer;
+     transition: all 200ms ease-in-out;
+}
+
+.sideCategory li:hover {
+     background: #e53e3e;
+     color: white;
+     scale: 1.05;
+}
+
+#loginMenu {
+     transition: all 200ms;
+}
+
+
+.loginMenuList {
+     height: 0px;
+     opacity: 0;
+     visibility: hidden;
+     transition: all 200ms;
+}
+
+#loginMenu:hover .loginMenuList {
+     opacity: 1;
+     visibility: visible;
+     height: max-content;
+}

@@ -1,73 +1,82 @@
 import React from 'react'
-import { Box, Container, SimpleGrid, Stack, Link, ListHeader } from '@chakra-ui/react'
-import AppStoreBadge from '@/components/AppStoreBadge';
-import PlayStoreBadge from '@/components/PlayStoreBadge';
+import { Box, Container, Grid, HStack, Stack, Link, Heading, Text, Input, Image, Spacer } from '@chakra-ui/react'
+import { BsYoutube, BsTwitter } from 'react-icons/bs'
+import { AiFillInstagram } from 'react-icons/ai'
+import { FaFacebookSquare } from 'react-icons/fa'
+import { SiMinutemailer } from 'react-icons/si'
+import './Footer.css'
+
+
+const Logo = ({ children }) => {
+     return <Box m='2' _hover={{ color: "red.500", cursor: 'pointer' }} className='BtnClickEffect'>
+          {children}
+     </Box>
+}
+
+const logoImage = [<AiFillInstagram />, <BsYoutube />, <BsTwitter />, <FaFacebookSquare />]
 
 const Footer = () => {
      return (
-          <Box
-               bg={useColorModeValue('gray.50', 'gray.900')}
-               color={useColorModeValue('gray.700', 'gray.200')}>
-               <Container as={Stack} maxW={'6xl'} py={10}>
-                    <SimpleGrid columns={{ base: 1, sm: 2, md: 4 }} spacing={8}>
-                         <Stack align={'flex-start'}>
-                              <ListHeader>Company</ListHeader>
-                              <Link href={'#'}>About Us</Link>
+          <>
+               <Box bg={'gray.200'} w='100%'>
+                    <Grid py={10} templateColumns={{ sm: "repeat(2,1fr)", md: 'repeat(3,1fr)', lg: 'repeat(4,1fr)' }} w='90%' m='auto'>
+                         <Stack align={'flex-start'} px='5'>
+                              <Heading fontSize={['1.7em', '1.5em', '2em']}>Company</Heading>
+                              <Link href={'#'}>About us</Link>
                               <Link href={'#'}>Blog</Link>
-                              <Link href={'#'}>Careers</Link>
-                              <Link href={'#'}>Contact Us</Link>
+                              <Link href={'#'}>Cart</Link>
+                              <Link href={'#'}>Contact us</Link>
+                              <Link href={'#'}>Pricing</Link>
+                              <Link href={'#'}>Testimonials</Link>
                          </Stack>
 
-                         <Stack align={'flex-start'}>
-                              <ListHeader>Support</ListHeader>
+                         <Stack textAlign={'left'} px='5' display={['none', 'none', 'block', 'block']}>
+                              <Heading fontSize={['1.7em', '1.5em', '2em']} >Support</Heading>
                               <Link href={'#'}>Help Center</Link>
-                              <Link href={'#'}>Safety Center</Link>
-                              <Link href={'#'}>Community Guidelines</Link>
-                         </Stack>
-
-                         <Stack align={'flex-start'}>
-                              <ListHeader>Legal</ListHeader>
-                              <Link href={'#'}>Cookies Policy</Link>
-                              <Link href={'#'}>Privacy Policy</Link>
                               <Link href={'#'}>Terms of Service</Link>
-                              <Link href={'#'}>Law Enforcement</Link>
+                              <Link href={'#'}>Legal</Link>
+                              <Link href={'#'}>Privacy Policy</Link>
+                              <Link href={'#'}>Satus</Link>
+                         </Stack>
+
+                         <Stack direction='column' px='5' display={['none', 'none', 'none', 'block']}>
+                              <Heading fontSize={'2em'} whiteSpace='nowrap'>Download Our App</Heading>
+                              <Box alignItems='center' flexDirection={'column'} >
+                                   <Image src='https://www.bbassets.com/static/v2616/custPage/build/content/img/Apple-App-store-icon.png' cursor={'pointer'} alt='' width={'50%'} py='2' />
+                                   <Image src='https://www.bbassets.com/static/v2616/custPage/build/content/img/Google-App-store-icon.png' cursor={'pointer'} alt='' width={'50%'} />
+                              </Box>
                          </Stack>
 
                          <Stack align={'flex-start'}>
-                              <ListHeader>Install App</ListHeader>
-                              <AppStoreBadge />
-                              <PlayStoreBadge />
+                              <Heading fontSize={['1.7em', '1.5em', '2em']} whiteSpace='nowrap'>Stay up to date</Heading>
+                              <Stack direction={'row'} >
+                                   <Input h={['2rem', '1.9rem', '2.1rem', '2.2rem']} placeholder={'Your email address'} border={'1px'} borderColor='blackAlpha.700' _focus={{ bg: 'whiteAlpha.500', }} />
+                                   <Box h={['2rem', '1.9rem', '2.1rem', '2.2rem']} cursor={'pointer'} className='flex socialBtn BtnClickEffect' borderRadius={'5px'} w='50px' bg='red.600' _hover={{ backgroundColor: "red.500" }} color={'white'} ><SiMinutemailer /></Box>
+                              </Stack>
+                              <Box display={'flex'} fontSize='1.6em'>
+                                   {logoImage.map((el, i) => (<Logo key={i}>{el}</Logo>))}
+                              </Box>
                          </Stack>
-                    </SimpleGrid>
-               </Container>
-
-               <Box
-                    borderTopWidth={1}
-                    borderStyle={'solid'}
-                    borderColor={useColorModeValue('gray.200', 'gray.700')}>
-                    <Container
-                         as={Stack}
-                         maxW={'6xl'}
-                         py={4}
-                         direction={{ base: 'column', md: 'row' }}
-                         spacing={4}
-                         justify={{ md: 'space-between' }}
-                         align={{ md: 'center' }}>
-                         <Text>© 2022 Chakra Templates. All rights reserved</Text>
-                         <Stack direction={'row'} spacing={6}>
-                              <SocialButton label={'Twitter'} href={'#'}>
-                                   <FaTwitter />
-                              </SocialButton>
-                              <SocialButton label={'YouTube'} href={'#'}>
-                                   <FaYoutube />
-                              </SocialButton>
-                              <SocialButton label={'Instagram'} href={'#'}>
-                                   <FaInstagram />
-                              </SocialButton>
-                         </Stack>
-                    </Container>
+                    </Grid>
                </Box>
-          </Box>
+
+               <Box bg={'blackAlpha.800'} color='white'>
+                    <Box w='90%' m='auto' p='1' className='flex' justifyContent={'space-between'} direction={{ base: 'column', md: 'row' }}
+                         spacing={4} justify={{ base: 'center', md: 'space-between' }} align={{ base: 'center', md: 'center' }}>
+                         <Box >
+                              <Link href='#' className='flex' textDecoration={'none'}>
+                                   <Image src='/logo.png' alt='' boxSize={{ base: '20px', lg: "40px" }} width={{ base: '30px', lg: "50px" }} />
+                                   <Box fontSize={{ base: '1em', lg: "2em" }} fontWeight={'900'} h='100%' className='flex logoText' pt={{ base: '1', lg: "2" }}>
+                                        <Text as='span' color={'red.500'} px={{ base: '1px', lg: "2px" }} className='flex' >BIG</Text>
+                                        <Text as='span' className='flex' >BASKET</Text>
+                                   </Box>
+                              </Link>
+                         </Box>
+                         <Text fontSize='.8em' letterSpacing='.1em'>Copyright © 2021-2023 Supermarket Grocery Supplies Pvt Ltd</Text>
+                    </Box>
+               </Box>
+
+          </>
      )
 }
 
