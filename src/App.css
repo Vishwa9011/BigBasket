@@ -2,7 +2,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth !important;
 }
 
 :root {
@@ -28,7 +31,7 @@ body {
 
 
 .BtnClickEffect {
-  transition: 200ms;
+  transition: 200ms !important;
 }
 
 .BtnClickEffect:active {
@@ -44,6 +47,8 @@ a {
   border-radius: 5px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .scaleOfferImage {

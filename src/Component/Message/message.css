@@ -1,0 +1,32 @@
+.alertMessage {
+     top: 85px;
+     display: flex;
+     margin: 5px;
+     min-width: 380px;
+     position: absolute;
+     border-radius: 5px;
+     align-items: center;
+     transition: 300ms;
+     justify-content: space-between;
+     filter: blur(0px);
+}
+
+.success {
+     background-color: #28a745;
+}
+
+.danger {
+     background-color: #dc3545;
+}
+
+.primary {
+     background-color: #007bff;
+}
+
+.warning {
+     background-color: #ffc107;
+}
+
+.active {
+     top: 85px;
+}

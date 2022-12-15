@@ -1,0 +1,66 @@
+.spinner {
+     position: absolute;
+     top: 12px;
+     right: 10px;
+}
+
+
+/* flipablecontainer */
+.flip-page {
+     height: 100%;
+     width: 100%;
+     /* try this once */
+     perspective: 1000px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+/* card */
+.loginPage {
+     width: 500px;
+     height: 90%;
+     display: flex;
+
+     /* transform with style */
+     transform-style: preserve-3d;
+
+     position: relative;
+     /* border: 1px solid red; */
+     /* transition: transform 1s; */
+}
+
+
+.signin, .signup {
+     height: 100%;
+     width: 100%;
+     /* border: 1px solid blue; */
+
+     /* to hide background things  */
+     -webkit-backface-visibility: hidden;
+     backface-visibility: hidden;
+
+     /* alignment  */
+     position: absolute;
+
+     /* Content ALignment */
+     display: flex;
+     justify-content: center;
+     align-items: center;
+
+}
+
+/* front */
+.signin {
+     background: white !important;
+}
+
+
+/* back */
+.signup {
+     background: white !important;
+     /* to hide second part*/
+     transform: rotateY(180deg);
+}
+
+

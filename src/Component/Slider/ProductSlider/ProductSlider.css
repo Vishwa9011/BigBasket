@@ -2,15 +2,24 @@
      width: 100%;
      position: relative;
      overflow: hidden;
-     scroll-behavior: smooth;
+     scroll-behavior: smooth !important;
 }
 
 .productmain:hover .sliderBtn {
      opacity: .9;
 }
 
+#productContainer {
+     scroll-behavior: smooth;
+}
+
 .productContainer {
+     width: 1300px;
      display: flex;
+     justify-content: flex-start;
+     position: relative;
+     overflow-x: hidden;
+     scroll-behavior: smooth !important;
 }
 
 .productContainer>div {

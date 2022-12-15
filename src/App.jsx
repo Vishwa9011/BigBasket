@@ -1,19 +1,20 @@
 import './App.css'
-import Navbar from './Component/Navbar/Navbar'
 import AllRoutes from './AllRoutes';
-import Footer from './Component/Footer/Footer';
-
 import axios from 'axios';
+import { Message } from './Component/Message/Message';
+import { useAuth } from './Context/AuthContextProvider';
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
 function App() {
 
+  const { msg } = useAuth()
+  console.log('msg: ', msg);
+
   return (
     <>
-      {/* <Navbar /> */}
       <AllRoutes />
-      {/* <Footer /> */}
+      {/* <Message msg={msg.msg} msgType={msg.msgType} description={msg?.description} /> */}
     </>
   )
 }

@@ -4,15 +4,11 @@ import React, { useState } from 'react'
 import './Navbar.css'
 import { Link } from 'react-router-dom';
 import Category from './Category';
+import { useAuth } from '../../Context/AuthContextProvider';
 
-const loginMenu = [
-     { img: "/user1.png", title: "My Account" },
-     { img: "/myOrder.png", title: "My Order" },
-     { img: "/logout.png", title: "Sign out" }
-]
 
 const Navbar = () => {
-
+     const { logout, currentUser } = useAuth()
      const { isOpen, onOpen, onClose } = useDisclosure()
      const isAdmin = true;
      const login = true;
@@ -66,20 +62,27 @@ const Navbar = () => {
                                              </Link>
 
                                              <Box className='loginMenuList'>
-                                                  {login && <List pos='absolute' w='max-content' top='100%' right='0px' whiteSpace='nowrap'
+                                                  {currentUser?.email && <List pos='absolute' w='max-content' top='100%' right='0px' whiteSpace='nowrap'
                                                        border='1px' borderRadius='5px' borderColor='gray.200' bg='white' >
 
                                                        {isAdmin && <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }} >
-                                                            <Image src='/admin.png' alt='' boxSize='25px' />
+                                                            <Image src='/admin2.png' alt='' boxSize='25px' />
                                                             <Text as='span' fontSize='1rem' ml='3'>Admin Pannel</Text>
                                                        </ListItem>}
+                                                       <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
+                                                            <Image src='/user1.png' alt='' boxSize='25px' />
+                                                            <Text as='span' fontSize='1rem' ml='3'>Profile</Text>
+                                                       </ListItem>
+                                                       <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
+                                                            <Image src="/myorder1.png" alt='' boxSize='25px' />
+                                                            <Text as='span' fontSize='1rem' ml='3'>My Orders</Text>
+                                                       </ListItem>
+                                                       <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100'
+                                                            _hover={{ background: "gray.100", color: "black" }} onClick={logout}>
+                                                            <Image src='/logout1.png' alt='' boxSize='25px' />
+                                                            <Text as='span' fontSize='1rem' ml='3'>Signout</Text>
+                                                       </ListItem>
 
-                                                       {loginMenu?.map((el, i) => (
-                                                            <ListItem key={i} display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
-                                                                 <Image src={el.img} alt='' boxSize='25px' />
-                                                                 <Text as='span' fontSize='1rem' ml='3'>{el.title}</Text>
-                                                            </ListItem>
-                                                       ))}
                                                   </List>}
                                              </Box>
                                         </Box>

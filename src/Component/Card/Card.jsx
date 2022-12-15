@@ -35,7 +35,7 @@ const Card = (props) => {
                </Select>
 
                <Box fontSize='.9em' mt='2' className='normalText'>
-                    <Text as='span' textDecoration={'line-through'} fontSize='.7em' color='red.500'>MRP Rs 38.16</Text>
+                    <Text as='span' textDecoration={'line-through'} fontSize='.7em' color='red.500'>MRP ₹38.16</Text>
                     <Text as='span' ml='3'>₹{price}.00</Text>
                </Box>
 
