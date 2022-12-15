@@ -3,27 +3,30 @@
      position: relative;
      overflow: hidden;
      scroll-behavior: smooth !important;
+     transition: all 600ms;
+
 }
 
 .productmain:hover .sliderBtn {
      opacity: .9;
 }
 
-#productContainer {
-     scroll-behavior: smooth;
+
+.productContainer::-webkit-scrollbar {
+     display: none;
 }
 
 .productContainer {
-     width: 1300px;
      display: flex;
-     justify-content: flex-start;
      position: relative;
-     overflow-x: hidden;
-     scroll-behavior: smooth !important;
+     overflow-x: scroll;
+     scrollbar-width: none;
+     scroll-behavior: smooth;
+     justify-content: flex-start;
 }
 
 .productContainer>div {
-     min-width: 25%;
+     min-width: calc(100% / 4);
      min-height: 350px;
 }
 
@@ -64,25 +67,17 @@
      right: 0;
 }
 
-@media only screen and (width<=850px) {
+@media only screen and (width<=1024px) {
      .productContainer>div {
-          min-width: 33%;
+          min-width: calc(100% / 3);
           min-height: 350px;
      }
 
 }
 
-@media only screen and (width<=720px) {
+@media only screen and (width<=768px) {
      .productContainer>div {
-          min-width: 33%;
-          min-height: 350px;
-     }
-
-}
-
-@media only screen and (width<=550px) {
-     .productContainer>div {
-          min-width: 50%;
+          min-width: calc(100% / 3);
           min-height: 350px;
      }
 

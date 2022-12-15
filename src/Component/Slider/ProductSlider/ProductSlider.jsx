@@ -1,22 +1,26 @@
-import { Box, Text, Heading } from '@chakra-ui/react'
-import React, { useEffect, useRef, useState } from 'react'
 import { ArrowBackIcon, ArrowForwardIcon } from '@chakra-ui/icons'
-import './ProductSlider.css'
-import Card from '../../Card/Card'
+import { collection, getDocs, addDoc } from 'firebase/firestore';
+import React, { useEffect, useRef, useState } from 'react'
+import { Box, Text, Heading } from '@chakra-ui/react'
+import { db } from '../../Firebase/firebase-config';
 import { PrevBtn, NextBtn, getData } from './btn'
+import Card from '../../Card/Card'
+import './ProductSlider.css'
+
 
 const ProductSlider = () => {
-
+     const usersCollectionRef = collection(db, 'data/fruits/fruitsData')
      const sliderContainer = useRef(null)
      const [data, setData] = useState([])
+     console.log('dataproduct: ', data);
 
-     // *fetching the data from server
-     const FetchData = () => {
-          getData().then(res => setData(res));
-     }
 
      useEffect(() => {
-          FetchData() //*fetchdata func call
+          const getData = async () => {
+               const res = await getDocs(usersCollectionRef)
+               setData(res.docs.map(doc => ({ ...doc.data(), id: doc.id }))) //*setting the data
+          }
+          getData()
      }, [])
 
      return (
@@ -28,13 +32,11 @@ const ProductSlider = () => {
                     </Box>
 
                     <Box as='div' className='productContainer' id='productContainer' ref={sliderContainer} py='2' w='100%' m='auto' display={'flex'} overflow='hidden' justifyContent={'space-between'} >
-                         {
-                              data?.data?.map((el, i) => (
-                                   <Box key={el.id} w={{ base: '50%', sm: "33%", lg: '25%' }} h='max-content' px='2' display='flex' justifyContent='stretch' alignItems='center'>
-                                        <Card id={el.id} image={el.image} price={el.price} title={el.title} defaultImages={el.defaultImages} />
-                                   </Box>
-                              ))
-                         }
+                         {data?.map((el, i) => (
+                              <Box key={el.id} h='max-content' px='2' display='flex' justifyContent='stretch' alignItems='center'>
+                                   <Card data={el} />
+                              </Box>
+                         ))}
                     </Box>
 
                     <Box as='button' className='sliderBtn sliderNext' _hover={{ bg: "red.600" }} w='40px' h='40px' onClick={() => NextBtn(sliderContainer)}>

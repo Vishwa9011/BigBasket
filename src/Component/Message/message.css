@@ -2,7 +2,7 @@
      top: 85px;
      display: flex;
      margin: 5px;
-     min-width: 380px;
+     min-width: 350px;
      position: absolute;
      border-radius: 5px;
      align-items: center;
@@ -29,4 +29,37 @@
 
 .active {
      top: 85px;
+}
+
+.strokeline {
+     position: absolute;
+     left: 2px;
+     width: 5px;
+     height: 90%;
+     top: 50%;
+     transform: translateY(-50%);
+     background: #000;
+     transition: 600ms;
+     border-radius: 70px;
+}
+
+.msgLine {
+     left: 10px;
+     bottom: 5px;
+     width: calc(100% - 10px);
+     height: 5px;
+     background: white;
+     transition: 600ms;
+     border-radius: 70px;
+     animation: timeout 4s linear forwards;
+}
+
+@keyframes timeout {
+     from {
+          width: calc(100% - 10px);
+     }
+
+     to {
+          width: 0%;
+     }
 }

@@ -1,7 +1,7 @@
 {
 	"fruits": [
 		{
-			"id": 101,
+			1,
 			"title": "Apple",
 			"image": "https://freepngimg.com/thumb/apple/9-apple-png-image-thumb.png",
 			"price": 35,
@@ -9,56 +9,56 @@
 		},
 
 		{
-			"id": 102,
+			2,
 			"title": "Banana",
 			"image": "https://freepngimg.com/thumb/banana/26-banana-png-image-bananas-picture-download-thumb.png",
 			"price": 12,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 103,
+			3,
 			"title": "Grapes",
 			"image": "https://freepngimg.com/thumb/grape/4-grape-png-image-download-picture-thumb.png",
 			"price": 45,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 104,
+			4,
 			"title": "Pineapple",
 			"image": "https://freepngimg.com/thumb/pineapple/5-pineapple-png-image-download-thumb.png",
 			"price": 200,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 105,
+			5,
 			"title": "Mango",
 			"image": "https://freepngimg.com/thumb/mango/1-2-mango-png-thumb.png",
 			"price": 35,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 106,
+			6,
 			"title": "Water melon",
 			"image": "https://freepngimg.com/thumb/watermelon/1-watermelon-png-image-thumb.png",
 			"price": 50,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 107,
+			7,
 			"title": "Pomegranate",
 			"image": "https://freepngimg.com/thumb/pomegranate/5-pomegranate-png-image-thumb.png",
 			"price": 60,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 108,
+			8,
 			"title": "Guava",
 			"image": "https://freepngimg.com/thumb/guava/2-2-guava-transparent-thumb.png",
 			"price": 32,
 			"defaultImages": "https://www.bigbasket.com/media/uploads/p/l/10000200-5_1-fresho-tomato-hybrid.jpg"
 		},
 		{
-			"id": 109,
+			9,
 			"title": "Blackberry",
 			"image": "https://freepngimg.com/thumb/blackberry/4-2-blackberry-fruit-png-image-thumb.png",
 			"price": 86,

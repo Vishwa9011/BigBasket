@@ -6,11 +6,11 @@ import App from './App'
 import AuthContextProvider from './Context/AuthContextProvider'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <AuthContextProvider>
+  <Router>
     <ChakraProvider>
-      <Router>
+      <AuthContextProvider>
         <App />
-      </Router>
+      </AuthContextProvider>
     </ChakraProvider>
-  </AuthContextProvider>
+  </Router>
 )

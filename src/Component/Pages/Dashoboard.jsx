@@ -26,7 +26,6 @@ const Dashoboard = () => {
                {/* productSlider */}
                <ProductSlider />
 
-               {/* Offer */}
                {/* <OfferCard /> */}
                <CardMaker data={offer} heading="Top Offers" />
 
