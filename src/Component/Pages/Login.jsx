@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { Flex, Box, FormControl, FormLabel, Input, Checkbox, Stack, Link, Button, Heading, Text, Image, Spacer } from "@chakra-ui/react";
 import Navbar from '../Navbar/Navbar'
 import Signup from '../Login/Signup';
@@ -7,8 +7,14 @@ import { CSSTransition } from 'react-transition-group'
 import '../Login/Login.css'
 import './styles.css'
 import '../Login/flip-transition.css'
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+
+     const { isAuth } = useAuth();
+     const navigate = useNavigate();
+
 
      const [LoginPage, setLoginPage] = useState('signin')
      const [showFront, setShowFront] = useState(true)
@@ -16,6 +22,10 @@ export default function Login() {
      const setPage = () => {
           setShowFront(v => !v)
      }
+
+     useEffect(() => {
+          if (isAuth) return navigate("/")
+     }, [])
 
      return (
           <>

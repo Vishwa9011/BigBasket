@@ -1,10 +1,29 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Box, List, Text, ListItem, Image, Button } from '@chakra-ui/react'
 import { IoClose } from 'react-icons/io5'
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider'
+import { NavLink } from 'react-router-dom'
+
+
+
+const categoryLink = [
+     { path: '/products/fruits', title: "Fresh Fruits" },
+     { path: '/products/vegetables', title: "Fresh Vegetables" },
+     { path: '/products/foodgrain_oil_masala', title: "Foodgrain, Oil & Masala" },
+     { path: '/products/bakery_cakes_dairy', title: "Bakery, Cakes & Dairy" },
+     { path: '/products/snack_foods', title: "Snacks & Branded Foods" },
+     { path: '/products/beauty_hygiene', title: "Beauty & Hygiene" },
+     { path: '/products/cleaning_household', title: "Cleaning & Household" },
+     { path: '/products/kitchen_garden_pets', title: "Kitchen, Garden & Pets" },
+     { path: '/products/eggs_meat_fish', title: "Eggs,Meat & Fish" },
+]
 
 
 const Category = ({ isOpen, onOpen, onClose }) => {
+
+     const { } = useGlobal();
+     const [activeLink, setActiveLink] = useState()
 
      if (isOpen) {
           document.querySelector('body').style.overflow = 'hidden'
@@ -29,34 +48,17 @@ const Category = ({ isOpen, onOpen, onClose }) => {
                          </Box>
                     </Box>
                     <List className='sideCategory' w='300px' h='100%' fontSize={'1.3em'}>
-                         <ListItem>
-                              <Text>Fruits & Vegetables</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Foodgrain, Oil & Masala</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Bakery, Cakes & Dairy</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Snacks & Branded Foods</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Beauty & Hygiene</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Cleaning & Household</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Kitchen, Garden & Pets</Text>
-                         </ListItem>
-                         <ListItem>
-                              <Text>Eggs,Meat & Fish</Text>
-                         </ListItem>
+
+                         {categoryLink.map((link, i) => (
+                              <ListItem key={i}>
+                                   <NavLink to={link.path} className={({ isActive }) => (isActive ? 'activeLink' : "")}>
+                                        <Text>{link.title}</Text>
+                                   </NavLink>
+                              </ListItem>
+                         ))}
                     </List>
                </Box>
-               <Box pos='absolute' w='100%' h='100vh' bg='#aaa' zIndex={'98'} opacity='.8'
-                    backdropBlur={'9px'} cursor='pointer'
+               <Box className='overlay' bg='#aaa' zIndex={'98'} opacity='.8' cursor='pointer'
                     onClick={onClose}>
                </Box>
           </>

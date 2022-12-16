@@ -17,7 +17,5 @@ export const NextBtn = (sliderContainer) => {
 
 // // *getting the data from server
 export const getData = () => {
-     return axios.get('/fruits')
-          .then(res => res)
-          .catch(err => console.log(err))
+
 }

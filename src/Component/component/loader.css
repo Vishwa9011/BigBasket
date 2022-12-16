@@ -1,0 +1,35 @@
+.spinner {
+     top: 50% !important;
+     left: 50% !important;
+     width: 100px;
+     height: 100px;
+     position: absolute !important;
+     transform: translateX(-50%) !important;
+     border: .1px solid #e53e3e !important;
+     border-top: 10px solid #e53e3e !important;
+     border-radius: 50%;
+     transition: 600ms;
+     animation: spinner 2s linear infinite !important;
+}
+
+.overlayLoading {
+     width: 100%;
+     height: 100%;
+     opacity: .8;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     position: relative;
+     border: 1px solid blue;
+}
+
+
+@keyframes spinner {
+     from {
+          transform: rotate(0deg)
+     }
+
+     to {
+          transform: rotate(360deg)
+     }
+}

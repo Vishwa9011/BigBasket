@@ -1,17 +1,17 @@
 import { Box, Flex, Input, Image, Text, Stack, HStack, Center, Grid, useDisclosure, List, ListItem } from '@chakra-ui/react'
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
+import { NavLink } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 import React, { useState } from 'react'
-import './Navbar.css'
-import { Link } from 'react-router-dom';
 import Category from './Category';
-import { useAuth } from '../../Context/AuthContextProvider';
+import './Navbar.css'
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 
 
 const Navbar = () => {
-     const { logout, currentUser } = useAuth()
+     const { cartItemCount } = useGlobal()
+     const { logout, currentUser, isAdmin } = useAuth()
      const { isOpen, onOpen, onClose } = useDisclosure()
-     const isAdmin = true;
-     const login = true;
 
      return (
           <>
@@ -20,13 +20,13 @@ const Navbar = () => {
                          <Grid as='nav' templateColumns={'repeat(3,1fr)'} px='4' py='2' h='80px' w={{ base: "100%", lg: "95%" }} m='auto' bg='transparent' alignItems='center'>
                               <Flex justifyContent={'flex-start'}>
                                    <Box className='flex' >
-                                        <Link to='/' className='flex'>
+                                        <NavLink to='/' className='flex' state='/'>
                                              <Image src='/logo.png' alt='' boxSize={{ base: '30px', lg: "35px" }} width={{ base: '40px', lg: "45px" }} />
                                              <Box fontSize={{ base: '1.7em', lg: "1.8em" }} fontWeight={'900'} h='100%' className='flex logoText' pt={{ base: '1', lg: "2" }}>
                                                   <Text as='span' color={'red.500'} px={{ base: '1px', lg: "2px" }} className='flex' >BIG</Text>
                                                   <Text as='span' className='flex' >BASKET</Text>
                                              </Box>
-                                        </Link>
+                                        </NavLink>
                                    </Box>
                               </Flex>
 
@@ -47,19 +47,19 @@ const Navbar = () => {
                                              </Box>
                                         </Box>
 
-                                        <Link to='/cart'>
+                                        <NavLink to='/cart' state="cart">
                                              <Box mx='5' cursor={'pointer'} pos='relative' p='0' className='BtnClickEffect' >
                                                   <Box pos='absolute' zIndex={'10'} className='flex' backdropBlur={'10'} top='-1' right='-2' display={'flex'} bg='red.500' color='white' borderRadius={'50%'} w='20px' h='20px' fontSize='13px'>
-                                                       <Center h='100%' fontSize={'.8em'}>0</Center>
+                                                       <Center h='100%' fontSize={'.8em'}>{cartItemCount}</Center>
                                                   </Box>
                                                   <Image src='/bag1.png' alt='' boxSize='27px' />
                                              </Box>
-                                        </Link>
+                                        </NavLink>
                                         <Box p='5' cursor={'pointer'} pos='relative' id='loginMenu'>
 
-                                             <Link to='/login'>
+                                             <NavLink to='/login' state='login'>
                                                   <Image src='/user.png' alt='' boxSize='27px' className=' BtnClickEffect' borderRadius='50%' />
-                                             </Link>
+                                             </NavLink>
 
                                              <Box className='loginMenuList'>
                                                   {currentUser?.email && <List pos='absolute' w='max-content' top='100%' right='0px' whiteSpace='nowrap'

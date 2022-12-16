@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { auth } from '../Component/Firebase/firebase-config';
+import { auth } from '../../Component/Firebase/firebase-config';
 import { useToast } from '@chakra-ui/react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const AuthContext = createContext();
@@ -12,12 +12,12 @@ export const useAuth = () => useContext(AuthContext) //* better way to write the
 const AuthContextProvider = ({ children }) => {
      const toast = useToast()
      const navigate = useNavigate()
+     const location = useLocation()
+     const [isAdmin, setIsAdmin] = useState(false)
      const [currentUser, setCurrentUser] = useState({})
      const [isAuth, setIsAuth] = useState(false)
      const [loading, setLoading] = useState(true);
      const [error, setError] = useState("")
-
-     console.log('currentUser: ', currentUser);
 
      //* signup with email and password
      const signup = async ({ email, password }) => {
@@ -39,7 +39,7 @@ const AuthContextProvider = ({ children }) => {
      }
 
      // *Logout user
-     const logout = async () => { 
+     const logout = async () => {
           try {
                await signOut(auth)
                     .then(res => showMsg("Successfully logout"));
@@ -67,10 +67,12 @@ const AuthContextProvider = ({ children }) => {
      useEffect(() => {
           const unsubscribe = onAuthStateChanged(auth, (user) => {
                setCurrentUser(user)
-               if (currentUser?.email) setIsAuth(true)
-               else setIsAuth(false)
-               setError("")
+               if (currentUser?.email) {
+                    setIsAuth(true)
+                    if (currentUser.email === 'vishu842301@gmail.com') setIsAdmin(true)
+               } else setIsAuth(false)
                setLoading(false)
+               setError("")
           })
           return unsubscribe;
      }, [currentUser])
@@ -80,8 +82,18 @@ const AuthContextProvider = ({ children }) => {
           else console.log('error: ', error);
      }, [error]);
 
+     useEffect(() => {
+          if (location.state == 'cart') {
+               setTimeout(() => {
+                    if (currentUser) return navigate(`/${location.state}`, { state: "cart" })
+               }, 2000)
+          }
+          console.log('karan2')
+     }, [])
+
+
      return (
-          <AuthContext.Provider value={{ isAuth, signup, error, loading, login, logout, resetPassword, currentUser }}>
+          <AuthContext.Provider value={{ isAdmin, isAuth, signup, error, loading, login, logout, resetPassword, currentUser }}>
                {children}
           </AuthContext.Provider>
      )

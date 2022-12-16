@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Flex, Box, FormControl, FormLabel, Input, Checkbox, Stack, Link, Button, Heading, Text, useToast } from "@chakra-ui/react";
 import './Login.css'
-import { useAuth } from '../../Context/AuthContextProvider';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
 
@@ -26,14 +26,12 @@ const SignIn = ({ setPage }) => {
      }
 
 
-     const HandleSubmit = () => {
-
+     const HandleSubmit = (e) => {
+          e.preventDefault()
           if (loginEmail === "" || loginPassword === "") return showMsg("Please fill all the feilds", 'error')
-
           login({ loginEmail, loginPassword })
           setLoginEmail("")
           setLoginPassword("")
-          // navigate('/')
      }
 
 
@@ -52,24 +50,23 @@ const SignIn = ({ setPage }) => {
                          </Stack>
                          <Box rounded={'lg'} boxShadow={'lg'} p={8} className='form'>
                               <Stack spacing={4}>
+                                   <form onSubmit={HandleSubmit}>
                                    <FormControl id="loginEmail">
                                         <FormLabel>Email address</FormLabel>
-                                        <Input type="email" onChange={(e) => setLoginEmail(e.target.value)} />
+                                             <Input type="email" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)} />
                                    </FormControl>
                                    <FormControl id="loginPassword">
                                         <FormLabel>Password</FormLabel>
-                                        <Input type="password" onChange={(e) => setLoginPassword(e.target.value)} />
+                                             <Input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)} />
                                    </FormControl>
                                    <Stack spacing={10}>
                                         <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
                                              <Checkbox>Remember me</Checkbox>
                                              <Text color={'blue.400'} cursor='pointer' onClick={() => setForgotPass(true)}>Forgot password?</Text>
                                         </Stack>
-                                        <Button bg={'red.500'} h='45px' _hover={{ bg: "red.600" }} className='BtnClickEffect' color={'white'}
-                                             colorScheme='red.600' onClick={HandleSubmit}>
-                                             Sign in
-                                        </Button>
+                                             <Input type='submit' value='Sign in' bg={'red.500'} h='45px' _hover={{ bg: "red.600" }} className='BtnClickEffect' color={'white'} colorScheme='red.600' />
                                    </Stack>
+                                   </form>
                               </Stack>
                               <Stack mt='3'>
                                    <Text as='span'>Doesn't have any account yet?

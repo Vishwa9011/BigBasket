@@ -1,17 +1,52 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Box, Image, Select, Text, Button, Input } from '@chakra-ui/react'
 import { FaStar } from 'react-icons/fa'
 import { GoPrimitiveDot } from 'react-icons/go'
 import { AiOutlineShoppingCart } from 'react-icons/ai'
 import './Card.css'
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider'
+import { async } from '@firebase/util'
+import { addDoc, collection } from 'firebase/firestore'
+import { db } from '../Firebase/firebase-config'
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider'
+import { useNavigate } from 'react-router-dom'
 
 const Card = (props) => {
-     console.log('props: ', props);
+     const { image, price, title, mrp, discount, select_qty = 1, unit = 'kg', brand } = props.data
 
-     const { image, price, title, mrp, discount } = props.data
+     const { showMsg, setCartCountChange } = useGlobal()
+     const { isAuth, currentUser } = useAuth()
+     const navigate = useNavigate()
+     const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`)
+     const [data, setData] = useState({ ...props['data'] })
+
+
+     // * to handle the change if user increase the select anything
+     const HandleOnChange = (e) => {
+          setData({ ...data, selected_qty_purchase: e.target.value })
+     }
+
+     // * adding product to the cart
+     const HandleAddToCart = () => {
+
+          // todo check userlogined or not
+          if (!isAuth) {
+               navigate("/login")
+               return;
+          };
+
+          postDataToCart(data).then(res => {
+               showMsg('Item successfully added in cart', 'success')
+               setCartCountChange(v => !v)
+          }).catch(err => console.log(err))
+     }
+
+     const postDataToCart = (data) => {
+          return addDoc(usersCollectionRef, data)
+     }
 
      return (
-          <Box w='100%' p='3' borderRadius='10px' className='card'>
+          <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card'>
                <Box className='card-image-holder'>
                     <Box className='card-image' display='flex' justifyContent='center' alignItems='center' pos='relative'>
                          <Image src={image} alt='' h={'70%'} w={{ sm: '50%' }} />
@@ -20,7 +55,7 @@ const Card = (props) => {
                </Box>
 
                <Box className='card-detail'>
-                    <Text title='Fresho' color={'red.500'} className='normalText'>Fresho</Text>
+                    <Text title='Fresho' color={'red.500'} className='normalText'>{brand}</Text>
                     <Text title={title} className='normalText'>{title}</Text>
                     <Box className='mediumtext flex' justifyContent='flex-start' color='red.800' pt='2' fontSize={{ base: ".8em", md: "1em" }}>
                          <Text as='span' className='flex' border='2px' borderColor="green.800" borderRadius='5px' px='1' color='green.800'>
@@ -30,10 +65,10 @@ const Card = (props) => {
                     </Box>
                </Box>
 
-               <Select mt='2' h={{ base: "35px", sm: "25px", md: '30px' }} className='normalText'>
-                    <option>1kg - Rs 29.0</option>
-                    <option>2kg - Rs 39.0</option>
-                    <option>3kg - Rs 49.0</option>
+               <Select mt='2' h={{ base: "35px", sm: "25px", md: '30px' }} className='normalText' onChange={HandleOnChange}>
+                    <option value='1'>{`${select_qty + unit} - ₹${parseInt(price)}.00`}  </option>
+                    <option value='2'>{`${2 * select_qty + unit} - ₹${2 * parseInt(price)}.00`}  </option>
+                    <option value='3'>{`${3 * select_qty + unit} - ₹${3 * parseInt(price)}.00`}  </option>
                </Select>
 
                <Box fontSize='.9em' mt='2' className='normalText'>
@@ -42,24 +77,20 @@ const Card = (props) => {
                </Box>
 
                <Box display={'flex'} justifyContent='flex-end' alignItems='center' mt='4'>
-                    {/* <Box display='flex' border='1px' w='65px' h='100%' borderRadius='5px' overflow='hidden' opacity='.8' borderColor='gray' >
-                         <Text as='span' borderRight='1px' px='1' className='mediumtext' textAlign='center' borderColor='gray'> Qty</Text>
-                         <Input variant={'unstyled'} w='100%' px='2px' textAlign='center' className='mediumtext' />
-                    </Box> */}
                     <Button h='max-content' p='2' borderRadius='20px' letterSpacing='0' colorScheme={'red.600'} _hover={{ background: "red.600" }}
                          className='BtnClickEffect cartBtn' bg='red.500' color='white' transition={'all 200ms'}>
                          <Text as='span' h='22px' fontSize={{ sm: "1em", md: '.8em' }} w='22px' bg='white' color='black' borderRadius='50%' className='flex'>
                               <AiOutlineShoppingCart />
                          </Text>
-                         <Text as='span' ml='2' fontSize='.8em' >ADD TO CART</Text>
+                         <Text as='span' ml='2' fontSize='.8em' onClick={HandleAddToCart}>ADD TO CART</Text>
                     </Button>
                </Box>
 
                {/* Discount */}
-               <Box className='discount' bg='red.500'>
+               {(discount >= 1) && <Box className='discount' bg='red.500'>
                     <Text as='span'>{discount}% OFF</Text>
-               </Box>
-          </Box>
+               </Box>}
+          </Box> 
      )
 }
 

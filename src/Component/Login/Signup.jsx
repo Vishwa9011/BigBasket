@@ -1,7 +1,7 @@
 import { Flex, Box, FormControl, FormLabel, Input, HStack, Stack, Button, Heading, Text, Link, Spinner, useToast } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import './Login.css'
-import { useAuth } from '../../Context/AuthContextProvider';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { useNavigate } from 'react-router-dom';
 
 

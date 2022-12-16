@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Stack, Flex, Heading, FormLabel, Button, Checkbox, FormControl, Text, Input, useToast } from '@chakra-ui/react';
-import { useAuth } from '../../Context/AuthContextProvider';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 
 const ForgotPassword = ({ setForgotPass }) => {
      const toast = useToast();

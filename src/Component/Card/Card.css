@@ -43,3 +43,12 @@
      border-bottom-left-radius: 5px;
      box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 8px;
 }
+
+.BTNPrice {
+     min-width: 20px !important;
+}
+
+.cartcard {
+     display: grid;
+     grid-template-columns: 1fr 2fr 1fr 1fr;
+}

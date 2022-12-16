@@ -1,18 +1,25 @@
-import { Box, Grid, Heading, Image, ScaleFade } from '@chakra-ui/react';
-import React from 'react'
+import { bankoffer, beautyAndHygiene, beaverage, cleaningHousehold, fruitVegCard, offer, snacks, staples, } from '../component/exportData';
+import ProductSlider from '../Slider/ProductSlider/ProductSlider';
+import GridCardMaker from '../component/GridCardMaker';
+import React, { useEffect, useState } from 'react'
+import Slider from '../Slider/MainSlider/Slider';
+import CardMaker from '../component/CardMaker';
 import Buttons from '../component/Buttons';
 import Navbar from '../Navbar/Navbar';
-import Slider from '../Slider/MainSlider/Slider';
-import ProductSlider from '../Slider/ProductSlider/ProductSlider';
-import { bankoffer, beautyAndHygiene, beaverage, cleaningHousehold, fruitVegCard, offer, snacks, staples, } from '../component/exportData';
-import Footer from '../Footer/Footer'
-import CardMaker from '../component/CardMaker';
-import GridCardMaker from '../component/GridCardMaker';
+import Footer from '../Footer/Footer';
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
+
+
+
 const Dashoboard = () => {
+
+     const { cartItemCount } = useGlobal()
+
+
      return (
           <>
                {/* navbar */}
-               <Navbar />
+               <Navbar cartItemCount={cartItemCount} />
 
                {/* Slider */}
                <Slider />
