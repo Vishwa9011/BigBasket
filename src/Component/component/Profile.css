@@ -1,0 +1,38 @@
+.userImage {
+     display: flex;
+}
+
+#upload-image {
+     transition: 600ms;
+     margin-top: 10px;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+     background: white;
+     border-radius: 5px;
+     align-items: center;
+     justify-content: center;
+}
+
+.image {
+     max-width: 20px;
+     max-height: 20px;
+     border-radius: 5px;
+     /* background: rgb(205, 203, 203); */
+}
+
+.upload-label {
+     width: 100%;
+     padding: 2px;
+     display: flex;
+     cursor: pointer;
+     padding-left: 4px;
+     align-items: center;
+     justify-content: center;
+}
+
+.remove-icon {
+     min-height: 20px;
+     padding: 2px !important;
+     min-width: 20px !important;
+}

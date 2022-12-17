@@ -1,39 +1,25 @@
-import { collection, deleteDoc, getDocs, doc, updateDoc } from 'firebase/firestore'
-import { Box, Button, Heading, Text, useDisclosure } from '@chakra-ui/react'
+import { collection, deleteDoc, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore'
+import { Box, Button, Heading, Image, Text, useDisclosure } from '@chakra-ui/react'
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider'
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider'
 import { useProvider } from '../../Context/Provider/Provider'
+import { calcTotalPrice, calcTotalSavings } from './Helper';
+import { NavLink, useNavigate } from 'react-router-dom'
 import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase/firebase-config'
-import { useNavigate } from 'react-router-dom'
 import Loader from '../component/Loader'
 import CartCard from '../Card/CartCard'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import Alert from '../component/Alert'
-
-const calcTotalPrice = (data) => {
-     return data?.reduce((start, item) => {
-          return start + (+item.price);
-     }, 0)
-}
-
-const calcTotalSavings = (data) => {
-     return calcTotalMrp(data) - calcTotalPrice(data);
-}
-
-const calcTotalMrp = (data) => {
-     return data?.reduce((start, item) => {
-          return start + (+item.mrp);
-     }, 0)
-}
+import Empty from '../component/Empty'
 
 const Cart = () => {
      const navigate = useNavigate();
      const { showMsg } = useGlobal();
      const { currentUser } = useAuth();
      const [limit, setLimit] = useState(0);
-     const { setCartItemCount } = useProvider()
+     const { setCartItemCount } = useProvider();
      const [change, setChange] = useState(false);
      const [cartData, setCartData] = useState([]);
      const [loading, setLoading] = useState(false);
@@ -41,6 +27,7 @@ const Cart = () => {
      const [totalSavings, setTotalSavings] = useState(0);
      const { isOpen, onOpen, onClose } = useDisclosure();
      const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`);
+     const usersCollectionOrderRef = collection(db, `orders/${currentUser?.email}/ordersData`)
 
      // * to send to the cartcard to update the item 
      const updateProduct = async (id, qty) => {
@@ -65,6 +52,7 @@ const Cart = () => {
           setLoading(true);
           const id = setInterval(() => {
                const userDoc = doc(db, `cart/${currentUser?.email}/cartData`, cartData[count].id)
+               SendDataToOrders(cartData[count])
                deleteDoc(userDoc).then(() => {
                     console.log("checkout done", count, "limit: ", limit)
                     count++;
@@ -84,6 +72,11 @@ const Cart = () => {
           if (!cartData.length) return showMsg("Cart is empty! Please add something", "warning")
           onOpen(); //* to open the alert box
           setLimit(limit) //* to tell how many items are there in your cart
+     }
+
+     // * send all cart data to the myorders
+     const SendDataToOrders = async (item) => {
+          await addDoc(usersCollectionOrderRef, item)
      }
 
      // * to get all the cart item on first time or on every change
@@ -114,7 +107,8 @@ const Cart = () => {
                <Navbar />
                <Alert isOpen={isOpen} onOpen={onOpen} onClose={onClose} totalPrice={totalPrice.toFixed(2)} CheckoutCart={CheckoutCart} />
                <Box>
-                    <Box w='90%' m='auto' my='5'>
+                    <Box w='90%' m='auto' mb='5'>
+                         <Text pt='4' pb='10' cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / cart</Text>
                          <Heading my='2'>Your Basket</Heading>
                          <Box w='100%' h='80px' bg='blackAlpha.800' p='5' borderRadius='10px' display='flex' justifyContent='space-between' alignItems='center'>
                               <Box>
@@ -126,6 +120,10 @@ const Cart = () => {
                               </Box>
                          </Box>
                     </Box>
+
+                    {
+                         cartData.length ? null : <Empty />
+                    }
 
                     <Box w='90%' m='auto'>
                          {cartData.map((item) => (

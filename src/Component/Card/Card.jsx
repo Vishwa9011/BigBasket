@@ -7,20 +7,19 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { db } from '../Firebase/firebase-config'
 import { GoPrimitiveDot } from 'react-icons/go'
 import { useNavigate } from 'react-router-dom'
+import Loader from '../component/Loader'
 import React, { useState } from 'react'
 import { FaStar } from 'react-icons/fa'
 import './Card.css'
-import Loader from '../component/Loader'
 
 const Card = ({ data, setLoading }) => {
      const { image, price, title, id, mrp, discount, select_qty = 1, unit = 'kg', brand } = data;
      const navigate = useNavigate()
      const { showMsg } = useGlobal()
      const { isAuth, currentUser } = useAuth()
-     const [item, setItem] = useState({ ...data })
      const { setCartCountChange } = useProvider()
+     const [item, setItem] = useState({ ...data })
      const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`)
-
 
      // * to handle the change if user increase the select anything
      const HandleOnChange = (e) => {

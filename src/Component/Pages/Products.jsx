@@ -68,7 +68,7 @@ const Products = () => {
                     <Box w='92%' m='auto'>
                          <Box className='main-container' >
                               <Box className='header'>
-                                   <Text pt='4' pb='10' cursor={'pointer'}>🏠 Home / {id}</Text>
+                                   <Text pt='4' pb='10' cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / {id}</Text>
                                    <Box display='flex'>
                                         <Image src='https://www.bigbasket.com/media/uploads/flatpages/test-1/Fruits%20&%20vegetables.jpg' alt='' w='100%' />
                                    </Box>

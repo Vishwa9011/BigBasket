@@ -2,11 +2,11 @@ import { Box, Flex, Input, Image, Text, Stack, HStack, Center, Grid, useDisclosu
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { useProvider } from '../../Context/Provider/Provider';
 import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import Profile from '../component/Profile';
 import { BsSearch } from 'react-icons/bs';
-import React, { useState } from 'react'
 import Category from './Category';
 import './Navbar.css'
-
 
 const Navbar = () => {
      const { isAuth } = useAuth()
@@ -14,11 +14,23 @@ const Navbar = () => {
      const { cartItemCount } = useProvider()
      const { logout, currentUser, isAdmin } = useAuth()
      const { isOpen, onOpen, onClose } = useDisclosure()
+     const [showProfile, setShowProfile] = useState(false)
 
+     // * prevent to go on loginpage whenever you already login
      const RedirectToLogin = () => {
           if (isAuth) return
           navigate("/login", 'login');
      }
+
+     // *to toggle the profile page
+     const ShowProfilePage = () => {
+          setShowProfile(v => !v);
+     }
+
+     useEffect(() => {
+          if (showProfile) document.querySelector('body').style.overflow = 'hidden'
+          else document.querySelector('body').style.overflow = 'auto'
+     }, [showProfile])
 
      return (
           <>
@@ -54,6 +66,7 @@ const Navbar = () => {
                                                   <Image src='/categories.png' alt='' boxSize='27px' className='BtnClickEffect' />
                                              </Box>
                                         </Box>
+
                                         {/* cart */}
                                         <NavLink to='/cart' state="cart">
                                              <Box mx='5' cursor={'pointer'} pos='relative' p='0' className='BtnClickEffect' >
@@ -80,14 +93,22 @@ const Navbar = () => {
                                                             <Image src='/admin2.png' alt='' boxSize='25px' />
                                                             <Text as='span' fontSize='1rem' ml='3'>Admin Pannel</Text>
                                                        </ListItem>}
-                                                       <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
-                                                            <Image src='/user1.png' alt='' boxSize='25px' />
-                                                            <Text as='span' fontSize='1rem' ml='3'>Profile</Text>
+
+                                                       <ListItem display='flex' p='2' pos='relative' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
+                                                            <Box display={'flex'} onClick={ShowProfilePage}>
+                                                                 <Image src='/user1.png' alt='' boxSize='25px' />
+                                                                 <Text as='span' fontSize='1rem' ml='3'>Profile</Text>
+                                                            </Box>
+
                                                        </ListItem>
-                                                       <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
-                                                            <Image src="/myorder1.png" alt='' boxSize='25px' />
-                                                            <Text as='span' fontSize='1rem' ml='3'>My Orders</Text>
-                                                       </ListItem>
+
+                                                       <NavLink to='/myorders' state={'myorders'}>
+                                                            <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
+                                                                 <Image src="/myorder1.png" alt='' boxSize='25px' />
+                                                                 <Text as='span' fontSize='1rem' ml='3'>My Orders</Text>
+                                                            </ListItem>
+                                                       </NavLink>
+
                                                        <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100'
                                                             _hover={{ background: "gray.100", color: "black" }} onClick={logout}>
                                                             <Image src='/logout1.png' alt='' boxSize='25px' />
@@ -102,6 +123,8 @@ const Navbar = () => {
                          </Grid>
                     </Box>
                </Box>
+
+               {showProfile && <Profile ShowProfilePage={ShowProfilePage} />}
                <Category isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
           </>
      )
