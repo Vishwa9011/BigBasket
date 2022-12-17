@@ -19,7 +19,7 @@ const Cart = () => {
      const { showMsg } = useGlobal();
      const { currentUser } = useAuth();
      const [limit, setLimit] = useState(0);
-     const { setCartItemCount } = useProvider();
+     const { setCartItemCount, setCartCountChange } = useProvider();
      const [change, setChange] = useState(false);
      const [cartData, setCartData] = useState([]);
      const [loading, setLoading] = useState(false);
@@ -61,6 +61,7 @@ const Cart = () => {
                          setLoading(false)
                          showMsg("Your order has been placed", "success")
                          navigate("/", '/')
+                         setCartCountChange(v => !v)
                     }
                })
           }, 600);

@@ -1,24 +1,20 @@
-import React, { useState } from 'react'
 import { Box, Stack, Flex, Heading, FormLabel, Button, Checkbox, FormControl, Text, Input, useToast } from '@chakra-ui/react';
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
+import React, { useState } from 'react'
 
 const ForgotPassword = ({ setForgotPass }) => {
-     const toast = useToast();
+     const { showMsg } = useGlobal()
      const { resetPassword } = useAuth()
      const [email, setEmail] = useState("");
 
-     const showMsg = (msg, msgType) => {
-          return toast({
-               title: msg,
-               position: 'top', variant: 'left-accent',
-               status: msgType, isClosable: true,
-          })
-     }
 
      const ResetPassword = () => {
-          if (email) resetPassword(email)
-          showMsg("Reset Email has been set", 'success')
-          setEmail("")
+          if (email.includes('@')) {
+               resetPassword(email)
+          } else {
+               showMsg("Please Enter valid Email")
+          }
      }
 
      return (

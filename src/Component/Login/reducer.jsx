@@ -2,7 +2,7 @@
 export const reducer = (state, action) => {
 
      switch (action.type) {
-          case "FIRST_NAME":
+          case "USER_NAME":
                return { ...state, firstName: action.payload }
           case "LAST_NAME":
                return { ...state, lastName: action.payload }
@@ -20,8 +20,7 @@ export const reducer = (state, action) => {
 }
 
 export const ActionType = {
-     firstName: "FIRST_NAME",
-     lastName: "LAST_NAME",
+     username: "USER_NAME",
      email: "EMAIL",
      password: "PASSWORD",
      phone: "PHONE",

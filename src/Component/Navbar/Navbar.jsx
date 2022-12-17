@@ -86,7 +86,7 @@ const Navbar = () => {
                                              </Box>
 
                                              <Box className='loginMenuList'>
-                                                  {currentUser?.email && <List pos='absolute' w='max-content' top='100%' right='0px' whiteSpace='nowrap'
+                                                  {currentUser?.email && <List pos='absolute' w='max-content' top='72px' right='0px' whiteSpace='nowrap'
                                                        border='1px' borderRadius='5px' borderColor='gray.200' bg='white' >
 
                                                        {isAdmin && <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }} >

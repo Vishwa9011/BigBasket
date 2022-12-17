@@ -1,37 +1,29 @@
-import React, { useState } from 'react'
 import { Flex, Box, FormControl, FormLabel, Input, Checkbox, Stack, Link, Button, Heading, Text, useToast } from "@chakra-ui/react";
-import './Login.css'
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
-import { useNavigate } from 'react-router-dom';
 import ForgotPassword from './ForgotPassword';
+import React, { useState } from 'react'
+import './Login.css'
 
 
 const SignIn = ({ setPage }) => {
 
-     const toast = useToast()
      const { login } = useAuth()
+     const { showMsg } = useGlobal();
      const [loginEmail, setLoginEmail] = useState("");
      const [loginPassword, setLoginPassword] = useState("");
      const [forgotPass, setForgotPass] = useState(false);
-     const navigate = useNavigate()
 
-     const showMsg = (msg, msgType) => {
-          return toast({
-               title: msg,
-               position: 'top', variant: 'left-accent',
-               status: msgType, isClosable: true,
-          })
-     }
-
-
+     // *submit the data
      const HandleSubmit = (e) => {
           e.preventDefault()
           if (loginEmail === "" || loginPassword === "") return showMsg("Please fill all the feilds", 'error')
+
+          // * requesting to server for the login
           login({ loginEmail, loginPassword })
           setLoginEmail("")
           setLoginPassword("")
      }
-
 
      return (
 

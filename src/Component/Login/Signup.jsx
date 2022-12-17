@@ -1,45 +1,28 @@
 import { Flex, Box, FormControl, FormLabel, Input, HStack, Stack, Button, Heading, Text, Link, Spinner, useToast } from '@chakra-ui/react';
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { useEffect, useState } from 'react';
 import './Login.css'
-import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
-import { useNavigate } from 'react-router-dom';
 
 
 
 export default function Signup({ setPage }) {
-     const toast = useToast()
+
+     const { showMsg } = useGlobal();
+     const { signup, error } = useAuth()
      const [email, setEmail] = useState("");
      const [password, setPassword] = useState("");
      const [confirmPassword, setConfirmPassword] = useState("");
-     const navigate = useNavigate()
-
-     const { signup, error } = useAuth()
-
-
-     const showMsg = (msg, msgType) => {
-          return toast({
-               title: msg,
-               position: 'top', variant: 'left-accent',
-               status: msgType, isClosable: true,
-          })
-     }
 
      const HandleSubmit = () => {
-
           if (email === "") return showMsg("Please fill the email", "error")
-
           setEmail("")
           setPassword("")
           setConfirmPassword("")
 
           if (confirmPassword === password && email !== "") {
                signup({ email, password })
-               if (err == "") {
-                    navigate('/')
-                    showMsg("Successfully Registered", 'success')
-               } else showMsg("Email already exist", 'error')
           } else showMsg("Password not Matched", "error")
-
      }
 
      return (

@@ -30,19 +30,7 @@ export default function Extra({ setPage }) {
           dispatch({ type: ActionType[e.target.name], payload: e.target.value })
      }
 
-     const HandleChangePic = (e) => {
-          const apikey = `30d5e74496023c98433d2b16d595ca2c`
-          const image = e.target.files[0]; //* taking the image value from input
-          const form = new FormData(); //* creating the form to store the value of image
-          form.append('image', image) //* appending the value into the form;
-          setLoading(true);
-          axios.post(`https://api.imgbb.com/1/upload?key=${apikey}`, form)
-               .then(res => {
-                    if (res.status === 200) dispatch({ type: ActionType[e.target.name], payload: res.data.data.display_url })
-                    setLoading(false);
-               })
-               .catch(err => { console.log(err); setLoading(false) })
-     }
+  
 
 
      const HandleSubmit = (e) => {

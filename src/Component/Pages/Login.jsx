@@ -1,20 +1,18 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import { Box, Image, Spacer } from "@chakra-ui/react";
-import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { CSSTransition } from 'react-transition-group';
-import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import Signup from '../Login/Signup';
 import SignIn from '../Login/SignIn';
 import '../Login/flip-transition.css';
 import '../Login/Login.css'
 import './styles.css'
+import Loader from '../component/Loader';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 
 export default function Login() {
-     const { isAuth } = useAuth();
-     const navigate = useNavigate();
+     const { loading } = useAuth()
      const [showFront, setShowFront] = useState(true)
-
      // * swapping from page
      const setPage = () => {
           setShowFront(v => !v)
@@ -22,6 +20,7 @@ export default function Login() {
  
      return (
           <>   
+               {loading && <Loader />}
                <Navbar />
                <Box className='loginContainer' zIndex='99' backdropBlur='10px'>
                     <Box h='90%' w='100%' className='flip-page'>
