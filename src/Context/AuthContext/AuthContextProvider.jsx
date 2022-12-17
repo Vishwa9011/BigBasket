@@ -13,11 +13,11 @@ const AuthContextProvider = ({ children }) => {
      const toast = useToast()
      const navigate = useNavigate()
      const location = useLocation()
-     const [isAdmin, setIsAdmin] = useState(false)
-     const [currentUser, setCurrentUser] = useState({})
+     const [error, setError] = useState("")
      const [isAuth, setIsAuth] = useState(false)
      const [loading, setLoading] = useState(true);
-     const [error, setError] = useState("")
+     const [isAdmin, setIsAdmin] = useState(false)
+     const [currentUser, setCurrentUser] = useState({})
 
      //* signup with email and password
      const signup = async ({ email, password }) => {

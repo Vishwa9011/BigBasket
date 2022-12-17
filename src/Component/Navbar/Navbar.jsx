@@ -1,17 +1,24 @@
 import { Box, Flex, Input, Image, Text, Stack, HStack, Center, Grid, useDisclosure, List, ListItem } from '@chakra-ui/react'
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
-import { NavLink } from 'react-router-dom';
+import { useProvider } from '../../Context/Provider/Provider';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { BsSearch } from 'react-icons/bs';
 import React, { useState } from 'react'
 import Category from './Category';
 import './Navbar.css'
-import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 
 
 const Navbar = () => {
-     const { cartItemCount } = useGlobal()
+     const { isAuth } = useAuth()
+     const navigate = useNavigate()
+     const { cartItemCount } = useProvider()
      const { logout, currentUser, isAdmin } = useAuth()
      const { isOpen, onOpen, onClose } = useDisclosure()
+
+     const RedirectToLogin = () => {
+          if (isAuth) return
+          navigate("/login", 'login');
+     }
 
      return (
           <>
@@ -41,12 +48,13 @@ const Navbar = () => {
 
                               <HStack color={'black'} display='flex' justifyContent={'flex-end'} alignContent='center' gap='2' fontSize={{ base: '1em', sm: '1.4em', lg: "1.8em" }}>
                                    <Center h='100%'>
+                                        {/* categories */}
                                         <Box mx='5' cursor={'pointer'}>
                                              <Box onClick={onOpen}>
                                                   <Image src='/categories.png' alt='' boxSize='27px' className='BtnClickEffect' />
                                              </Box>
                                         </Box>
-
+                                        {/* cart */}
                                         <NavLink to='/cart' state="cart">
                                              <Box mx='5' cursor={'pointer'} pos='relative' p='0' className='BtnClickEffect' >
                                                   <Box pos='absolute' zIndex={'10'} className='flex' backdropBlur={'10'} top='-1' right='-2' display={'flex'} bg='red.500' color='white' borderRadius={'50%'} w='20px' h='20px' fontSize='13px'>
@@ -55,11 +63,14 @@ const Navbar = () => {
                                                   <Image src='/bag1.png' alt='' boxSize='27px' />
                                              </Box>
                                         </NavLink>
-                                        <Box p='5' cursor={'pointer'} pos='relative' id='loginMenu'>
 
-                                             <NavLink to='/login' state='login'>
+                                        {/* login */}
+                                        <Box p='5' cursor={'pointer'} pos='relative' id='loginMenu' className='flex'>
+
+
+                                             <Box onClick={RedirectToLogin}>
                                                   <Image src='/user.png' alt='' boxSize='27px' className=' BtnClickEffect' borderRadius='50%' />
-                                             </NavLink>
+                                             </Box>
 
                                              <Box className='loginMenuList'>
                                                   {currentUser?.email && <List pos='absolute' w='max-content' top='100%' right='0px' whiteSpace='nowrap'

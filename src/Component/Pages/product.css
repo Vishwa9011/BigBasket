@@ -3,6 +3,10 @@
      top: 0;
 }
 
+.sidebar * {
+     white-space: nowrap;
+}
+
 .filterText {
      padding: 15px 20px;
      font-size: 1.5rem;
@@ -55,7 +59,6 @@
      justify-content: space-between;
      align-items: center;
      /* border: 1px solid red; */
-
 }
 
 .FilterList>li>div:first-child:hover {
@@ -79,13 +82,11 @@
 }
 
 
-.product-card {}
 
 .product-card .card {
      display: flex;
      flex-direction: column;
      justify-content: space-between;
-     /* gap: 10px; */
 }
 
 .product-card .card .card-image {
@@ -95,5 +96,5 @@
 }
 
 .product-card .card .card-detail>:nth-child(2) {
-     margin: 10px 0;
+     margin: 5px 0;
 }

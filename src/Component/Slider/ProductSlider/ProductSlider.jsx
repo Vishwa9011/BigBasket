@@ -8,7 +8,7 @@ import Card from '../../Card/Card'
 import './ProductSlider.css'
 
 
-const ProductSlider = () => {
+const ProductSlider = ({ setLoading }) => {
      const usersCollectionRef = collection(db, 'data/fruits/fruitsData')
      const sliderContainer = useRef(null)
      const [data, setData] = useState([])
@@ -34,7 +34,7 @@ const ProductSlider = () => {
                     <Box as='div' className='productContainer' id='productContainer' ref={sliderContainer} py='2' w='100%' m='auto' display={'flex'} overflow='hidden' justifyContent={'space-between'} >
                          {data?.map((el, i) => (
                               <Box key={el.id} h='max-content' px='2' display='flex' justifyContent='stretch' alignItems='center'>
-                                   <Card data={el} />
+                                   <Card data={el} setLoading={setLoading} />
                               </Box>
                          ))}
                     </Box>

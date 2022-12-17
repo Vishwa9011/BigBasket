@@ -1,12 +1,16 @@
 import { collection, deleteDoc, getDocs, doc, updateDoc } from 'firebase/firestore'
+import { Box, Button, Heading, Text, useDisclosure } from '@chakra-ui/react'
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider'
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider'
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { useProvider } from '../../Context/Provider/Provider'
 import React, { useEffect, useState } from 'react'
 import { db } from '../Firebase/firebase-config'
+import { useNavigate } from 'react-router-dom'
 import Loader from '../component/Loader'
 import CartCard from '../Card/CartCard'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
+import Alert from '../component/Alert'
 
 const calcTotalPrice = (data) => {
      return data?.reduce((start, item) => {
@@ -14,8 +18,8 @@ const calcTotalPrice = (data) => {
      }, 0)
 }
 
-const calcTotalSavings = (data, totalPrice) => {
-     return calcTotalMrp(data) - totalPrice;
+const calcTotalSavings = (data) => {
+     return calcTotalMrp(data) - calcTotalPrice(data);
 }
 
 const calcTotalMrp = (data) => {
@@ -25,48 +29,61 @@ const calcTotalMrp = (data) => {
 }
 
 const Cart = () => {
+     const navigate = useNavigate();
+     const { showMsg } = useGlobal();
      const { currentUser } = useAuth();
-     const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`);
-     const [cartData, setCartData] = useState([])
-     console.log('cartData: ', cartData);
+     const [limit, setLimit] = useState(0);
+     const { setCartItemCount } = useProvider()
+     const [change, setChange] = useState(false);
+     const [cartData, setCartData] = useState([]);
+     const [loading, setLoading] = useState(false);
      const [totalPrice, setTotalPrice] = useState(0);
      const [totalSavings, setTotalSavings] = useState(0);
-     const [change, setChange] = useState(false);
-     const [loading, setLoading] = useState(false);
+     const { isOpen, onOpen, onClose } = useDisclosure();
+     const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`);
 
      // * to send to the cartcard to update the item 
      const updateProduct = async (id, qty) => {
-          console.log("update this item ", id)
           const userDoc = doc(db, `cart/${currentUser?.email}/cartData`, id)
           const newFeilds = { selected_qty_purchase: qty };
-          await updateDoc(userDoc, newFeilds).then(res => {
+          await updateDoc(userDoc, newFeilds).then(() => {
                setChange(!change)
           })
      }
 
      //* to send to the cartcard to delete the item
      const deleteProduct = async (id) => {
-          console.log("delete this item ", id)
           const userDoc = doc(db, `cart/${currentUser?.email}/cartData`, id)
-          await deleteDoc(userDoc).then(res => {
+          await deleteDoc(userDoc).then(() => {
                setChange(!change)
           })
      }
 
-     const Checkout = async (limit) => {
+     // * after confirmation empty the cart it will call fromthe alert box
+     const CheckoutCart = () => {
           var count = 0;
-          setLoading(true)
+          setLoading(true);
           const id = setInterval(() => {
                const userDoc = doc(db, `cart/${currentUser?.email}/cartData`, cartData[count].id)
                deleteDoc(userDoc).then(() => {
-                    console.log("checkout done", count, limit)
+                    console.log("checkout done", count, "limit: ", limit)
                     count++;
                     if (count == limit) {
                          clearInterval(id)
                          setLoading(false)
+                         showMsg("Your order has been placed", "success")
+                         navigate("/", '/')
                     }
                })
           }, 600);
+     }
+
+     // * to take confimation to checkout from the user
+     const Checkout = (limit) => {
+          // * to check cart has something or not;
+          if (!cartData.length) return showMsg("Cart is empty! Please add something", "warning")
+          onOpen(); //* to open the alert box
+          setLimit(limit) //* to tell how many items are there in your cart
      }
 
      // * to get all the cart item on first time or on every change
@@ -75,7 +92,9 @@ const Cart = () => {
           const getData = () => {
                getDocs(usersCollectionRef)
                     .then(res => {
-                         setCartData(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+                         const temp = (res.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+                         setCartData(temp)
+                         setCartItemCount(temp.length)
                          setLoading(false)
                     })
           }
@@ -85,7 +104,7 @@ const Cart = () => {
      // * to get values of totalPrice and total savings
      useEffect(() => {
           setTotalPrice(calcTotalPrice(cartData));
-          setTotalSavings(calcTotalSavings(cartData, totalPrice))
+          setTotalSavings(calcTotalSavings(cartData))
      }, [cartData])
 
      return (
@@ -93,6 +112,7 @@ const Cart = () => {
           <>
                {loading && <Loader />}
                <Navbar />
+               <Alert isOpen={isOpen} onOpen={onOpen} onClose={onClose} totalPrice={totalPrice.toFixed(2)} CheckoutCart={CheckoutCart} />
                <Box>
                     <Box w='90%' m='auto' my='5'>
                          <Heading my='2'>Your Basket</Heading>

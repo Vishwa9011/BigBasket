@@ -11,11 +11,8 @@ export const useGlobal = () => useContext(GlobalContext);
 const GlobalProvider = ({ children }) => {
 
      const toast = useToast()
-     const { currentUser } = useAuth()
-     const [cartItemCount, setCartItemCount] = useState(0);
      const [showDataForCategory, setShowDataForCategory] = useState("");
-     const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`)
-     const [cartCountChange, setCartCountChange] = useState(false)
+  
 
      const showMsg = (msg, msgType) => {
           return toast({
@@ -24,25 +21,10 @@ const GlobalProvider = ({ children }) => {
                status: msgType, isClosable: true,
           })
      }
-
-     // * to get all the cart item on first time or on every change
-     useEffect(() => {
-          const getData = () => {
-               if (!currentUser.email) return
-               getDocs(usersCollectionRef)
-                    .then(res => {
-                         const data = (res.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-                         console.log('data: ', data);
-                         setCartItemCount(data.length)
-                    })
-          }
-          getData();
-     }, [cartCountChange])
-
-
+ 
 
      return (
-          <GlobalContext.Provider value={{ setCartCountChange, cartItemCount, showMsg, showDataForCategory, setShowDataForCategory }}>
+          <GlobalContext.Provider value={{ showMsg, showDataForCategory, setShowDataForCategory }}>
                {children}
           </GlobalContext.Provider>
      )

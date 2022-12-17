@@ -15,8 +15,6 @@ const SignIn = ({ setPage }) => {
      const [forgotPass, setForgotPass] = useState(false);
      const navigate = useNavigate()
 
-
-
      const showMsg = (msg, msgType) => {
           return toast({
                title: msg,

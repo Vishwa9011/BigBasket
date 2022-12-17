@@ -7,19 +7,16 @@ import CardMaker from '../component/CardMaker';
 import Buttons from '../component/Buttons';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
-import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
-
 
 
 const Dashoboard = () => {
 
-     const { cartItemCount } = useGlobal()
-
+     const [loading, setLoading] = useState(false)
 
      return (
           <>
                {/* navbar */}
-               <Navbar cartItemCount={cartItemCount} />
+               <Navbar />
 
                {/* Slider */}
                <Slider />
@@ -31,7 +28,7 @@ const Dashoboard = () => {
                <CardMaker data={bankoffer} heading="Bank Offers" />
 
                {/* productSlider */}
-               <ProductSlider />
+               <ProductSlider setLoading={setLoading} />
 
                {/* <OfferCard /> */}
                <CardMaker data={offer} heading="Top Offers" />

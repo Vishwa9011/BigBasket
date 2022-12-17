@@ -1,4 +1,6 @@
 
+import React, { useEffect } from 'react';
+
 
 export const FilterReducer = (state, action) => {
      switch (action.type) {
@@ -12,5 +14,4 @@ export const FilterReducer = (state, action) => {
                return state;
      }
 }
-
 

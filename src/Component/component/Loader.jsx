@@ -6,7 +6,7 @@ const Loader = () => {
 
      return (
           <Box pos='fixed' w='100vw' h='100vh' display={'flex'} justifyContent='center' alignItems='center' zIndex={'1000'}>
-               <Box className='overlayLoading flex' bg='blackAlpha.400'>
+               <Box className='overlayLoading' bg='blackAlpha.400'>
                     <Spinner
                          thickness='4px'
                          speed='0.65s'

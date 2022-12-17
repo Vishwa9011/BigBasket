@@ -1,6 +1,6 @@
 import { Box, Heading, Image, Text, Button } from '@chakra-ui/react'
-import React from 'react'
 import { BiMinus, BiPlus } from 'react-icons/bi'
+import React from 'react'
 import './Card.css'
 const CartCard = ({ data, updateProduct, deleteProduct }) => {
      const { id, image, price, title, mrp, brand, discount, select_qty = 1, unit = 'kg', selected_qty_purchase = 1 } = data;
@@ -10,14 +10,14 @@ const CartCard = ({ data, updateProduct, deleteProduct }) => {
                <Box>
                     <Box>
                          <Box borderBottom='1px' borderColor='gray.300' my='5'>
-                              <Text px='3' w='fit-content' fontSize='1.7em' fontWeight='semibold' borderBottom='2px' borderColor='red.500'>{brand}</Text>
+                              <Text px='3' w='fit-content' fontSize='1.7em' fontWeight='semibold' borderBottom='2px' borderColor='red.500' textTransform={'capitalize'}>{brand}</Text>
                               <Box className='cartcard' w='100%' justifyContent='space-between' p='3' py='8' alignItems='center'>
                                    <Box textAlign='center'>
                                         <Image src={image} alt='' boxSize={'150px'} />
                                    </Box>
                                    <Box fontWeight='semibold'>
-                                        <Text>{title}</Text>
-                                        <Text display='flex' alignItems='center'>₹ {price} <Text as='span' ml='2' fontSize='.8em' opacity='.7' textDecoration={'line-through'}>₹{mrp}</Text></Text>
+                                        <Text title={title} textTransform={'capitalize'}>{title}</Text>
+                                        <Text title={price} display='flex' alignItems='center'>₹ {price} <Text as='span' ml='2' fontSize='.8em' opacity='.7' textDecoration={'line-through'}>₹{mrp}</Text></Text>
                                    </Box>
                                    <Box p='2' display={'flex'} justifyContent='center'>
                                         <Box>

@@ -20,11 +20,7 @@ const categoryLink = [
 ]
 
 
-const Category = ({ isOpen, onOpen, onClose }) => {
-
-     const { } = useGlobal();
-     const [activeLink, setActiveLink] = useState()
-
+const Category = ({ isOpen, onClose }) => {
      if (isOpen) {
           document.querySelector('body').style.overflow = 'hidden'
      } else {
@@ -48,7 +44,6 @@ const Category = ({ isOpen, onOpen, onClose }) => {
                          </Box>
                     </Box>
                     <List className='sideCategory' w='300px' h='100%' fontSize={'1.3em'}>
-
                          {categoryLink.map((link, i) => (
                               <ListItem key={i}>
                                    <NavLink to={link.path} className={({ isActive }) => (isActive ? 'activeLink' : "")}>

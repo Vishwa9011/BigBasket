@@ -17,9 +17,9 @@
      height: 100%;
      opacity: .8;
      display: flex;
-     justify-content: center;
-     align-items: center;
      position: relative;
+     align-items: center;
+     justify-content: center;
      border: 1px solid blue;
 }
 
