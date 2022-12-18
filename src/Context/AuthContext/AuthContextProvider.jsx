@@ -1,9 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react'
 import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth } from '../../Component/Firebase/firebase-config';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../../Component/Firebase/firebase-config';
-import { doc, setDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 import { useToast } from '@chakra-ui/react';
 
 
@@ -16,11 +16,11 @@ const AuthContextProvider = ({ children }) => {
      const navigate = useNavigate()
      const location = useLocation()
      const [error, setError] = useState("")
-     const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('isAuth')) || false)
-     console.log('isAuth: ', isAuth);
      const [loading, setLoading] = useState(true);
-     const [isAdmin, setIsAdmin] = useState(false)
      const [currentUser, setCurrentUser] = useState({})
+     const [currentUserDetail, setCurrentUserDetail] = useState({})
+     var isAuth = useState(JSON.parse(localStorage.getItem('isAuth')) || false)
+     console.log('isAuth: ', isAuth);
 
 
 
@@ -32,10 +32,11 @@ const AuthContextProvider = ({ children }) => {
                console.log('user: ', user.email, "user uid", user.uid);
                // * making one more request to store the data into the firestordatabase
                const userRef = doc(db, 'users', user.uid);
-               setDoc(userRef, { email, password }).then(() => {
+               setDoc(userRef, { email, password, isAdmin: false, isActive: true }).then(() => {
                     setLoading(false)
-                    showMsg("Successfully Registered", 'success')
                     navigate("/", "/")
+                    localStorage.setItem('isAuth', true);
+                    showMsg("Successfully Registered", 'success')
                }).catch(err => console.log("err add doc", err))
           }).catch(error => {
                setLoading(false)
@@ -54,11 +55,14 @@ const AuthContextProvider = ({ children }) => {
           setLoading(true)
           // *request to login
           signInWithEmailAndPassword(auth, loginEmail, loginPassword)
-               .then(res => {
-                    setLoading(false)
-                    showMsg("Login Success", 'success')
-                    localStorage.setItem('isAuth', true);
-                    navigate("/", "/");
+               .then((userCredential) => {
+                    const userRef = doc(db, 'users', userCredential.user.uid);
+                    setDoc(userRef, { ...currentUserDetail, isActive: true }).then(() => {
+                         setLoading(false)
+                         showMsg("Login Success", 'success')
+                         localStorage.setItem('isAuth', true);
+                         navigate("/", "/");
+                    }).catch(err => console.log(err))
                })
                .catch((error) => {
                     setLoading(false)
@@ -70,9 +74,14 @@ const AuthContextProvider = ({ children }) => {
      const logout = () => {
           setLoading(true)
           signOut(auth).then(res => {
-               setLoading(false)
-               localStorage.removeItem('isAuth')
-               showMsg("Successfully logout")
+
+               // * tell that user is not active anymore
+               const userRef = doc(db, 'users', currentUser.uid);
+               setDoc(userRef, { ...currentUserDetail, isActive: false }).then(() => {
+                    setLoading(false)
+                    localStorage.removeItem('isAuth')
+                    showMsg("Successfully logout")
+               }).catch(err => console.log(err))
           }).catch(error => {
                setLoading(false)
                showMsg(error.message, 'error')
@@ -111,9 +120,19 @@ const AuthContextProvider = ({ children }) => {
           // * checking the user is admin or not
           if (currentUser?.email === 'vishu842301@gmail.com') setIsAdmin(true)
 
+          // * to get the info of user
+          if (currentUser?.uid) {
+               const userRef = doc(db, 'users', currentUser?.uid);
+               getDoc(userRef).then(res => {
+                    const data = res.data();
+                    setCurrentUserDetail({ ...data })
+               })
+          }
+
           //* cleanup function
           return unsubscribe; 
      }, [currentUser])
+
 
       // * if you are inside the cart and you reload the page the it will login you
      //  * to know what was you previous rout
@@ -126,7 +145,7 @@ const AuthContextProvider = ({ children }) => {
      // }, [currentUser])
 
      return (
-          <AuthContext.Provider value={{ isAdmin, isAuth, signup, error, loading, login, logout, resetPassword, currentUser }}>
+          <AuthContext.Provider value={{ currentUserDetail, signup, error, loading, login, logout, resetPassword, currentUser }}>
                {children}
           </AuthContext.Provider>
      )

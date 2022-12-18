@@ -1,7 +1,7 @@
 import { Box, Flex, Input, Image, Text, Stack, HStack, Center, Grid, useDisclosure, List, ListItem } from '@chakra-ui/react'
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { useProvider } from '../../Context/Provider/Provider';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { json, NavLink, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react'
 import Profile from '../component/Profile';
 import { BsSearch } from 'react-icons/bs';
@@ -9,15 +9,15 @@ import Category from './Category';
 import './Navbar.css'
 
 const Navbar = () => {
-     const { isAuth } = useAuth()
      const navigate = useNavigate()
      const { cartItemCount } = useProvider()
-     const { logout, currentUser, isAdmin } = useAuth()
+     const { logout, currentUser, currentUserDetail } = useAuth()
      const { isOpen, onOpen, onClose } = useDisclosure()
      const [showProfile, setShowProfile] = useState(false)
 
      // * prevent to go on loginpage whenever you already login
      const RedirectToLogin = () => {
+          const isAuth = JSON.parse(localStorage.getItem('isAuth')) || false
           if (isAuth) return
           navigate("/login", 'login');
      }
@@ -91,7 +91,7 @@ const Navbar = () => {
                                                        border='1px' borderRadius='5px' borderColor='gray.200' bg='white' >
 
                                                        {/* Admin Pannel */}
-                                                       {isAdmin &&
+                                                       {currentUserDetail.isAdmin &&
                                                             <NavLink to='/admin' state={'/admin'}>
                                                                  <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }} >
                                                                       <Image src='/admin2.png' alt='' boxSize='25px' />

@@ -63,7 +63,8 @@
 
 /* Side bar List */
 .admin-sidebar {
-     border-right: 1px solid gray;
+     padding-right: 2px;
+     border-right: 2px solid rgb(226, 226, 226);
 }
 
 
@@ -78,7 +79,6 @@
      padding: 20px 20px;
      transition: all 300ms;
      border-bottom: 2px solid rgba(224, 224, 224, 0.712);
-     /* border: 1px solid red; */
 }
 
 .admin-sidebarList li:hover {
@@ -110,3 +110,47 @@
 
 
 /* Admin dashboard */
+
+.admin-statistics {
+     padding: 20px 0;
+     width: 100%;
+     display: flex;
+     justify-content: space-around;
+}
+
+.amin-userImage {
+     filter: invert(100);
+}
+
+.admin-statistics>div {
+     width: 270px;
+     height: 100px;
+     padding: 20px;
+     color: white;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     border-radius: 15px;
+     transition: all 500ms;
+     background: #343434;
+     justify-content: center;
+     justify-content: space-between;
+}
+
+.admin-statistics>div:hover {
+     scale: 1.04;
+}
+
+.admin-statistics>div>div:last-child {
+     display: flex;
+     width: 30px;
+}
+
+/* table */
+
+th {
+     padding: 15px !important;
+     color: white !important;
+     font-weight: 600 !important;
+     font-size: 16px !important;
+}

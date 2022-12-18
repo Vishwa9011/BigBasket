@@ -10,7 +10,7 @@ const AdminPanel = () => {
      return (
           <>
                <Box>
-                    <Box className='admin-upperPart' w='100%' h='400px' display='flex' alignItems={'center'} justifyContent={'space-around'}>
+                    <Box className='admin-upperPart' w='100%' h='350px' display='flex' alignItems={'center'} justifyContent={'space-around'}>
                          <Box className='flex admin-welcome-text'>
                               <Text fontSize='3em' color='white' >Welcome in BigBasket</Text>
                          </Box>

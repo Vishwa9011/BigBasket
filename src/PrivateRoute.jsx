@@ -4,14 +4,14 @@ import { useNavigate } from 'react-router-dom'
 import { useAuth } from './Context/AuthContext/AuthContextProvider'
 
 const PrivateRoute = ({ children }) => {
-
+     const isAuth = JSON.parse(localStorage.getItem('isAuth')) || false
      const navigate = useNavigate()
-     const { isAuth, isAdmin } = useAuth()
+     const { currentUserDetail } = useAuth()
 
      // * preventing the page
      useEffect(() => {
           if (!isAuth) return navigate('/login', "login")
-          else if (isAuth && !isAdmin) return navigate("/", "/")
+          else if (isAuth && !currentUserDetail.isAdmin) return navigate("/", "/")
      }, [isAuth])
 
      return children;

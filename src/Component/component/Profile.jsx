@@ -14,9 +14,9 @@ export default function Profile({ ShowProfilePage }) {
 
      const navigate = useNavigate();
      const { showMsg } = useGlobal();
-     const { currentUser } = useAuth();
+     const { currentUser, currentUserDetail } = useAuth();
      const [loading, setLoading] = useState(false);
-     const [profileData, setProfileData] = useState({});
+     const [profileData, setProfileData] = useState({ ...currentUserDetail });
 
      // * this will gonna update username and mobile number;
      const HandleChange = e => {
@@ -65,14 +65,6 @@ export default function Profile({ ShowProfilePage }) {
           })
      }
 
-     useEffect(() => {
-          // * to get the info of user
-          const userRef = doc(db, 'users', currentUser.uid);
-          getDoc(userRef).then(res => {
-               const data = res.data();
-               setProfileData(data)
-          })
-     }, [currentUser])
 
      return (
           <>  
