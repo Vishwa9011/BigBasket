@@ -11,7 +11,7 @@ const SideBar = () => {
                               <Image src='/logo.png' alt='' boxSize={{ base: '30px', lg: "35px" }} width={{ base: '40px', lg: "45px" }} />
                               <Box fontSize={{ base: '1.7em', lg: "1.8em" }} fontWeight={'900'} h='100%' className='flex logoText' pt={{ base: '1', lg: "2" }}>
                                    <Text as='span' color={'red.500'} px={{ base: '1px', lg: "2px" }} className='flex' >BIG</Text>
-                                   <Text as='span' className='flex' v >BASKET</Text>
+                                   <Text as='span' className='flex'  >BASKET</Text>
                               </Box>
                          </NavLink>
                     </Box>

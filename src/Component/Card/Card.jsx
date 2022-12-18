@@ -15,9 +15,10 @@ const Card = ({ data, setLoading }) => {
      const { image, price, title, id, mrp, discount, select_qty = 1, unit = 'kg', brand } = data;
      const navigate = useNavigate()
      const { showMsg } = useGlobal()
-     const { isAuth, currentUser } = useAuth()
+     const { currentUser } = useAuth()
      const { setCartCountChange } = useProvider()
      const [item, setItem] = useState({ ...data })
+     const isAuth = JSON.parse(localStorage.getItem('isAuth')) || false
      const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`)
 
      // * to handle the change if user increase the select anything

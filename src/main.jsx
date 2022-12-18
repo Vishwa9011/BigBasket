@@ -6,6 +6,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import AuthContextProvider from './Context/AuthContext/AuthContextProvider'
 import GlobalProvider from './Context/GlobalDataProvider/GlobalProvider'
 import Provider from './Context/Provider/Provider'
+import AdminProvider from './Context/AdminProvider/AdminProvider'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
      <Router>
@@ -13,7 +14,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
                <GlobalProvider>
                     <AuthContextProvider>
                          <Provider>
-                              <App />
+                              <AdminProvider>
+                                   <App />
+                              </AdminProvider>
                          </Provider>
                     </AuthContextProvider>
                </GlobalProvider>

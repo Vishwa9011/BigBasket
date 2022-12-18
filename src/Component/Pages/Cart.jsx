@@ -19,15 +19,15 @@ const Cart = () => {
      const { showMsg } = useGlobal();
      const { currentUser } = useAuth();
      const [limit, setLimit] = useState(0);
-     const { setCartItemCount, setCartCountChange } = useProvider();
      const [change, setChange] = useState(false);
      const [cartData, setCartData] = useState([]);
      const [loading, setLoading] = useState(false);
      const [totalPrice, setTotalPrice] = useState(0);
      const [totalSavings, setTotalSavings] = useState(0);
      const { isOpen, onOpen, onClose } = useDisclosure();
+     const { setCartItemCount, setCartCountChange } = useProvider();
      const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`);
-     const usersCollectionOrderRef = collection(db, `orders/${currentUser?.email}/ordersData`)
+
 
      // * to send to the cartcard to update the item 
      const updateProduct = async (id, qty) => {
@@ -52,17 +52,18 @@ const Cart = () => {
           setLoading(true);
           const id = setInterval(() => {
                const userDoc = doc(db, `cart/${currentUser?.email}/cartData`, cartData[count].id)
-               SendDataToOrders(cartData[count])
-               deleteDoc(userDoc).then(() => {
-                    console.log("checkout done", count, "limit: ", limit)
-                    count++;
-                    if (count == limit) {
-                         clearInterval(id)
-                         setLoading(false)
-                         showMsg("Your order has been placed", "success")
-                         navigate("/", '/')
-                         setCartCountChange(v => !v)
-                    }
+               SendDataToOrders(cartData[count]).then(() => {
+                    deleteDoc(userDoc).then(() => {
+                         console.log("checkout done", count, "limit: ", limit)
+                         count++;
+                         if (count == limit) {
+                              clearInterval(id)
+                              setLoading(false)
+                              showMsg("Your order has been shipped", "success")
+                              navigate("/", '/')
+                              setCartCountChange(v => !v)
+                         }
+                    })
                })
           }, 600);
      }
@@ -77,7 +78,8 @@ const Cart = () => {
 
      // * send all cart data to the myorders
      const SendDataToOrders = async (item) => {
-          await addDoc(usersCollectionOrderRef, item)
+          const usersCollectionOrderRef = collection(db, `orders/${currentUser?.uid}/ordersData`);
+          await addDoc(usersCollectionOrderRef, { ...item, isPlaced: false })
      }
 
      // * to get all the cart item on first time or on every change

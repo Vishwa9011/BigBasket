@@ -118,7 +118,7 @@
      justify-content: space-around;
 }
 
-.amin-userImage {
+.admin-userImage {
      filter: invert(100);
 }
 
@@ -143,14 +143,64 @@
 
 .admin-statistics>div>div:last-child {
      display: flex;
-     width: 30px;
+     width: 40px;
+     height: 40px;
 }
 
 /* table */
+table * {
+     white-space: nowrap;
+}
 
 th {
      padding: 15px !important;
      color: white !important;
      font-weight: 600 !important;
      font-size: 16px !important;
+}
+
+tr {
+     cursor: pointer;
+     font-weight: 600;
+}
+
+tbody>tr:hover {
+     background: rgb(240, 240, 240);
+}
+
+
+/* view details */
+.admin-detail-container {
+     top: 50%;
+     left: 50%;
+     z-index: 10;
+     padding: 20px;
+     color: white;
+     border-radius: 10px;
+     background: #343434;
+     max-height: max-content;
+     transform: translate(-50%, -50%);
+}
+
+.admin-detail * {
+     font-weight: 600;
+}
+
+.admin-detail>div:first-child {
+     display: flex;
+     justify-content: center;
+     align-items: center;
+}
+
+.admin-detail>div:not(:first-child) {
+     display: flex;
+     justify-content: space-between;
+}
+
+.admin-detail>div>p:first-child {
+     width: 40%;
+}
+
+.admin-detail>div>p:last-child {
+     width: 70%;
 }

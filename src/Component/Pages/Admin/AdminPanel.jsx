@@ -7,6 +7,8 @@ import AdminRoutes from './AdminRoutes';
 import AdminDashboard from './AdminDashboard';
 
 const AdminPanel = () => {
+
+
      return (
           <>
                <Box>

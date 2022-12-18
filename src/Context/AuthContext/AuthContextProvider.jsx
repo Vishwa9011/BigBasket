@@ -22,32 +22,33 @@ const AuthContextProvider = ({ children }) => {
      var isAuth = useState(JSON.parse(localStorage.getItem('isAuth')) || false)
      console.log('isAuth: ', isAuth);
 
-
-
      //* signup with email and password
      const signup = ({ email, password }) => {
           setLoading(true)
           // * signup and the user in database
-          createUserWithEmailAndPassword(auth, email, password).then(({ user }) => {
-               console.log('user: ', user.email, "user uid", user.uid);
-               // * making one more request to store the data into the firestordatabase
-               const userRef = doc(db, 'users', user.uid);
-               setDoc(userRef, { email, password, isAdmin: false, isActive: true }).then(() => {
+          createUserWithEmailAndPassword(auth, email, password)
+               .then(({ user }) => {
+                    // * making one more request to store the data into the firestordatabase
+                    const userRef = doc(db, 'users', user.uid);
+                    setDoc(userRef, { email, password, isAdmin: false, isActive: true }).then(() => {
+                         // * creating and empty order
+                         setDoc(doc(db, 'orders', user.uid), { order: "0", id: user.uid }).then(() => {
+                              setLoading(false)
+                              navigate("/", "/")
+                              localStorage.setItem('isAuth', true);
+                              showMsg("Successfully Registered", 'success')
+                         })
+                    })
+               }).catch(error => {
                     setLoading(false)
-                    navigate("/", "/")
-                    localStorage.setItem('isAuth', true);
-                    showMsg("Successfully Registered", 'success')
-               }).catch(err => console.log("err add doc", err))
-          }).catch(error => {
-               setLoading(false)
-               if (error.message == 'Firebase: Error (auth/email-already-in-use).') {
-                    showMsg("Email already exist.", 'error')
-               } else if (error.message == 'Firebase: Error (auth/invalid-email).') {
-                    showMsg("Please fill correct Email Id", 'error')
-               } else if (error.message == 'Password should be at least 6 characters (auth/weak-password).') {
-                    showMsg("Password should be at least 6 characters", error)
-               }
-          })
+                    if (error.message == 'Firebase: Error (auth/email-already-in-use).') {
+                         showMsg("Email already exist.", 'error')
+                    } else if (error.message == 'Firebase: Error (auth/invalid-email).') {
+                         showMsg("Please fill correct Email Id", 'error')
+                    } else if (error.message == 'Password should be at least 6 characters (auth/weak-password).') {
+                         showMsg("Password should be at least 6 characters", error)
+                    }
+               })
      }
 
      //* login with email and password
@@ -56,13 +57,12 @@ const AuthContextProvider = ({ children }) => {
           // *request to login
           signInWithEmailAndPassword(auth, loginEmail, loginPassword)
                .then((userCredential) => {
+                    console.log('userCredential: ', userCredential);
                     const userRef = doc(db, 'users', userCredential.user.uid);
-                    setDoc(userRef, { ...currentUserDetail, isActive: true }).then(() => {
-                         setLoading(false)
-                         showMsg("Login Success", 'success')
-                         localStorage.setItem('isAuth', true);
-                         navigate("/", "/");
-                    }).catch(err => console.log(err))
+                    setLoading(false)
+                    showMsg("Login Success", 'success')
+                    localStorage.setItem('isAuth', true);
+                    navigate("/", "/");
                })
                .catch((error) => {
                     setLoading(false)
@@ -74,9 +74,8 @@ const AuthContextProvider = ({ children }) => {
      const logout = () => {
           setLoading(true)
           signOut(auth).then(res => {
-
                // * tell that user is not active anymore
-               const userRef = doc(db, 'users', currentUser.uid);
+               const userRef = doc(db, 'users', currentUser.uid)
                setDoc(userRef, { ...currentUserDetail, isActive: false }).then(() => {
                     setLoading(false)
                     localStorage.removeItem('isAuth')
@@ -117,9 +116,6 @@ const AuthContextProvider = ({ children }) => {
                setError("")
           })
 
-          // * checking the user is admin or not
-          if (currentUser?.email === 'vishu842301@gmail.com') setIsAdmin(true)
-
           // * to get the info of user
           if (currentUser?.uid) {
                const userRef = doc(db, 'users', currentUser?.uid);
@@ -131,7 +127,21 @@ const AuthContextProvider = ({ children }) => {
 
           //* cleanup function
           return unsubscribe; 
+
+
      }, [currentUser])
+
+
+
+     useEffect(() => {
+          if (currentUser?.uid) {
+               const userRef = doc(db, 'users', currentUser?.uid);
+               setDoc(userRef, { ...currentUserDetail, isActive: true })
+                    .then(() => {
+                         showMsg("Status update", 'success');
+                    }).catch(err => console.log(err))
+          }
+     }, [currentUserDetail])
 
 
       // * if you are inside the cart and you reload the page the it will login you

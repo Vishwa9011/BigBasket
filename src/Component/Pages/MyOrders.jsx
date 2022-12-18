@@ -3,7 +3,7 @@ import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import React, { useEffect, useState } from 'react';
 import { db } from '../Firebase/firebase-config';
-import { Box, Text, Button } from '@chakra-ui/react';
+import { Box, Text, Button, Grid } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import OrderCard from '../Card/OrderCard';
 import Loader from '../component/Loader';
@@ -19,11 +19,11 @@ const MyOrders = () => {
      const [orders, setOrders] = useState([]);
      const [change, setChange] = useState(false);
      const [loading, setLoading] = useState(false);
-     const usersCollectionOrderRef = collection(db, `orders/${currentUser?.email}/ordersData`);
+     const usersCollectionOrderRef = collection(db, `orders/${currentUser?.uid}/ordersData`);
      const [priceDetail, setPriceDetail] = useState({ totalPrice: 0, totalSavings: 0 })
 
      const CancelOrder = (id) => {
-          const userDoc = doc(db, `orders/${currentUser?.email}/ordersData`, id);
+          const userDoc = doc(db, `orders/${currentUser?.uid}/ordersData`, id);
           deleteDoc(userDoc).then(() => {
                showMsg("Order has been deleted", "info");
                setChange(v => !v)
@@ -69,16 +69,16 @@ const MyOrders = () => {
                               </NavLink>
                          </Box>
                     </Box>
+
                     {orders.length ? null : <Empty />}
 
-                    <Box w='90%' m='auto' display='flex' gap='5' my='10'>
-
+                    <Grid w='90%' m='auto' templateColumns={'repeat(4,1fr)'} gap='5' my='10'>
                          {orders.map((item) => (
-                              <Box key={item.id} className='orderCard'>
+                              <Box key={item.id} className='orderCard' w='100%'>
                                    <OrderCard data={item} loading={loading} CancelOrder={CancelOrder} />
                               </Box>
                          ))}
-                    </Box>
+                    </Grid>
                </Box>
                <Footer />
           </>
