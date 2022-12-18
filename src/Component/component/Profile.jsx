@@ -1,22 +1,21 @@
 import { Button, Flex, FormControl, FormLabel, Heading, Input, Stack, Center, Box, Text, Image, } from '@chakra-ui/react';
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
+import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { db } from '../Firebase/firebase-config';
 import { FaUserEdit } from 'react-icons/fa'
+import { useEffect, useState } from 'react';
 import { IoClose } from 'react-icons/io5'
 import Loader from './Loader';
 import axios from 'axios';
 import './Profile.css'
-import { useEffect, useState } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
-import { db } from '../Firebase/firebase-config';
-import { useNavigate } from 'react-router-dom';
-export default function Profile({ ShowProfilePage }) {
 
-     const navigate = useNavigate();
+export default function Profile({ ShowProfilePage }) {
      const { showMsg } = useGlobal();
-     const { currentUser, currentUserDetail } = useAuth();
+     const [gender, setGender] = useState("")
      const [loading, setLoading] = useState(false);
-     const [profileData, setProfileData] = useState({ ...currentUserDetail });
+     const [profileData, setProfileData] = useState({});
+     const { currentUser, currentUserDetail } = useAuth();
 
      // * this will gonna update username and mobile number;
      const HandleChange = e => {
@@ -52,11 +51,26 @@ export default function Profile({ ShowProfilePage }) {
           setProfileData(prev => ({ ...prev, image: "" }));
      }
 
+
+     // * handle gender 
+     const HandleGender = (e) => {
+          if (e.target.title === 'Male') {
+               console.log('gender: ', gender);
+               setGender('male')
+               setProfileData(prev => ({ ...prev, gender: "male" }))
+          }
+          else if (e.target.title === 'Woman') {
+               setGender('female')
+               setProfileData(prev => ({ ...prev, gender: "female" }));
+          }
+     }
+     console.log('ProfileData: ', profileData, gender);
+
      // * to save the changes in the server
      const SaveChanges = () => {
           setLoading(true)
           const usersRef = doc(db, 'users', currentUser.uid);
-          setDoc(usersRef, profileData).then(() => {
+          setDoc(usersRef, { ...profileData, email: currentUser?.email }).then(() => {
                showMsg("Profile has been updated", 'success');
                setLoading(false);
                ShowProfilePage()
@@ -65,6 +79,16 @@ export default function Profile({ ShowProfilePage }) {
           })
      }
 
+     useEffect(() => {
+
+          // * to get the info of user
+          const unsubscribeUser = onSnapshot(doc(db, 'users', currentUser?.uid), (snapShot) => {
+               const temp = snapShot.data()
+               setProfileData({ ...temp })
+          }, (err) => console.log(err))
+
+          return unsubscribeUser;
+     }, [])
 
      return (
           <>  
@@ -78,48 +102,64 @@ export default function Profile({ ShowProfilePage }) {
                               </Heading>
                               <Box h='100%' p='1'>
                                    <Box pos='relative' p='1'>
-                                        <Box className='userImage' w='80px' h='80px' borderRadius='50%' overflow={'hidden'} >
+                                        <Box className='userImage' title='user icon' w='80px' h='80px' borderRadius='50%' overflow={'hidden'} >
                                              <Image src={profileData.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'} />
                                         </Box>
                                         <Box id='upload-image'>
-                                             <Box className='flex'>
-                                                  <FormControl id="image" _hover={{ background: 'red.600', color: 'white' }} className='image' m='0' p='0' bg='blackAlpha.400'>
-                                                       <FormLabel className='upload-label BtnClickEffect'><FaUserEdit /></FormLabel>
-                                                       <Input type='file' name='image' visibility='hidden' pos='absolute' zIndex={-1} onChange={HandleChangePic} />
-                                                  </FormControl>
-                                                  <Button ml='2' onClick={HandleRemoveIcon} className='remove-icon BtnClickEffect' color='black' colorScheme='red.600' bg='blackAlpha.400' _hover={{ background: 'red.600', color: 'white', }} h='20px' maxW='20px'>
-                                                       <IoClose />
-                                                  </Button>
+                                             <Box>
+                                                  <Box className='flex'>
+                                                       <FormControl id="image" title='Change icon' _hover={{ background: 'red.600', color: 'white' }} className='image' m='0' p='0' bg='blackAlpha.400'>
+                                                            <FormLabel title='Change icon' className='upload-label BtnClickEffect'><FaUserEdit /></FormLabel>
+                                                            <Input type='file' name='image' visibility='hidden' pos='absolute' zIndex={-1} onChange={HandleChangePic} />
+                                                       </FormControl>
+                                                       <Button ml='2' title='Remove icon' onClick={HandleRemoveIcon} className='remove-icon BtnClickEffect' color='black' colorScheme='red.600' bg='blackAlpha.400' _hover={{ background: 'red.600', color: 'white', }} h='20px' maxW='20px'>
+                                                            <IoClose />
+                                                       </Button>
+                                                  </Box>
+                                                  <Box mt='2' display='flex'>
+                                                       <Button title='Male' display='flex' justifyContent={'space-between'} className='BtnClickEffect'
+                                                            color='black' colorScheme='red.600' p='2' h='50px' bg='' border='2px' borderColor={profileData.gender === "male" ? 'green.400' : 'gray.300'}
+                                                            name='male' onClick={HandleGender}>
+                                                            <Image title='Male' src='/man1.png' boxSize={10} />
+                                                            <Text title='Male' ml='2'>Male</Text>
+                                                       </Button>
+                                                       <Button ml='2' title='Woman' display='flex' justifyContent={'space-between'} className='BtnClickEffect'
+                                                            color='black' colorScheme='red.600' p='2' h='50px' bg='' border='2px' borderColor={profileData.gender === "female" ? 'green.400' : 'gray.300'}
+                                                            name='female' onClick={HandleGender} >
+                                                            <Image title='Woman' src='/woman.png' boxSize={10} />
+                                                            <Text title='Woman' ml='2'>Female</Text>
+                                                       </Button>
+                                                  </Box>
                                              </Box>
                                         </Box>
                                    </Box>
                               </Box>
                               <FormControl id="userName" >
                                    <FormLabel>User name</FormLabel>
-                                   <Input placeholder="UserName" name='username' value={profileData.username} _placeholder={{ color: 'gray.500' }} type="text" onChange={HandleChange} />
+                                   <Input title='User name' placeholder="UserName" name='username' value={profileData.username} _placeholder={{ color: 'gray.500' }} type="text" onChange={HandleChange} />
                               </FormControl>
                               <FormControl >
                                    <FormLabel>Email address</FormLabel>
-                                   <Text textAlign='left' color='gray.600' cursor={'not-allowed'} p='2' borderRadius='5px' pl='4' border='1px' borderColor='gray.200'>{currentUser?.email}</Text>
+                                   <Text title='Email address' textAlign='left' h='40px' color='gray.600' cursor={'not-allowed'} p='2' borderRadius='5px' pl='4' border='1px' borderColor='gray.200'>{currentUser?.email}</Text>
                               </FormControl>
                               <FormControl id="Phone" >
                                    <FormLabel>Phone Number</FormLabel>
-                                   <Input placeholder="+1(123) 456-7890" name='phone' value={profileData.phone} onChange={HandleChange} _placeholder={{ color: 'gray.500' }} />
+                                   <Input title='Phone Number' maxLength={10} placeholder="+1(123) 456-7890" name='phone' value={profileData.phone} onChange={HandleChange} _placeholder={{ color: 'gray.500' }} />
                               </FormControl>
                               <Box mt='5' display='flex' gap='10'>
-                                   <Button bg={'teal.500'} className='BtnClickEffect' color={'white'} w="full" _hover={{ bg: 'red.600', }} onClick={ShowProfilePage}>
+                                   <Button bg={'teal.500'} title='Cancel' className='BtnClickEffect' color={'white'} w="full" _hover={{ bg: 'red.600', }} onClick={ShowProfilePage}>
                                         Cancel
                                    </Button>
-                                   <Button bg={'red.500'} className='BtnClickEffect' color={'white'} w="full" _hover={{ bg: 'red.600', }} onClick={SaveChanges}>
+                                   <Button bg={'red.500'} title='Click to Save Changes' className='BtnClickEffect' color={'white'} w="full" _hover={{ bg: 'red.600', }} onClick={SaveChanges}>
                                         Save Changes
                                    </Button>
                               </Box>
                          </Stack>
-                         <Box pos='absolute' right='-17px' top='26px' onClick={ShowProfilePage}>
+                         <Box title='Close' pos='absolute' right='-17px' top='26px' onClick={ShowProfilePage}>
                               <Button borderRadius='50%' fontSize='1.5em' className='BtnClickEffect' colorScheme={'red.600'} color='white' p='0' bg='red.500' _hover={{ background: 'red.600' }} m='0'><IoClose /> </Button>
                          </Box>
                     </Box>
-               </Box >
+               </Box>
           </>
      );
 }

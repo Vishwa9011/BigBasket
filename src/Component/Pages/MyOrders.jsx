@@ -1,16 +1,16 @@
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
+import { Box, Text, Button, Grid } from '@chakra-ui/react';
+import { calcTotalPrice, calcTotalSavings } from './Helper';
 import React, { useEffect, useState } from 'react';
 import { db } from '../Firebase/firebase-config';
-import { Box, Text, Button, Grid } from '@chakra-ui/react';
 import { NavLink } from 'react-router-dom';
 import OrderCard from '../Card/OrderCard';
 import Loader from '../component/Loader';
 import Empty from '../component/Empty';
 import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
-import { calcTotalPrice, calcTotalSavings } from './Helper';
 
 const MyOrders = () => {
 
@@ -19,8 +19,8 @@ const MyOrders = () => {
      const [orders, setOrders] = useState([]);
      const [change, setChange] = useState(false);
      const [loading, setLoading] = useState(false);
+     const [priceDetail, setPriceDetail] = useState({ totalPrice: 0, totalSavings: 0 });
      const usersCollectionOrderRef = collection(db, `orders/${currentUser?.uid}/ordersData`);
-     const [priceDetail, setPriceDetail] = useState({ totalPrice: 0, totalSavings: 0 })
 
      const CancelOrder = (id) => {
           const userDoc = doc(db, `orders/${currentUser?.uid}/ordersData`, id);
@@ -72,7 +72,7 @@ const MyOrders = () => {
 
                     {orders.length ? null : <Empty />}
 
-                    <Grid w='90%' m='auto' templateColumns={'repeat(4,1fr)'} gap='5' my='10'>
+                    <Grid w='90%' m='auto' templateColumns={{ sm: "repeat(2,1fr)", md: 'repeat(3,1fr)', lg: 'repeat(4,1fr)' }} gap='5' my='10'>
                          {orders.map((item) => (
                               <Box key={item.id} className='orderCard' w='100%'>
                                    <OrderCard data={item} loading={loading} CancelOrder={CancelOrder} />

@@ -13,7 +13,7 @@ const UserDetailCard = ({ setShowProfile, userProfile }) => {
           <Box pos={'fixed'} w='450px' className='admin-detail-container'>
                <Box className='admin-detail'>
                     <Box mb='5'>
-                         <Image src={image || '/admin-images/man.png'} alt='' boxSize={'150px'} />
+                         <Image src={image || '/admin-images/man.png'} alt='' boxSize={'150px'} borderRadius='50%' />
                     </Box>
                     <Box>
                          <Text>Id: </Text>

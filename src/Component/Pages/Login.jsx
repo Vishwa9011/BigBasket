@@ -1,18 +1,20 @@
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import React, { useEffect, useReducer, useState } from 'react';
 import { Box, Image, Spacer } from "@chakra-ui/react";
 import { CSSTransition } from 'react-transition-group';
+import Loader from '../component/Loader';
 import Navbar from '../Navbar/Navbar';
 import Signup from '../Login/Signup';
 import SignIn from '../Login/SignIn';
 import '../Login/flip-transition.css';
 import '../Login/Login.css'
 import './styles.css'
-import Loader from '../component/Loader';
-import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 
 export default function Login() {
+
      const { loading } = useAuth()
      const [showFront, setShowFront] = useState(true)
+
      // * swapping from page
      const setPage = () => {
           setShowFront(v => !v)

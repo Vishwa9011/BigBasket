@@ -37,7 +37,7 @@ const AdminPanel = () => {
                          <Box className='admin-sidebar' width='20%' >
                               <SideBar />
                          </Box>
-                         <Box className='admin-main-container' w='80%' bg='' h='500px'>
+                         <Box className='admin-main-container' w='80%' bg='' >
                               <AdminRoutes />
                          </Box>
                     </Box>

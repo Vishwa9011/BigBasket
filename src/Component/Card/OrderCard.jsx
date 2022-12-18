@@ -6,12 +6,12 @@ import React from 'react';
 import './Card.css';
 
 const OrderCard = ({ data, CancelOrder }) => {
-     const { image, price, title, id, mrp, discount, brand } = data;
+     var { image, price, title, id, mrp, discount, brand, isPlaced } = data;
      return (
           <>
                <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card' pos='relative'>
-                    <Box pos='absolute' top='10' left='5' zIndex='10'>
-                         <Image src='/ordered.png' boxSize='10' opacity='.7' />
+                    <Box pos='absolute' bottom='4' left='5' zIndex='10'>
+                         <Image src={isPlaced ? '/ordered.png' : "/shipped.png"} boxSize='12' opacity='.7' />
                     </Box>
                     <Box className='card-image-holder'>
                          <Box className='card-image' display='flex' justifyContent='center' alignItems='center' pos='relative'>

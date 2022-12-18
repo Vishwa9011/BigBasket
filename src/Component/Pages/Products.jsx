@@ -10,7 +10,7 @@ import Loader from '../component/Loader';
 import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
 import Card from '../Card/Card';
-import './product.css'
+import './product.css';
 
 const param = {
      fruits: "fruits",
@@ -27,8 +27,8 @@ const Products = () => {
      var tempParam = param[id.trim()]
      const [data, setData] = useState([])
      const [brandNames, setBrandNames] = useState([])
-     const usersCollectionRef = collection(db, `data/${tempParam}/${tempParam}Data`)
      const [showFilter, filterDispatch] = useReducer(FilterReducer, inititalState)
+     const usersCollectionRef = collection(db, `data/${tempParam}/${tempParam}Data`)
      const [loading, setLoading] = useState(false);
 
      const HandleBrandChange = (e) => {
@@ -57,6 +57,7 @@ const Products = () => {
                     temp.push(data.brand)
                }
           })
+
           setBrandNames(temp)
      }, [data])
 

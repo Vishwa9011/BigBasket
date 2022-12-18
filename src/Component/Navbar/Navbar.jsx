@@ -18,7 +18,7 @@ const Navbar = () => {
      // * prevent to go on loginpage whenever you already login
      const RedirectToLogin = () => {
           const isAuth = JSON.parse(localStorage.getItem('isAuth')) || false
-          if (isAuth) return
+          if (isAuth) return;
           navigate("/login", 'login');
      }
 
@@ -80,10 +80,8 @@ const Navbar = () => {
 
                                         {/* login */}
                                         <Box p='5' cursor={'pointer'} pos='relative' id='loginMenu' className='flex'>
-
-
                                              <Box onClick={RedirectToLogin}>
-                                                  <Image src='/user.png' alt='' boxSize='27px' className=' BtnClickEffect' borderRadius='50%' />
+                                                  <Image src={currentUser?.email ? (currentUserDetail?.image || '/user.png') : '/user.png'} alt='' boxSize='27px' className=' BtnClickEffect' borderRadius='50%' />
                                              </Box>
 
                                              <Box className='loginMenuList'>

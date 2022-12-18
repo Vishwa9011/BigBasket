@@ -24,8 +24,8 @@ const Footer = () => {
                               <Heading fontSize={['1.7em', '1.5em', '2em']}>Company</Heading>
                               <Link href={'#'}>About us</Link>
                               <Link href={'#'}>Blog</Link>
-                              <Link href={'#'}>Cart</Link>
-                              <Link href={'#'}>Contact us</Link>
+                              <Link href={'/cart'}>Cart</Link>
+                              <Link href={'/contactus'}>Contact us</Link>
                               <Link href={'#'}>Pricing</Link>
                               <Link href={'#'}>Testimonials</Link>
                          </Stack>

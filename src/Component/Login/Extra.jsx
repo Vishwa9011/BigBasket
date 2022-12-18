@@ -15,12 +15,9 @@ export default function Extra({ setPage }) {
      const [loading, setLoading] = useState(false);
      const toast = useToast()
 
-
-
-
      // todo on any change in input value have to be update in reducer
      const HandleChange = (e) => {
-          dispatch({ type: ActionType[e.target.name], payload: e.target.value })
+          dispatch({ type: ActionType[e.target.name], payload: e.target.value });
      }
 
      // todo mobile number only allow number

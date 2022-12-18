@@ -1,8 +1,5 @@
-import { useToast } from '@chakra-ui/react';
 import React, { createContext, useContext, useState, useEffect } from 'react'
-import { getDocs, collection } from 'firebase/firestore';
-import { db } from '../../Component/Firebase/firebase-config';
-import { useAuth } from '../AuthContext/AuthContextProvider';
+import { useToast } from '@chakra-ui/react';
 
 const GlobalContext = createContext();
 
@@ -12,7 +9,6 @@ const GlobalProvider = ({ children }) => {
 
      const toast = useToast()
      const [showDataForCategory, setShowDataForCategory] = useState("");
-  
 
      const showMsg = (msg, msgType) => {
           return toast({
