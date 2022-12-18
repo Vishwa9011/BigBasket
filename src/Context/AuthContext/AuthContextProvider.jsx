@@ -16,10 +16,13 @@ const AuthContextProvider = ({ children }) => {
      const navigate = useNavigate()
      const location = useLocation()
      const [error, setError] = useState("")
-     const [isAuth, setIsAuth] = useState(false)
+     const [isAuth, setIsAuth] = useState(JSON.parse(localStorage.getItem('isAuth')) || false)
+     console.log('isAuth: ', isAuth);
      const [loading, setLoading] = useState(true);
      const [isAdmin, setIsAdmin] = useState(false)
      const [currentUser, setCurrentUser] = useState({})
+
+
 
      //* signup with email and password
      const signup = ({ email, password }) => {
@@ -54,6 +57,7 @@ const AuthContextProvider = ({ children }) => {
                .then(res => {
                     setLoading(false)
                     showMsg("Login Success", 'success')
+                    localStorage.setItem('isAuth', true);
                     navigate("/", "/");
                })
                .catch((error) => {
@@ -67,6 +71,7 @@ const AuthContextProvider = ({ children }) => {
           setLoading(true)
           signOut(auth).then(res => {
                setLoading(false)
+               localStorage.removeItem('isAuth')
                showMsg("Successfully logout")
           }).catch(error => {
                setLoading(false)
@@ -99,29 +104,26 @@ const AuthContextProvider = ({ children }) => {
           setLoading(true)
           const unsubscribe = onAuthStateChanged(auth, (user) => {
                setCurrentUser(user)
-               if (currentUser?.email) {
-                    setIsAuth(true)
-               } else setIsAuth(false)
                setLoading(false)
                setError("")
           })
 
-          if (currentUser?.email === 'vishu842301@gmail.com') {
-               setIsAdmin(true)
-          }
+          // * checking the user is admin or not
+          if (currentUser?.email === 'vishu842301@gmail.com') setIsAdmin(true)
 
           //* cleanup function
           return unsubscribe; 
      }, [currentUser])
 
       // * if you are inside the cart and you reload the page the it will login you
-     useEffect(() => {
-          if (location.state == 'cart') {
-               setTimeout(() => {
-                    if (currentUser) return navigate(`/${location.state}`, { state: "cart" })
-               }, 2000)
-          }
-     }, [])
+     //  * to know what was you previous rout
+     // useEffect(() => {
+     //      if (location.state) {
+     //           setTimeout(() => {
+     //                if (currentUser) return navigate(`/${location.state}`, `${location.state}`)
+     //           }, 2000)
+     //      }
+     // }, [currentUser])
 
      return (
           <AuthContext.Provider value={{ isAdmin, isAuth, signup, error, loading, login, logout, resetPassword, currentUser }}>

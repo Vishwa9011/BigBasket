@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=La+Belle+Aurore&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courgette&display=swap');
+
+
+:root {
+     --gold-color: #ffe100;
+}
+
+.admin-upperPart {
+     background-image: linear-gradient(to right bottom, #343434, #4d3b56, #793969, #ac2967, #da0050, #e6003f, #ef0029, #f40a06, #ec100a, #e3140d, #db1710, #d31a12);
+     background-image: linear-gradient(to right bottom, #343434, #543958, #8c2c62, #c20049, #e10808);
+}
+
+
+.admin-welcome-text {
+     font-family: 'Courgette', cursive;
+}
+
+
+.admin-name {
+     margin: 15px 0;
+     font-size: 2em;
+     color: yellow;
+     font-weight: 800;
+     letter-spacing: 2px;
+     font-family: 'La Belle Aurore', cursive;
+}
+
+.admin-image-container {
+     cursor: pointer;
+     margin: auto;
+}
+
+.admin-image-container:hover .admin-edit-icon {
+     opacity: 1;
+     visibility: visible;
+     background: rgba(84, 84, 84, 0.477);
+}
+
+.admin-edit-icon {
+     top: 50%;
+     left: 50%;
+     opacity: 0;
+     width: 100%;
+     height: 100%;
+     display: flex;
+     visibility: hidden;
+     border-radius: 50%;
+     position: absolute;
+     align-items: center;
+     transition: all 600ms;
+     justify-content: center;
+     transform: translate(-50%, -50%);
+}
+
+.admin-edit-icon label {
+     color: rgb(0, 0, 0);
+     font-size: 2em;
+     cursor: pointer;
+     margin: auto !important;
+     max-width: fit-content;
+}
+
+/* Side bar List */
+.admin-sidebar {
+     border-right: 1px solid gray;
+}
+
+
+.admin-sidebarList {
+     width: 100%;
+     display: flex;
+     flex-direction: column;
+}
+
+.admin-sidebarList li {
+     cursor: pointer;
+     padding: 20px 20px;
+     transition: all 300ms;
+     border-bottom: 2px solid rgba(224, 224, 224, 0.712);
+     /* border: 1px solid red; */
+}
+
+.admin-sidebarList li:hover {
+     background: var(--gold-color);
+     scale: 1.03;
+}
+
+.admin-active-link {
+     background: var(--gold-color);
+     scale: 1.05;
+}
+
+.admin-sidebarList li>div {
+     display: flex;
+     align-items: center;
+}
+
+.admin-sidebarList li>div>img {
+     width: 25px;
+     height: 25px;
+}
+
+.admin-sidebarList li>div>p {
+     margin-left: 15px;
+     font-weight: 600;
+     font-size: 1.3em;
+}
+
+
+
+/* Admin dashboard */

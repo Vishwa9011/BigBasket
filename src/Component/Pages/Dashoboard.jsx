@@ -7,6 +7,7 @@ import CardMaker from '../component/CardMaker';
 import Buttons from '../component/Buttons';
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
+import Loader from '../component/Loader';
 
 
 const Dashoboard = () => {
@@ -17,6 +18,9 @@ const Dashoboard = () => {
           <>
                {/* navbar */}
                <Navbar />
+
+               {/* loader */}
+               {loading && <Loader />}
 
                {/* Slider */}
                <Slider />

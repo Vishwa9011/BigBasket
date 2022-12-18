@@ -1,9 +1,10 @@
-import { Box, Heading, Image, Text, Button } from '@chakra-ui/react'
+import { Box, Image, Text, Button } from '@chakra-ui/react'
 import { BiMinus, BiPlus } from 'react-icons/bi'
 import React from 'react'
 import './Card.css'
 const CartCard = ({ data, updateProduct, deleteProduct }) => {
-     const { id, image, price, title, mrp, brand, discount, select_qty = 1, unit = 'kg', selected_qty_purchase = 1 } = data;
+
+     const { id, image, price, title, mrp, brand, selected_qty_purchase = 1 } = data;
 
      return (
           <>

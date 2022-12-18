@@ -109,7 +109,7 @@ const Cart = () => {
                <Alert isOpen={isOpen} onOpen={onOpen} onClose={onClose} totalPrice={totalPrice.toFixed(2)} CheckoutCart={CheckoutCart} />
                <Box>
                     <Box w='90%' m='auto' mb='5'>
-                         <Text pt='4' pb='10' cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / cart</Text>
+                         <Text pt='4' pb='5' cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / cart</Text>
                          <Heading my='2'>Your Basket</Heading>
                          <Box w='100%' h='80px' bg='blackAlpha.800' p='5' borderRadius='10px' display='flex' justifyContent='space-between' alignItems='center'>
                               <Box>

@@ -7,7 +7,6 @@ import { AiOutlineShoppingCart } from 'react-icons/ai'
 import { db } from '../Firebase/firebase-config'
 import { GoPrimitiveDot } from 'react-icons/go'
 import { useNavigate } from 'react-router-dom'
-import Loader from '../component/Loader'
 import React, { useState } from 'react'
 import { FaStar } from 'react-icons/fa'
 import './Card.css'
@@ -34,15 +33,15 @@ const Card = ({ data, setLoading }) => {
 
           // *Adding the data to the cart
           postDataToCart().then(res => {
-               showMsg('Item successfully added in cart', 'success')
-               setCartCountChange(v => !v)
                setLoading(false)
+               setCartCountChange(v => !v)
+               showMsg('Item successfully added in cart', 'success')
           }).catch(err => console.log(err))
      }
 
+     // * add data to cart
      const postDataToCart = () => {
           setLoading(true)
-          console.log('item: ', item);
           return addDoc(usersCollectionRef, item)
      }
 

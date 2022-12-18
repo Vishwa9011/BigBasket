@@ -60,6 +60,7 @@ const Navbar = () => {
 
                               <HStack color={'black'} display='flex' justifyContent={'flex-end'} alignContent='center' gap='2' fontSize={{ base: '1em', sm: '1.4em', lg: "1.8em" }}>
                                    <Center h='100%'>
+
                                         {/* categories */}
                                         <Box mx='5' cursor={'pointer'}>
                                              <Box onClick={onOpen}>
@@ -89,19 +90,25 @@ const Navbar = () => {
                                                   {currentUser?.email && <List pos='absolute' w='max-content' top='72px' right='0px' whiteSpace='nowrap'
                                                        border='1px' borderRadius='5px' borderColor='gray.200' bg='white' >
 
-                                                       {isAdmin && <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }} >
-                                                            <Image src='/admin2.png' alt='' boxSize='25px' />
-                                                            <Text as='span' fontSize='1rem' ml='3'>Admin Pannel</Text>
-                                                       </ListItem>}
+                                                       {/* Admin Pannel */}
+                                                       {isAdmin &&
+                                                            <NavLink to='/admin' state={'/admin'}>
+                                                                 <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }} >
+                                                                      <Image src='/admin2.png' alt='' boxSize='25px' />
+                                                                      <Text as='span' fontSize='1rem' ml='3'>Admin Pannel</Text>
+                                                                 </ListItem>
+                                                            </NavLink>
+                                                       }
 
-                                                       <ListItem display='flex' p='2' pos='relative' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
-                                                            <Box display={'flex'} onClick={ShowProfilePage}>
+                                                       {/* Profile */}
+                                                       <ListItem display='flex' onClick={ShowProfilePage} p='2' pos='relative' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
+                                                            <Box display={'flex'} >
                                                                  <Image src='/user1.png' alt='' boxSize='25px' />
                                                                  <Text as='span' fontSize='1rem' ml='3'>Profile</Text>
                                                             </Box>
-
                                                        </ListItem>
 
+                                                       {/* Orders */}
                                                        <NavLink to='/myorders' state={'myorders'}>
                                                             <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
                                                                  <Image src="/myorder1.png" alt='' boxSize='25px' />
@@ -109,6 +116,7 @@ const Navbar = () => {
                                                             </ListItem>
                                                        </NavLink>
 
+                                                       {/* signout */}
                                                        <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100'
                                                             _hover={{ background: "gray.100", color: "black" }} onClick={logout}>
                                                             <Image src='/logout1.png' alt='' boxSize='25px' />

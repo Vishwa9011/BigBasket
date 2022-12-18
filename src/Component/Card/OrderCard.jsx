@@ -5,9 +5,8 @@ import { FaStar } from 'react-icons/fa';
 import React from 'react';
 import './Card.css';
 
-const OrderCard = ({ data, loading, CancelOrder }) => {
+const OrderCard = ({ data, CancelOrder }) => {
      const { image, price, title, id, mrp, discount, brand } = data;
-
      return (
           <>
                <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card' pos='relative'>

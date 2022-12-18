@@ -14,11 +14,12 @@ const ProductSlider = ({ setLoading }) => {
      const [data, setData] = useState([])
      console.log('dataproduct: ', data);
 
-
      useEffect(() => {
+          setLoading(true)
           const getData = async () => {
                const res = await getDocs(usersCollectionRef)
                setData(res.docs.map(doc => ({ ...doc.data(), id: doc.id }))) //*setting the data
+               setLoading(false);
           }
           getData()
      }, [])

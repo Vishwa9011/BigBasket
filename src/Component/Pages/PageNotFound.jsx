@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 export default function PageNotFound() {
      return (
           <Box textAlign="center" h='100%' w='100%'>
-               <Center h='100vh' display={'flex'} flexDirection='column' s>
+               <Center h='100vh' display={'flex'} flexDirection='column' >
                     <Heading display="inline-block" as="h2" size="2xl" bgGradient="linear(to-r, red.500, red.400, red.600)" backgroundClip="text">
                          404
                     </Heading>
