@@ -9,10 +9,7 @@ const OrderCard = ({ data, CancelOrder }) => {
      var { image, price, title, id, mrp, discount, brand, isPlaced } = data;
      return (
           <>
-               <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card' pos='relative'>
-                    <Box pos='absolute' bottom='4' left='5' zIndex='10'>
-                         <Image src={isPlaced ? '/ordered.png' : "/shipped.png"} boxSize='12' opacity='.7' />
-                    </Box>
+               <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card' display={'flex'} flexDirection='column' justifyContent={'space-between'}>
                     <Box className='card-image-holder'>
                          <Box className='card-image' display='flex' justifyContent='center' alignItems='center' pos='relative'>
                               <Image src={image} alt='' h={'70%'} w={{ sm: '50%' }} />
@@ -21,8 +18,8 @@ const OrderCard = ({ data, CancelOrder }) => {
                     </Box>
 
                     <Box className='card-detail' pt='2'>
-                         <Text title={brand.toUpperCase()} color={'red.500'} textTransform={'capitalize'} className='normalText'>{brand}</Text>
-                         <Text title={title} textTransform={'capitalize'} className='normalText'>{title}</Text>
+                         <Text fontSize={['1.2em', '1em',]} title={brand.toUpperCase()} color={'red.500'} textTransform={'capitalize'} className='normalText'>{brand}</Text>
+                         <Text fontSize={['1.2em', '1em',]} title={title} textTransform={'capitalize'} className='normalText'>{title}</Text>
                          <Box className='mediumtext flex' justifyContent='flex-start' color='red.800' pt='2' fontSize={{ base: ".8em", md: "1em" }}>
                               <Text as='span' className='flex' border='2px' borderColor="green.800" borderRadius='5px' px='1' color='green.800'>
                                    4.4 <FaStar />
@@ -36,14 +33,17 @@ const OrderCard = ({ data, CancelOrder }) => {
                          <Text as='span' title={price} ml='3' fontWeight='semibold'>₹{parseInt(price)}.00</Text>
                     </Box>
 
-                    <Box display={'flex'} justifyContent='flex-end' alignItems='center' mt='4'>
-                         <Button h='max-content' p='2' borderRadius='20px' letterSpacing='0' colorScheme={'red.600'} _hover={{ background: "red.600" }}
+                    <Box display={'flex'} justifyContent='space-between' alignItems='center' mt='4'>
+                         <Box>
+                              <Image src={isPlaced ? '/ordered.png' : "/shipped.png"} boxSize='12' opacity='.7' />
+                         </Box>
+                         {!isPlaced && <Button h='max-content' p='2' borderRadius='20px' letterSpacing='0' colorScheme={'red.600'} _hover={{ background: "red.600" }}
                               className='BtnClickEffect cartBtn' bg='red.500' color='white' transition={'all 200ms'}>
                               <Text as='span' h='22px' fontSize={{ sm: "1em", md: '.8em' }} w='22px' bg='white' color='black' borderRadius='50%' className='flex'>
                                    <IoClose />
                               </Text>
-                              <Text as='span' ml='2' fontSize='.8em' onClick={() => CancelOrder(id)}>Cancel Order</Text>
-                         </Button>
+                              <Text as='span' ml='2' fontSize={{ base: "1em", sm: ".7em", md: "1em" }} onClick={() => CancelOrder(id)}>Cancel Order</Text>
+                         </Button>}
                     </Box>
 
                     {(discount >= 1) && <Box className='discount' bg='red.500'>

@@ -55,17 +55,17 @@ const MyOrders = () => {
                <Navbar />
                <Box>
                     <Box w='90%' m='auto'>
-                         <Text pt='4' pb='10' cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / myorders</Text>
+                         <Text pt='4' pb={[3, 3, '5']} cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / myorders</Text>
                     </Box>
 
                     <Box w='90%' m='auto' h='80px' bg='blackAlpha.800' p='5' borderRadius='10px' display='flex' justifyContent='space-between' alignItems='center'>
                          <Box>
-                              <Box color={'white'}>Subtotal ({orders.length} items) : <Text as='span' fontWeight={'bold'}>₹ {priceDetail.totalPrice.toFixed(2)}</Text> </Box>
-                              <Box color='green.300'>Savings: <Text as='span' fontWeight={'bold'}>₹ {priceDetail.totalSavings.toFixed(2)}</Text></Box>
+                              <Box fontSize={{ base: ".7em", sm: ".7em", md: "1em" }} color={'white'}>Subtotal ({orders.length} items) : <Text as='span' fontWeight={'bold'}>₹ {priceDetail.totalPrice.toFixed(2)}</Text> </Box>
+                              <Box fontSize={{ base: ".7em", sm: ".7em", md: "1em" }} color='green.300'>Savings: <Text as='span' fontWeight={'bold'}>₹ {priceDetail.totalSavings.toFixed(2)}</Text></Box>
                          </Box>
                          <Box>
                               <NavLink to='/' state='/'>
-                                   <Button bg='red.500' color='white' className='flex' colorScheme='red.600' _hover={{ background: "red.600" }} >Continue Shopping</Button>
+                                   <Button fontSize={{ base: ".7em", sm: ".7em", md: "1em" }} bg='red.500' color='white' className='flex' colorScheme='red.600' _hover={{ background: "red.600" }} >Continue Shopping</Button>
                               </NavLink>
                          </Box>
                     </Box>

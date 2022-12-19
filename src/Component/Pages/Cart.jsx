@@ -111,15 +111,15 @@ const Cart = () => {
                <Alert isOpen={isOpen} onOpen={onOpen} onClose={onClose} totalPrice={totalPrice.toFixed(2)} CheckoutCart={CheckoutCart} />
                <Box>
                     <Box w='90%' m='auto' mb='5'>
-                         <Text pt='4' pb='5' cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / cart</Text>
-                         <Heading my='2'>Your Basket</Heading>
+                         <Text pt='4' pb={[3, 3, '5']} cursor={'pointer'}>🏠 <NavLink to='/' state='/'><Text _hover={{ textDecoration: "underline" }} as='span'>Home</Text></NavLink> / cart</Text>
+                         <Heading as={'p'} my={[2, 2, 3, 3]} fontSize={['1.3em', '1.3em', "1.8em"]}>Your Basket</Heading>
                          <Box w='100%' h='80px' bg='blackAlpha.800' p='5' borderRadius='10px' display='flex' justifyContent='space-between' alignItems='center'>
                               <Box>
-                                   <Box color={'white'}>Subtotal ({cartData.length} items) : <Text as='span' fontWeight={'bold'}>₹ {totalPrice.toFixed(2)}</Text> </Box>
-                                   <Box color='green.300'>Savings: <Text as='span' fontWeight={'bold'}>₹ {totalSavings.toFixed(2)}</Text></Box>
+                                   <Box fontSize={{ base: ".7em", sm: ".7em", md: "1em" }} color={'white'}>Subtotal ({cartData.length} items) : <Text as='span' fontWeight={'bold'}>₹ {totalPrice.toFixed(2)}</Text> </Box>
+                                   <Box fontSize={{ base: ".7em", sm: ".7em", md: "1em" }} color='green.300'>Savings: <Text as='span' fontWeight={'bold'}>₹ {totalSavings.toFixed(2)}</Text></Box>
                               </Box>
                               <Box>
-                                   <Button bg='red.500' color='white' className='flex' colorScheme='red.600' _hover={{ background: "red.600" }} onClick={() => Checkout(cartData.length)}>Checkout</Button>
+                                   <Button bg='red.500' fontSize={{ base: ".7em", sm: ".7em", md: "1em" }} color='white' className='flex' colorScheme='red.600' _hover={{ background: "red.600" }} onClick={() => Checkout(cartData.length)}>Checkout</Button>
                               </Box>
                          </Box>
                     </Box>

@@ -27,7 +27,6 @@
 
 .productContainer>div {
      min-width: calc(100% / 4);
-     min-height: 350px;
 }
 
 .sliderBtn {
@@ -70,7 +69,6 @@
 @media only screen and (width<=1024px) {
      .productContainer>div {
           min-width: calc(100% / 3);
-          min-height: 350px;
      }
 
 }
@@ -78,7 +76,6 @@
 @media only screen and (width<=768px) {
      .productContainer>div {
           min-width: calc(100% / 3);
-          min-height: 350px;
      }
 
 }
@@ -86,6 +83,5 @@
 @media only screen and (width<=420px) {
      .productContainer>div {
           min-width: 100%;
-          min-height: 350px;
      }
 }

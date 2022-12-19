@@ -41,10 +41,10 @@ const Slider = () => {
                          triggerData.map((el, i) => (
                               <Box as='button'
                                    borderBottom='4px' borderBottomColor={i === image ? 'red.500' : 'transparent'}
-                                   textAlign='center' key={i} whiteSpace='nowrap' px='5' py='1'
+                                   textAlign='center' key={i} whiteSpace='nowrap' px={[2, 3, '5']} py='1'
                                    style={{ backdropFilter: "blur(14px)" }} bg='whiteAlpha.500' transition='600ms' onClick={() => setImage(i)}>
-                                   <Text>{el.title}</Text>
-                                   <Text>{el.subtitle}</Text>
+                                   <Text lineHeight={['15px', '15px', '20px', '25px']} fontSize={['.7em', '.7em', '1em']}>{el.title}</Text>
+                                   <Text lineHeight={['15px', '15px', '20px', '25px']} fontSize={['.7em', '.7em', '1em']}>{el.subtitle}</Text>
                               </Box>
                          ))
                     }

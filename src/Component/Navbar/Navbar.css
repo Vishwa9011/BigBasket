@@ -66,3 +66,10 @@
      visibility: visible;
      height: max-content;
 }
+
+
+@media only screen and (width<=768) {
+     #LinkMenu {
+          display: none !important;
+     }
+}

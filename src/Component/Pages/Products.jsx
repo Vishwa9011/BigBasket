@@ -74,8 +74,8 @@ const Products = () => {
                                         <Image src='https://www.bigbasket.com/media/uploads/flatpages/test-1/Fruits%20&%20vegetables.jpg' alt='' w='100%' />
                                    </Box>
                               </Box>
-                              <Box display='flex' pos='relative' justifyContent='space-between' my='10'>
-                                   <Box className='sidebar' w={{ sm: "25%", md: '20%' }} h='100vh' overflowY={'scroll'}>
+                              <Box display='flex' flexDirection={['column', 'row', 'row', 'row']} pos='relative' justifyContent='space-between' my='10'>
+                                   <Box className='sidebar' w={{ base: "100%", sm: "40%", md: '20%' }} h={['', '', '100vh']} overflowY={'scroll'}>
                                         <Text className='filterText'>Filter</Text>
                                         <List className='FilterList'>
                                              <ListItem>
@@ -136,12 +136,12 @@ const Products = () => {
                                         </List>
 
                                    </Box>
-                                   <Box className='product-container' w={{ sm: "75%", md: '80%' }} p='2' overflowY={'scroll'}>
+                                   <Box className='product-container' w={{ base: "", sm: "60%", md: '80%' }} p='2' overflowY={['none', '', 'scroll']} h='100%'>
                                         {/* card */}
                                         <Text textTransform={'capitalize'} fontWeight='semibold' py='2' fontSize={'2.5em'}>{tempParam}</Text>
-                                        <Grid w='100%' justifyContent='center' templateColumns={{ base: "repeat(1,1fr)", sm: 'repeat(2,1fr)', md: 'repeat(3,1fr)' }} gap='5' >
+                                        <Grid w='100%' justifyContent='center' templateColumns={{ base: "repeat(1,1fr)", sm: 'repeat(1,1fr)', md: 'repeat(2,1fr)', lg: "repeat(3,1fr)" }} gap={['5', 5, 2, 3,]} >
                                              {data?.map((el) => (
-                                                  <Box w='100%' key={el.id} h='430px' className='product-card'>
+                                                  <Box w='100%' key={el.id} className='product-card'>
                                                        <Card data={el} setLoading={setLoading} />
                                                   </Box>
                                              ))}

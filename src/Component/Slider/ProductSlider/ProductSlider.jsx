@@ -25,8 +25,8 @@ const ProductSlider = ({ setLoading }) => {
      }, [])
 
      return (
-          <Box w='90%' m='auto'>
-               <Heading>Best Sellers</Heading>
+          <Box w={['98%', '98%', '90%']} m='auto'>
+               <Heading as={'p'} my={[2, 2, 3, 5]} fontSize={['1.3em', '1.3em', "1.8em"]}>Best Sellers</Heading>
                <Box className='productmain' py='4' >
                     <Box as='button' className='sliderBtn sliderPrev' _hover={{ bg: "red.600" }} w='40px' h='40px' onClick={() => PrevBtn(sliderContainer)}>
                          <ArrowBackIcon />
@@ -34,7 +34,7 @@ const ProductSlider = ({ setLoading }) => {
 
                     <Box as='div' className='productContainer' id='productContainer' ref={sliderContainer} py='2' w='100%' m='auto' display={'flex'} overflow='hidden' justifyContent={'space-between'} >
                          {data?.map((el, i) => (
-                              <Box key={el.id} h='max-content' px='2' display='flex' justifyContent='stretch' alignItems='center'>
+                              <Box key={el.id} h='fit-content' px='2' display='flex' justifyContent='stretch' alignItems='center'>
                                    <Card data={el} setLoading={setLoading} />
                               </Box>
                          ))}

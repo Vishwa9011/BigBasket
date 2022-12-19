@@ -36,3 +36,11 @@
      padding: 2px !important;
      min-width: 20px !important;
 }
+
+.profile-input-container {
+     margin-bottom: 15px !important;
+}
+
+.profile-input-container>div {
+     margin-top: 10px;
+}

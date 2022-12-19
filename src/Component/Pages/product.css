@@ -81,8 +81,6 @@
      display: none;
 }
 
-
-
 .product-card .card {
      display: flex;
      flex-direction: column;
@@ -90,6 +88,7 @@
 }
 
 .product-card .card .card-image {
+     display: flex;
      margin: auto;
      width: 80%;
      height: 150px;
@@ -97,4 +96,22 @@
 
 .product-card .card .card-detail>:nth-child(2) {
      margin: 5px 0;
+}
+
+
+@media only screen and (width<=768px) {
+     .product-card * {
+          font-size: 1em !important;
+     }
+
+     .sidebar {
+          position: static;
+     }
+
+     .product-card .card .card-image {
+          display: flex;
+          margin: auto;
+          width: auto;
+          height: auto;
+     }
 }

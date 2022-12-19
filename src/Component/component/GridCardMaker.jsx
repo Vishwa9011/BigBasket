@@ -6,9 +6,9 @@ const GridCardMaker = ({ heading, data }) => {
      return (
           <>
                <Box>
-                    <Box w='90%' m='auto' py='5' mb='10'>
-                         <Heading my='5'>{heading}</Heading>
-                         <Grid templateRows='repeat(2, 1fr)' templateColumns='repeat(4, 1fr)' gap={10}>
+                    <Box w={['98%', '98%', '90%']} m='auto' py={[2, 2, 3, '5']} mb={[3, 3, 5, '10']}>
+                         <Heading as={'p'} my={[2, 2, 3, 5]} fontSize={['1.3em', '1.3em', "1.8em"]}>{heading}</Heading>
+                         <Grid templateRows='repeat(2, 1fr)' templateColumns='repeat(4, 1fr)' gap={[1, 1, 5, 10]}>
                               <GridItem rowSpan={2} colSpan={2} bg='tomato' className='offerCard'>
                                    <Image src={data[0]} className='scaleOfferImage' />
                               </GridItem>

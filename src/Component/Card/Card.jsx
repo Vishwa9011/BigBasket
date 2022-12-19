@@ -51,7 +51,7 @@ const Card = ({ data, setLoading }) => {
                <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card'>
                     <Box className='card-image-holder'>
                          <Box className='card-image' display='flex' justifyContent='center' alignItems='center' pos='relative'>
-                              <Image src={image} alt='' h={'70%'} w={{ sm: '50%' }} />
+                              <Image src={image} alt='' h={['50%', '50%', '70%']} w={['45%', '50%']} />
                               <Box color='green' border='1px' borderRadius='2px' pos='absolute' left='10' bottom='0'><GoPrimitiveDot /></Box>
                          </Box>
                     </Box>

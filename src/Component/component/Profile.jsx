@@ -93,10 +93,10 @@ export default function Profile({ ShowProfilePage }) {
      return (
           <>  
                {loading && <Loader />}
-               <Box pos='absolute' w='100%' h='100vh' zIndex='100' className='flex' >
+               <Box pos='fixed' w='100%' h='100vh' zIndex='100' className='flex' >
                     <Box onClick={ShowProfilePage} w='100%' h='100%' pos='absolute' bg='blackAlpha.400' cursor='pointer'></Box>
-                    <Box className='profileContainer' w='450px' display='flex' align={'center'} justify={'center'} pos='relative' zIndex='101' >
-                         <Stack spacing={4} w={'full'} rounded={'xl'} boxShadow={'lg'} p={6} my={12} bg='white'>
+                    <Box className='profileContainer' w={['350px', '450px']} display='flex' align={'center'} justify={'center'} pos='relative' zIndex='101' >
+                         <Stack w={'full'} rounded={'xl'} boxShadow={'lg'} p={[3, 3, 6]} my={[5, 5, 12]} bg='white'>
                               <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
                                    Profile
                               </Heading>
@@ -118,15 +118,15 @@ export default function Profile({ ShowProfilePage }) {
                                                   </Box>
                                                   <Box mt='2' display='flex'>
                                                        <Button title='Male' display='flex' justifyContent={'space-between'} className='BtnClickEffect'
-                                                            color='black' colorScheme='red.600' p='2' h='50px' bg='' border='2px' borderColor={profileData.gender === "male" ? 'green.400' : 'gray.300'}
+                                                            color='black' colorScheme='red.600' p='2' h={['35px', '35px', '50px']} border='2px' borderColor={profileData.gender === "male" ? 'green.400' : 'gray.300'}
                                                             name='male' onClick={HandleGender}>
-                                                            <Image title='Male' src='/man1.png' boxSize={10} />
+                                                            <Image title='Male' src='/man1.png' boxSize={[8, 8, 10]} />
                                                             <Text title='Male' ml='2'>Male</Text>
                                                        </Button>
                                                        <Button ml='2' title='Woman' display='flex' justifyContent={'space-between'} className='BtnClickEffect'
-                                                            color='black' colorScheme='red.600' p='2' h='50px' bg='' border='2px' borderColor={profileData.gender === "female" ? 'green.400' : 'gray.300'}
+                                                            color='black' colorScheme='red.600' p='2' h={['35px', '35px', '50px']} border='2px' borderColor={profileData.gender === "female" ? 'green.400' : 'gray.300'}
                                                             name='female' onClick={HandleGender} >
-                                                            <Image title='Woman' src='/woman.png' boxSize={10} />
+                                                            <Image title='Woman' src='/woman.png' boxSize={[8, 8, 10]} />
                                                             <Text title='Woman' ml='2'>Female</Text>
                                                        </Button>
                                                   </Box>
@@ -134,19 +134,21 @@ export default function Profile({ ShowProfilePage }) {
                                         </Box>
                                    </Box>
                               </Box>
-                              <FormControl id="userName" >
-                                   <FormLabel>User name</FormLabel>
-                                   <Input title='User name' placeholder="UserName" name='username' value={profileData.username} _placeholder={{ color: 'gray.500' }} type="text" onChange={HandleChange} />
-                              </FormControl>
-                              <FormControl >
-                                   <FormLabel>Email address</FormLabel>
-                                   <Text title='Email address' textAlign='left' h='40px' color='gray.600' cursor={'not-allowed'} p='2' borderRadius='5px' pl='4' border='1px' borderColor='gray.200'>{currentUser?.email}</Text>
-                              </FormControl>
-                              <FormControl id="Phone" >
-                                   <FormLabel>Phone Number</FormLabel>
-                                   <Input title='Phone Number' maxLength={10} placeholder="+1(123) 456-7890" name='phone' value={profileData.phone} onChange={HandleChange} _placeholder={{ color: 'gray.500' }} />
-                              </FormControl>
-                              <Box mt='5' display='flex' gap='10'>
+                              <Box className='profile-input-container'>
+                                   <FormControl id="userName">
+                                        <FormLabel>User name</FormLabel>
+                                        <Input title='User name' placeholder="UserName" name='username' value={profileData.username} _placeholder={{ color: 'gray.500' }} type="text" onChange={HandleChange} />
+                                   </FormControl>
+                                   <FormControl >
+                                        <FormLabel>Email address</FormLabel>
+                                        <Text title='Email address' textAlign='left' h='40px' color='gray.600' cursor={'not-allowed'} p='2' borderRadius='5px' pl='4' border='1px' borderColor='gray.200'>{currentUser?.email}</Text>
+                                   </FormControl>
+                                   <FormControl id="Phone" >
+                                        <FormLabel>Phone Number</FormLabel>
+                                        <Input title='Phone Number' maxLength={10} placeholder="+1(123) 456-7890" name='phone' value={profileData.phone} onChange={HandleChange} _placeholder={{ color: 'gray.500' }} />
+                                   </FormControl>
+                              </Box>
+                              <Box display='flex' gap='10'>
                                    <Button bg={'teal.500'} title='Cancel' className='BtnClickEffect' color={'white'} w="full" _hover={{ bg: 'red.600', }} onClick={ShowProfilePage}>
                                         Cancel
                                    </Button>

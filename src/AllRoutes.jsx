@@ -9,7 +9,6 @@ import Cart from './Component/Pages/Cart'
 import PrivateRoute from './PrivateRoute';
 import React from 'react'
 import AdminRoutes from './Component/Pages/Admin/AdminRoutes'
-import ContactUs from './Component/Pages/Contactus'
 const AllRoutes = () => {
      return (
           <Routes>
@@ -21,7 +20,6 @@ const AllRoutes = () => {
                </Route>
                <Route path='/myorders' element={<PrivateRoute><MyOrders /></PrivateRoute>} />
                <Route path='/products/:id' element={<Products />} />
-               <Route path='/contactus' element={<ContactUs />} />
                <Route path='*' element={<PageNotFound />} />
           </Routes>
      )
