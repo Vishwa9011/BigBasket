@@ -10,14 +10,13 @@ import PrivateRoute from './PrivateRoute';
 import React from 'react'
 import AdminRoutes from './Component/Pages/Admin/AdminRoutes'
 const AllRoutes = () => {
+
      return (
           <Routes>
-               <Route index element={<Dashoboard />} />
+               <Route path='/' element={<Dashoboard />} />
                <Route path='/cart' element={<PrivateRoute><Cart /></PrivateRoute>} />
                <Route path='/login' element={<Login />} />
-               <Route path='/admin/*' element={<PrivateRoute><AdminPanel /></PrivateRoute>}>
-                    <Route path='/admin/*' element={<AdminRoutes />} />
-               </Route>
+               <Route path='/admin/*' element={<PrivateRoute><AdminPanel /></PrivateRoute>} />
                <Route path='/myorders' element={<PrivateRoute><MyOrders /></PrivateRoute>} />
                <Route path='/products/:id' element={<Products />} />
                <Route path='*' element={<PageNotFound />} />

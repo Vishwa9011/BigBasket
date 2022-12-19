@@ -6,6 +6,7 @@ const UserDetailCard = ({ setShowProfile, userProfile }) => {
 
 
      const { username, email, phone, gender, isActive, id, isAdmin, image } = userProfile
+     console.log('isAdmin: ', isAdmin);
 
 
      return (
@@ -38,7 +39,7 @@ const UserDetailCard = ({ setShowProfile, userProfile }) => {
                     <Box >
                          <Box display={'flex'} border='1px' borderStyle='dotted' p='2' borderRadius='6px' my='2'>
                               <Text>IsActive: </Text>
-                              <Text ml='3' color={isAdmin ? 'green.500' : "red"}>{isActive ? 'Yes' : "No"}</Text>
+                              <Text ml='3' color={isActive ? 'green.500' : "red"}>{isActive ? 'Yes' : "No"}</Text>
                          </Box>
                          <Box display={'flex'} border='1px' borderStyle='dotted' p='2' borderRadius='6px' my='2'>
                               <Text>IsAdmin: </Text>

@@ -1,5 +1,5 @@
 import { Box, List, Image, Text, ListItem } from '@chakra-ui/react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Outlet } from 'react-router-dom'
 import React from 'react'
 
 const SideBar = () => {
@@ -48,6 +48,7 @@ const SideBar = () => {
                                    </Box>
                               </ListItem>
                          </NavLink>
+                         <Outlet />
                     </List>
                </Box>
           </>

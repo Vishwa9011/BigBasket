@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import './Login.css'
 
 
-const SignIn = ({ setPage }) => {
+const SignIn = ({ scrollPage }) => {
 
      const { login } = useAuth()
      const { showMsg } = useGlobal();
@@ -52,7 +52,7 @@ const SignIn = ({ setPage }) => {
                                    <Stack spacing={10}>
                                         <Stack direction={{ base: 'column', sm: 'row' }} align={'start'} justify={'space-between'}>
                                              <Checkbox>Remember me</Checkbox>
-                                             <Text color={'blue.400'} cursor='pointer' onClick={() => setForgotPass(true)}>Forgot password?</Text>
+                                                  <Text color={'blue.400'} _hover={{ textDecoration: "underline" }} cursor='pointer' onClick={() => setForgotPass(true)}>Forgot password?</Text>
                                         </Stack>
                                              <Input type='submit' value='Sign in' bg={'red.500'} h='45px' _hover={{ bg: "red.600" }} className='BtnClickEffect' color={'white'} colorScheme='red.600' />
                                    </Stack>
@@ -60,7 +60,7 @@ const SignIn = ({ setPage }) => {
                               </Stack>
                               <Stack mt='3'>
                                    <Text as='span'>Doesn't have any account yet?
-                                        <Text ml='1' color={'blue.400'} as='span' cursor='pointer' _hover={{ textDecoration: "underline" }} onClick={() => setPage()}>
+                                        <Text ml='1' color={'blue.400'} as='span' cursor='pointer' _hover={{ textDecoration: "underline" }} onClick={() => scrollPage(500)}>
                                              Sign up
                                         </Text>
                                    </Text>

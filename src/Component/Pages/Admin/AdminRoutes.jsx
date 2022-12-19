@@ -9,10 +9,10 @@ const AdminRoutes = () => {
      return (
           <Routes>
                <Route index element={<AdminDashboard />} />
-               <Route path='/dashboard' element={<AdminDashboard />} />
-               <Route path='/users' element={<AdminUsers />} />
-               <Route path='/orders' element={<AdminOrder />} />
-               <Route path='/about' element={<AdminAbout />} />
+               <Route path='dashboard' element={<AdminDashboard />} />
+               <Route path='users' element={<AdminUsers />} />
+               <Route path='orders' element={<AdminOrder />} />
+               <Route path='about' element={<AdminAbout />} />
           </Routes>
      )
 }

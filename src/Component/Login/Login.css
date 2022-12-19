@@ -23,36 +23,47 @@
      display: flex;
 
      /* transform with style */
-     transform-style: preserve-3d;
+     /* transform-style: preserve-3d; */
 
-     position: relative;
+     /* position: relative; */
      /* border: 1px solid red; */
      /* transition: transform 1s; */
+     /* overflow: scroll; */
+}
+
+.loginPage>div {
+     width: 100%;
+     display: flex;
+     overflow: hidden;
+     transition: all 1000ms;
+     scroll-behavior: smooth;
+     /* transform: translateX(100%); */
 }
 
 
 .signin, .signup {
      height: 100%;
      width: 100%;
-     /* border: 1px solid blue; */
-
      /* to hide background things  */
-     -webkit-backface-visibility: hidden;
-     backface-visibility: hidden;
+     /* -webkit-backface-visibility: hidden; */
+     /* backface-visibility: hidden; */
 
      /* alignment  */
-     position: absolute;
+     /* position: absolute; */
 
      /* Content ALignment */
      display: flex;
      justify-content: center;
      align-items: center;
-
+     background-color: white;
 }
 
 /* front */
-.signin {
+.signinPage {
      background: white !important;
+     display: flex;
+     width: 100%;
+     /* overflow: hidden; */
 }
 
 
@@ -60,7 +71,5 @@
 .signup {
      background: white !important;
      /* to hide second part*/
-     transform: rotateY(180deg);
+     /* transform: rotateY(180deg); */
 }
-
-

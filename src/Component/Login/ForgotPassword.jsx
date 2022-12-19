@@ -8,11 +8,12 @@ const ForgotPassword = ({ setForgotPass }) => {
      const { resetPassword } = useAuth()
      const [email, setEmail] = useState("");
 
-
      const ResetPassword = () => {
           if (email.includes('@')) {
                resetPassword(email)
+               setEmail("")
           } else {
+               setEmail("")
                showMsg("Please Enter valid Email")
           }
      }

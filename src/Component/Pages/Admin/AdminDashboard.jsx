@@ -84,7 +84,7 @@ const AdminDashboard = () => {
                                              <Td>{i + 1}</Td>
                                              <Td>{data.id}</Td>
                                              <Td>{data.email}</Td>
-                                             <Td color={data.isActive ? 'green.500' : "red.500"}>{data.isActive ? 'Active' : 'Inactive'}</Td>
+                                             <Td color={data.isActive ? 'green.500' : "red.500"}>{data.isActive ? 'Active' : 'Passive'}</Td>
                                         </Tr>
                                    ))}
                               </Tbody>

@@ -39,6 +39,7 @@ const AdminUsers = () => {
           }).catch(err => console.log(err))
      }
 
+     // * Handle show details
      const HandleShowDetail = (user) => {
           setUserProfile(user)
           setShowProfile(v => !v)
@@ -48,8 +49,10 @@ const AdminUsers = () => {
      return (
           <>
                <Box pos='relative'>
+
                     {/* Statistics */}
                     <Statistics usersData={usersData} />
+
                     {/* UserDetailCard */}
                     {showProfile && < UserDetailCard setShowProfile={setShowProfile} userProfile={userProfile} />}
                     <Box>
@@ -59,7 +62,8 @@ const AdminUsers = () => {
                                    <Tr>
                                         <Th>S.no</Th>
                                         <Th>User Id</Th>
-                                        <Th>Email</Th>
+                                        <Th>User name</Th>
+                                        <Th>Address</Th>
                                         <Th>Is Active</Th>
                                         <Th>Details</Th>
                                         <Th>Delete User</Th>
@@ -70,7 +74,8 @@ const AdminUsers = () => {
                                         <Tr key={data.id}>
                                              <Td >{i + 1}</Td>
                                              <Td opacity={'.7'}>{data.id}</Td>
-                                             <Td >{data.email}</Td>
+                                             <Td >{data?.username?.split(" ").splice(0, 2).join(" ") || '---'}</Td>
+                                             <Td >{data.email.split('@')[0]}</Td>
                                              <Td color={data.isActive ? 'green.700' : "red.500"}>{data.isActive ? 'Active' : 'Passive'}</Td>
                                              <Td>
                                                   <Button color='red.600' border={'2px'} borderStyle={'dotted'} borderColor='red.500' onClick={() => HandleShowDetail(data)}>Veiw</Button>
