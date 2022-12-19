@@ -5,7 +5,7 @@ import { useParams, NavLink } from 'react-router-dom'
 import { db } from '../Firebase/firebase-config';
 import { BiMinus } from 'react-icons/bi'
 import { IoMdAdd } from 'react-icons/io';
-import { FilterReducer } from './Helper';
+import { FilterBrand, FilterDiscount, FilterPrice, FilterReducer } from './Helper';
 import Loader from '../component/Loader';
 import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
@@ -17,6 +17,18 @@ const param = {
      vegetables: "vegetables",
      foodgrain_oil_masala: "oil",
      bakery_cakes_dairy: "bakery"
+
+}
+
+
+const initialPriceFilter = {
+     highTolow: false, lowTohigh: false, '50': false, '100': false, '199': false, '200': false
+}
+
+const initialDiscountFilter = {
+     '15': false,
+     '24': false,
+     '25': false
 }
 
 const inititalState = { brand: false, discount: false, price: false }
@@ -26,17 +38,25 @@ const Products = () => {
      const { id } = useParams();
      var tempParam = param[id.trim()]
      const [data, setData] = useState([])
-     const [brandNames, setBrandNames] = useState([])
+     const [filtered, setFiltered] = useState([])
+     const [showFilterData, setShowFilter] = useState(false)
      const [showFilter, filterDispatch] = useReducer(FilterReducer, inititalState)
      const usersCollectionRef = collection(db, `data/${tempParam}/${tempParam}Data`)
      const [loading, setLoading] = useState(false);
 
      const HandleBrandChange = (e) => {
-          console.log('e: ', e)
+          setFiltered(FilterBrand(data, value))
+          setShowFilter(true);
+     }
+
+     const HandleDiscountFilter = (value) => {
+          setFiltered(FilterDiscount(data, value));
+          setShowFilter(true);
      }
 
      const HandlePriceFilter = (value) => {
-          console.log(value)
+          setFiltered(FilterPrice(data, value))
+          setShowFilter(true);
      }
 
      useEffect(() => {
@@ -44,22 +64,12 @@ const Products = () => {
           const getData = () => {
                getDocs(usersCollectionRef).then((res) => {
                     setData(res.docs.map(doc => ({ ...doc.data(), id: doc.id }))) //*setting the data
-                    setLoading(false)
+                    setLoading(false);
+                    setShowFilter(false);
                })
           }
           getData()
      }, [id])
-
-     useEffect(() => {
-          const temp = [];
-          data.forEach((data) => {
-               if (!temp.includes(data.brand)) {
-                    temp.push(data.brand)
-               }
-          })
-
-          setBrandNames(temp)
-     }, [data])
 
      return (
           <>
@@ -104,7 +114,7 @@ const Products = () => {
                                                   </Box>
                                                   {showFilter.brand && <Box className='filteringList'>
                                                        {brandNames.map((brand, i) => (
-                                                            <Checkbox key={i} onChange={e => HandleBrandChange({ [brand]: e.target.checked })}>{brand}</Checkbox>
+                                                            <Checkbox key={i} onChange={e => HandleBrandChange(brand)}>{brand}</Checkbox>
                                                        ))}
                                                   </Box>}
                                              </ListItem>
@@ -114,12 +124,12 @@ const Products = () => {
                                                        <Text>{showFilter.price ? <BiMinus /> : <IoMdAdd />}</Text>
                                                   </Box>
                                                   {showFilter.price && <Box className='filteringList'>
-                                                       <Checkbox onChange={e => HandlePriceFilter({ filterPrice: e.target.checked })}>Low to High</Checkbox>
-                                                       <Checkbox onChange={e => HandlePriceFilter({ filterPrice: e.target.checked })}>High to Low</Checkbox>
-                                                       <Checkbox onChange={e => HandlePriceFilter({ filterPrice: e.target.checked })}>Less than ₹50</Checkbox>
-                                                       <Checkbox onChange={e => HandlePriceFilter({ filterPrice: e.target.checked })}>Less than ₹100</Checkbox>
-                                                       <Checkbox onChange={e => HandlePriceFilter({ filterPrice: e.target.checked })}>Less than ₹200</Checkbox>
-                                                       <Checkbox onChange={e => HandlePriceFilter({ filterPrice: e.target.checked })}>More than ₹200</Checkbox>
+                                                       <Checkbox onChange={e => HandlePriceFilter({ ...initialPriceFilter, 'lowTohigh': e.target.checked })}>Low to High</Checkbox>
+                                                       <Checkbox onChange={e => HandlePriceFilter({ ...initialPriceFilter, 'highTolow': e.target.checked })}>High to Low</Checkbox>
+                                                       <Checkbox onChange={e => HandlePriceFilter({ ...initialPriceFilter, '50': e.target.checked })}>Less than ₹50</Checkbox>
+                                                       <Checkbox onChange={e => HandlePriceFilter({ ...initialPriceFilter, '100': e.target.checked })}>Less than ₹100</Checkbox>
+                                                       <Checkbox onChange={e => HandlePriceFilter({ ...initialPriceFilter, '199': e.target.checked })}>Less than ₹200</Checkbox>
+                                                       <Checkbox onChange={e => HandlePriceFilter({ ...initialPriceFilter, '200': e.target.checked })}>More than ₹200</Checkbox>
                                                   </Box>}
                                              </ListItem>
                                              <ListItem>
@@ -128,9 +138,9 @@ const Products = () => {
                                                        <Text>{showFilter.discount ? <BiMinus /> : <IoMdAdd />}</Text>
                                                   </Box>
                                                   {showFilter.discount && <Box className='filteringList'>
-                                                       <Checkbox >Less than 15%</Checkbox>
-                                                       <Checkbox >Less than 25%</Checkbox>
-                                                       <Checkbox >More than 25%</Checkbox>
+                                                       <Checkbox onChange={e => HandleDiscountFilter({ ...initialDiscountFilter, '15': e.target.checked })}>Less than 15%</Checkbox>
+                                                       <Checkbox onChange={e => HandleDiscountFilter({ ...initialDiscountFilter, '24': e.target.checked })}>Less than 25%</Checkbox>
+                                                       <Checkbox onChange={e => HandleDiscountFilter({ ...initialDiscountFilter, '25': e.target.checked })}>More than 25%</Checkbox>
                                                   </Box>}
                                              </ListItem>
                                         </List>
@@ -140,7 +150,7 @@ const Products = () => {
                                         {/* card */}
                                         <Text textTransform={'capitalize'} fontWeight='semibold' py='2' fontSize={'2.5em'}>{tempParam}</Text>
                                         <Grid w='100%' justifyContent='center' templateColumns={{ base: "repeat(1,1fr)", sm: 'repeat(1,1fr)', md: 'repeat(2,1fr)', lg: "repeat(3,1fr)" }} gap={['5', 5, 2, 3,]} >
-                                             {data?.map((el) => (
+                                             {(showFilterData ? filtered : data)?.map((el) => (
                                                   <Box w='100%' key={el.id} className='product-card'>
                                                        <Card data={el} setLoading={setLoading} />
                                                   </Box>
