@@ -1,11 +1,11 @@
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
-import { collection, deleteDoc, getDocs, doc, query, where } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, doc, query, where, onSnapshot } from 'firebase/firestore';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { Box, Text, Button, Grid } from '@chakra-ui/react';
 import { calcTotalPrice, calcTotalSavings } from './Helper';
 import React, { useEffect, useState } from 'react';
 import { db } from '../Firebase/firebase-config';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import OrderCard from '../Card/OrderCard';
 import Loader from '../component/Loader';
 import Empty from '../component/Empty';
@@ -13,7 +13,7 @@ import Footer from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
 
 const MyOrders = () => {
-
+     const navigate = useNavigate()
      const { showMsg } = useGlobal();
      const { currentUser } = useAuth();
      const [orders, setOrders] = useState([]);
@@ -26,21 +26,22 @@ const MyOrders = () => {
           const userDoc = doc(db, `orders`, id);
           deleteDoc(userDoc).then(() => {
                showMsg("Order has been deleted", "info");
-               setChange(v => !v)
+               // setChange(v => !v)
           })
      }
 
      useEffect(() => {
           setLoading(true);
-          const getData = async () => {
-               if (!currentUser?.email) return;
+          var unsubscribe;
+          if (currentUser?.email) {
                const querryData = query(usersCollectionOrderRef, where("email", "==", currentUser?.email));
-               const querrySnapShot = await getDocs(querryData)
-               setOrders(querrySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-               setLoading(false);
-          }
-          getData()
-     }, [currentUser, change])
+               unsubscribe = onSnapshot(querryData, (snapShot) => {
+                    setOrders(snapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+                    setLoading(false);
+               }, (err) => { console.log(err) })
+          } else navigate("/", "/")
+          return unsubscribe;
+     }, [currentUser])
 
      useEffect(() => {
           setPriceDetail({

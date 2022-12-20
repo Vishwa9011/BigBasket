@@ -3,7 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import { auth } from '../../Component/Firebase/firebase-config';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../../Component/Firebase/firebase-config';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, onSnapshot, updateDoc } from 'firebase/firestore';
 import { useToast } from '@chakra-ui/react';
 
 
@@ -19,7 +19,6 @@ const AuthContextProvider = ({ children }) => {
      const [loading, setLoading] = useState(true);
      const [currentUser, setCurrentUser] = useState({})
      const [currentUserDetail, setCurrentUserDetail] = useState({})
-     console.log('currentUserDetail: ', currentUserDetail);
      var isAuth = useState(JSON.parse(localStorage.getItem('isAuth')) || false)
 
      //* signup with email and password
@@ -31,10 +30,10 @@ const AuthContextProvider = ({ children }) => {
                     // * making one more request to store the data into the firestordatabase
                     const userRef = doc(db, 'users', user.uid);
                     setDoc(userRef, { email, password, isAdmin: false, isActive: true }).then(() => {
-                         setLoading(false)
-                         navigate("/", "/")
                          localStorage.setItem('isAuth', true);
                          showMsg("Successfully Registered", 'success')
+                         setLoading(false)
+                         navigate("/", "/")
                     })
                }).catch(error => {
                     setLoading(false)
@@ -55,7 +54,8 @@ const AuthContextProvider = ({ children }) => {
           signInWithEmailAndPassword(auth, loginEmail, loginPassword)
                .then((userCredential) => {
                     console.log('userCredential: ', userCredential);
-                    const userRef = doc(db, 'users', userCredential.user.uid);
+                    const userRef = doc(db, 'users', userCredential?.user?.uid);
+                    updateDoc(userRef, { isActive: true })
                     setLoading(false)
                     showMsg("Login Success", 'success')
                     localStorage.setItem('isAuth', true);
@@ -70,10 +70,10 @@ const AuthContextProvider = ({ children }) => {
      // *Logout user
      const logout = () => {
           setLoading(true)
-          signOut(auth).then(res => {
+          signOut(auth).then(() => {
                // * tell that user is not active anymore
                const userRef = doc(db, 'users', currentUser.uid)
-               setDoc(userRef, { ...currentUserDetail, isActive: false }).then(() => {
+               updateDoc(userRef, { isActive: false }).then(() => {
                     setLoading(false)
                     localStorage.removeItem('isAuth')
                     showMsg("Successfully logout")
@@ -113,32 +113,29 @@ const AuthContextProvider = ({ children }) => {
                setError("")
           })
 
-          // * to get the info of user
-          if (currentUser?.uid) {
-               const userRef = doc(db, 'users', currentUser?.uid);
-               getDoc(userRef).then(res => {
-                    const data = res.data();
-                    setCurrentUserDetail({ ...data })
-               })
-          }
-
           //* cleanup function
-          return unsubscribe; 
-
-
+          return unsubscribe;
      }, [currentUser])
 
-
-
      useEffect(() => {
+          // * to get the info of user
+          var unsubs;
           if (currentUser?.uid) {
                const userRef = doc(db, 'users', currentUser?.uid);
-               setDoc(userRef, { ...currentUserDetail, isActive: true })
-                    .then(() => {
-                         showMsg("Status update", 'success');
-                    }).catch(err => console.log(err))
+               unsubs = onSnapshot(userRef, (snapShot) => {
+                    setCurrentUserDetail({ ...snapShot.data() });
+               }, (err) => { console.log(err) })
           }
-     }, [currentUserDetail])
+          return unsubs;
+     }, [currentUser])
+
+     // // * to tell the server this person is logined
+     // useEffect(() => {
+     //      if (currentUser?.uid) {
+     //           const userRef = doc(db, 'users', currentUser?.uid);
+     //           setDoc(userRef, { ...currentUserDetail, isActive: true });
+     //      }
+     // }, [currentUserDetail])
 
 
       // * if you are inside the cart and you reload the page the it will login you

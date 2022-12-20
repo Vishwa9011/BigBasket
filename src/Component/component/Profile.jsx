@@ -1,7 +1,7 @@
 import { Button, Flex, FormControl, FormLabel, Heading, Input, Stack, Center, Box, Text, Image, } from '@chakra-ui/react';
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
-import { doc, onSnapshot, setDoc } from 'firebase/firestore';
+import { doc, onSnapshot, setDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../Firebase/firebase-config';
 import { FaUserEdit } from 'react-icons/fa'
 import { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ export default function Profile({ ShowProfilePage }) {
      const [gender, setGender] = useState("")
      const [loading, setLoading] = useState(false);
      const [profileData, setProfileData] = useState({});
-     const { currentUser, currentUserDetail } = useAuth();
+     const { currentUser } = useAuth();
 
      // * this will gonna update username and mobile number;
      const HandleChange = e => {
@@ -69,7 +69,7 @@ export default function Profile({ ShowProfilePage }) {
      const SaveChanges = () => {
           setLoading(true)
           const usersRef = doc(db, 'users', currentUser.uid);
-          setDoc(usersRef, { ...profileData, email: currentUser?.email }).then(() => {
+          updateDoc(usersRef, { ...profileData, email: currentUser?.email }).then(() => {
                showMsg("Profile has been updated", 'success');
                setLoading(false);
                ShowProfilePage()
