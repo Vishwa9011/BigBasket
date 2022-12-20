@@ -31,13 +31,10 @@ const AuthContextProvider = ({ children }) => {
                     // * making one more request to store the data into the firestordatabase
                     const userRef = doc(db, 'users', user.uid);
                     setDoc(userRef, { email, password, isAdmin: false, isActive: true }).then(() => {
-                         // * creating and empty order
-                         setDoc(doc(db, 'orders', user.uid), { order: "0", id: user.uid }).then(() => {
-                              setLoading(false)
-                              navigate("/", "/")
-                              localStorage.setItem('isAuth', true);
-                              showMsg("Successfully Registered", 'success')
-                         })
+                         setLoading(false)
+                         navigate("/", "/")
+                         localStorage.setItem('isAuth', true);
+                         showMsg("Successfully Registered", 'success')
                     })
                }).catch(error => {
                     setLoading(false)

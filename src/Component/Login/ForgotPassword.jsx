@@ -12,6 +12,7 @@ const ForgotPassword = ({ setForgotPass }) => {
           if (email.includes('@')) {
                resetPassword(email)
                setEmail("")
+               setForgotPass(v => !v)
           } else {
                setEmail("")
                showMsg("Please Enter valid Email")
@@ -40,7 +41,7 @@ const ForgotPassword = ({ setForgotPass }) => {
                          </Stack>
                          <Stack mt='3'>
                               <Text as='span'>If you want to go back, Click on
-                                   <Text ml='1' color={'blue.400'} as='span' cursor='pointer' _hover={{ textDecoration: "underline" }} onClick={() => setForgotPass(false)}>
+                                   <Text ml='1' color={'blue.400'} as='span' cursor='pointer' _hover={{ textDecoration: "underline" }} onClick={() => setForgotPass(v => !v)}>
                                         back
                                    </Text>
                               </Text>

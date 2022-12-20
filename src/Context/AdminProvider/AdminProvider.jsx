@@ -1,25 +1,62 @@
-import React, { createContext, useContext, useState } from 'react'
-
+import React, { createContext, useContext, useEffect, useState } from 'react'
+import { db } from '../../Component/Firebase/firebase-config';
+import { collection, getDocs, onSnapshot } from 'firebase/firestore';
 const AdminContext = createContext();
 
 export const useAdminProvider = () => useContext(AdminContext);
 
 const AdminProvider = ({ children }) => {
 
+     const [globalData, setGlobalData] = useState({ users: "", orders: "", activeUserCount: "" })
+     console.log('globalData: ', globalData);
 
-     const [userDataGlobal, setUserDataGlobal] = useState([])
-     const [change, setChange] = useState(false)
-     const [AllOrderData, setAllOrderData] = useState([])
-     console.log('AllOrderData: ', AllOrderData);
+
+     // *all orders from all users
+     useEffect(() => {
+          // * for realtime update
+          const userCollectionRef = collection(db, "orders");
+          const unsubscribe = onSnapshot(userCollectionRef, (snapShot) => {
+               var temp = [];
+               snapShot.docs.forEach((doc) => {
+                    temp.push({ id: doc.id, ...doc.data() })
+               })
+               setGlobalData(prev => ({ ...prev, orders: [...temp] }))
+          }, (error) => console.log(error))
+
+          // * cleanup function
+          return unsubscribe
+     }, [])
+
+
+     // * to get all the users from data base;
+     useEffect(() => {
+          // * for realtime update
+          const userCollectionRef = collection(db, "users");
+          const unsubscribe = onSnapshot(userCollectionRef, (snapShot) => {
+               var temp = [];
+               snapShot.docs.forEach((doc) => {
+                    temp.push({ id: doc.id, ...doc.data() })
+               })
+               FindActiveUser(temp)
+               setGlobalData(prev => ({ ...prev, users: [...temp] }))
+          }, (error) => console.log(error))
+
+          // * cleanup function
+          return unsubscribe
+     }, [])
+
 
      const FindActiveUser = (items) => {
+          console.log('items: ', items);
           const activeUser = items.filter((user) => user.isActive);
+          console.log('activeUser: ', activeUser);
           const activeUserCount = activeUser.length;
-          return { activeUserCount, activeUser }
+          setGlobalData(prev => ({ ...prev, activeUserCount: activeUserCount, activeUser: activeUser }))
      }
 
+
      return (
-          <AdminContext.Provider value={{ FindActiveUser, userDataGlobal, setUserDataGlobal, AllOrderData, setAllOrderData, change, setChange }}>
+          <AdminContext.Provider value={{ globalData }}>
                {children}
           </AdminContext.Provider>
      )

@@ -1,4 +1,4 @@
-import { collection, deleteDoc, getDocs, doc, updateDoc, addDoc } from 'firebase/firestore'
+import { collection, deleteDoc, getDocs, doc, updateDoc, addDoc, setDoc } from 'firebase/firestore'
 import { Box, Button, Heading, Image, Text, useDisclosure } from '@chakra-ui/react'
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider'
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider'
@@ -78,8 +78,9 @@ const Cart = () => {
 
      // * send all cart data to the myorders
      const SendDataToOrders = async (item) => {
-          const usersCollectionOrderRef = collection(db, `orders/${currentUser?.uid}/ordersData`);
-          await addDoc(usersCollectionOrderRef, { ...item, isPlaced: false })
+          const orderId = `#${Date.now()}`
+          const usersCollectionOrderRef = doc(db, `orders`, orderId);
+          await setDoc(usersCollectionOrderRef, { ...item, orderId: orderId, email: currentUser?.email, isPlaced: false })
      }
 
      // * to get all the cart item on first time or on every change

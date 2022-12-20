@@ -17,14 +17,12 @@ const param = {
      vegetables: "vegetables",
      foodgrain_oil_masala: "oil",
      bakery_cakes_dairy: "bakery"
-
 }
-
-
+// * price filter
 const initialPriceFilter = {
      highTolow: false, lowTohigh: false, '50': false, '100': false, '199': false, '200': false
 }
-
+// * discount filter
 const initialDiscountFilter = {
      '15': false,
      '24': false,
@@ -39,12 +37,13 @@ const Products = () => {
      var tempParam = param[id.trim()]
      const [data, setData] = useState([])
      const [filtered, setFiltered] = useState([])
+     const [loading, setLoading] = useState(false);
+     const [brandNames, setBrandNames] = useState([]);
      const [showFilterData, setShowFilter] = useState(false)
      const [showFilter, filterDispatch] = useReducer(FilterReducer, inititalState)
      const usersCollectionRef = collection(db, `data/${tempParam}/${tempParam}Data`)
-     const [loading, setLoading] = useState(false);
 
-     const HandleBrandChange = (e) => {
+     const HandleBrandChange = (value) => {
           setFiltered(FilterBrand(data, value))
           setShowFilter(true);
      }
@@ -70,6 +69,20 @@ const Products = () => {
           }
           getData()
      }, [id])
+
+     useEffect(() => {
+          if (data.length) {
+               const temp = {};
+               const arrayOfBrand = [];
+               data.forEach((val) => {
+                    if (!temp[val.brand]) {
+                         temp[val.brand] = 1;
+                         arrayOfBrand.push(val.brand)
+                    }
+               })
+               setBrandNames(arrayOfBrand);
+          }
+     }, [data])
 
      return (
           <>

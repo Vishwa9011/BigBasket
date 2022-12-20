@@ -1,15 +1,23 @@
-import { Box, FormControl, FormLabel, Image, Input, Text } from '@chakra-ui/react';
+import { Box, FormControl, FormLabel, Image, Input, Text, Button } from '@chakra-ui/react';
 import { FaUserEdit } from 'react-icons/fa';
 import AdminRoutes from './AdminRoutes';
 import SideBar from './SideBar';
 import React from 'react';
 import "./admin.css";
+import { Link } from 'react-router-dom';
 
 const AdminPanel = () => {
      return (
           <>
-               <Box>
+               <Box pos='relative'>
                     <Box className='admin-upperPart' w='100%' h='350px' display='flex' alignItems={'center'} justifyContent={'space-around'}>
+                         <Link to='/'>
+                              <Button title='Goto home' bg='none' display={'flex'} className='goback BtnClickEffect' justifyContent='space-around' p='1' m='0' width={'120px'} border='px'
+                                   alignItems='center' pos='absolute' top='4' left='4'>
+                                   <Image src='/admin-images/arrow.png' boxSize='5' filter='invert(100%)' />
+                                   <Text fontSize={'1.4em'} fontWeight='600' color={'white'} fontFamily=''>Go Back</Text>
+                              </Button>
+                         </Link>
                          <Box className='flex admin-welcome-text' flexDirection={'column'} >
                               <Text fontSize='3em' color='white' >Welcome in BigBasket</Text>
                               <Text fontSize='3em' color='white' >Admin Pannel</Text>
@@ -31,7 +39,7 @@ const AdminPanel = () => {
                               <Box className='admin-name'>Vishwa Vivek Yadav</Box>
                          </Box>
                     </Box>
-                    <Box className='admin-main' display='flex'>
+                    <Box className='admin-main' display='flex' minH={'100vh'}>
                          <Box className='admin-sidebar' width='20%' >
                               <SideBar />
                          </Box>

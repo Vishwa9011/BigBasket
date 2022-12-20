@@ -88,7 +88,7 @@ const Navbar = () => {
 
                                              <Box className='loginMenuList'>
                                              {currentUser?.email &&
-                                                  <List pos='absolute' w='max-content' top='72px' right='0px' whiteSpace='nowrap'
+                                                  <List pos='absolute' w='max-content' top={'80px'} right='0px' whiteSpace='nowrap'
                                                        border='1px' borderRadius='5px' borderColor='gray.200' bg='white' >
 
                                                        {/* Admin Pannel */}

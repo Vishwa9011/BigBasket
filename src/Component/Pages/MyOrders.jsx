@@ -1,5 +1,5 @@
 import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
-import { collection, deleteDoc, getDocs, doc } from 'firebase/firestore';
+import { collection, deleteDoc, getDocs, doc, query, where } from 'firebase/firestore';
 import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { Box, Text, Button, Grid } from '@chakra-ui/react';
 import { calcTotalPrice, calcTotalSavings } from './Helper';
@@ -20,10 +20,10 @@ const MyOrders = () => {
      const [change, setChange] = useState(false);
      const [loading, setLoading] = useState(false);
      const [priceDetail, setPriceDetail] = useState({ totalPrice: 0, totalSavings: 0 });
-     const usersCollectionOrderRef = collection(db, `orders/${currentUser?.uid}/ordersData`);
+     const usersCollectionOrderRef = collection(db, 'orders');
 
      const CancelOrder = (id) => {
-          const userDoc = doc(db, `orders/${currentUser?.uid}/ordersData`, id);
+          const userDoc = doc(db, `orders`, id);
           deleteDoc(userDoc).then(() => {
                showMsg("Order has been deleted", "info");
                setChange(v => !v)
@@ -32,15 +32,15 @@ const MyOrders = () => {
 
      useEffect(() => {
           setLoading(true);
-          const getData = () => {
-               getDocs(usersCollectionOrderRef).then(res => {
-                    setOrders(res.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-                    setLoading(false);
-               })
+          const getData = async () => {
+               if (!currentUser?.email) return;
+               const querryData = query(usersCollectionOrderRef, where("email", "==", currentUser?.email));
+               const querrySnapShot = await getDocs(querryData)
+               setOrders(querrySnapShot.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+               setLoading(false);
           }
           getData()
      }, [currentUser, change])
-
 
      useEffect(() => {
           setPriceDetail({

@@ -51,7 +51,6 @@ export default function Profile({ ShowProfilePage }) {
           setProfileData(prev => ({ ...prev, image: "" }));
      }
 
-
      // * handle gender 
      const HandleGender = (e) => {
           if (e.target.title === 'Male') {
@@ -80,7 +79,6 @@ export default function Profile({ ShowProfilePage }) {
      }
 
      useEffect(() => {
-
           // * to get the info of user
           const unsubscribeUser = onSnapshot(doc(db, 'users', currentUser?.uid), (snapShot) => {
                const temp = snapShot.data()
@@ -95,18 +93,19 @@ export default function Profile({ ShowProfilePage }) {
                {loading && <Loader />}
                <Box pos='fixed' w='100%' h='100vh' zIndex='100' className='flex' >
                     <Box onClick={ShowProfilePage} w='100%' h='100%' pos='absolute' bg='blackAlpha.400' cursor='pointer'></Box>
-                    <Box className='profileContainer' w={['350px', '450px']} display='flex' align={'center'} justify={'center'} pos='relative' zIndex='101' >
+                    <Box className='profileContainer' w={['350px', '450px']} display='flex' align={'center'} justify={'center'}
+                         pos='absolute' top='0px' zIndex='101' >
                          <Stack w={'full'} rounded={'xl'} boxShadow={'lg'} p={[3, 3, 6]} my={[5, 5, 12]} bg='white'>
                               <Heading lineHeight={1.1} fontSize={{ base: '2xl', sm: '3xl' }}>
                                    Profile
                               </Heading>
                               <Box h='100%' p='1'>
-                                   <Box pos='relative' p='1'>
-                                        <Box className='userImage' title='user icon' w='80px' h='80px' borderRadius='50%' overflow={'hidden'} >
-                                             <Image src={profileData.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'} />
-                                        </Box>
-                                        <Box id='upload-image'>
-                                             <Box>
+                                   <Box pos='relative' p='1' display={'flex'} justifyContent='center'>
+                                        <Box border={'px'}>
+                                             <Box className='userImage' title='user icon' w='80px' h='80px' borderRadius='50%' overflow={'hidden'} >
+                                                  <Image src={profileData.image || 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJxA5cTf-5dh5Eusm0puHbvAhOrCRPtckzjA&usqp=CAU'} />
+                                             </Box>
+                                             <Box id='upload-image'>
                                                   <Box className='flex'>
                                                        <FormControl id="image" title='Change icon' _hover={{ background: 'red.600', color: 'white' }} className='image' m='0' p='0' bg='blackAlpha.400'>
                                                             <FormLabel title='Change icon' className='upload-label BtnClickEffect'><FaUserEdit /></FormLabel>
@@ -116,21 +115,17 @@ export default function Profile({ ShowProfilePage }) {
                                                             <IoClose />
                                                        </Button>
                                                   </Box>
-                                                  <Box mt='2' display='flex'>
-                                                       <Button title='Male' display='flex' justifyContent={'space-between'} className='BtnClickEffect'
-                                                            color='black' colorScheme='red.600' p='2' h={['35px', '35px', '50px']} border='2px' borderColor={profileData.gender === "male" ? 'green.400' : 'gray.300'}
-                                                            name='male' onClick={HandleGender}>
-                                                            <Image title='Male' src='/man1.png' boxSize={[8, 8, 10]} />
-                                                            <Text title='Male' ml='2'>Male</Text>
-                                                       </Button>
-                                                       <Button ml='2' title='Woman' display='flex' justifyContent={'space-between'} className='BtnClickEffect'
-                                                            color='black' colorScheme='red.600' p='2' h={['35px', '35px', '50px']} border='2px' borderColor={profileData.gender === "female" ? 'green.400' : 'gray.300'}
-                                                            name='female' onClick={HandleGender} >
-                                                            <Image title='Woman' src='/woman.png' boxSize={[8, 8, 10]} />
-                                                            <Text title='Woman' ml='2'>Female</Text>
-                                                       </Button>
-                                                  </Box>
                                              </Box>
+                                        </Box>
+                                        <Box display='flex' flexDirection={'column'} ml='10' border='px' justifyContent={'space-around'}>
+                                             <Button title='Male' display='flex' justifyContent={'space-between'} className='BtnClickEffect' color='black' colorScheme='red.600' p='2' h={['35px', '35px', '40px']} border='2px' borderColor={profileData.gender === "male" ? 'green.400' : 'gray.300'} name='male' onClick={HandleGender}>
+                                                  <Image title='Male' src='/man1.png' boxSize={[5, 5, 7]} />
+                                                  <Text title='Male' ml='2' color={profileData.gender === "male" ? 'red.600' : 'gray.500'}>Male</Text>
+                                             </Button>
+                                             <Button title='Woman' display='flex' justifyContent={'space-between'} className='BtnClickEffect' color='black' colorScheme='red.600' p='2' h={['35px', '35px', '40px']} border='2px' borderColor={profileData.gender === "female" ? 'green.400' : 'gray.300'} name='female' onClick={HandleGender} >
+                                                  <Image title='Woman' src='/woman.png' boxSize={[5, 5, 7]} />
+                                                  <Text title='Woman' ml='2' color={profileData.gender === "female" ? 'red.600' : 'gray.500'}>Female</Text>
+                                             </Button>
                                         </Box>
                                    </Box>
                               </Box>

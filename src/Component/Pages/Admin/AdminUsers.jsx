@@ -1,63 +1,47 @@
-import { Heading, Table, Tbody, Thead, Tr, Th, Box, Td, Button, Text, Image } from '@chakra-ui/react';
+import { Heading, Table, Tbody, Thead, Tr, Th, Box, Td, Button, TableCaption, Text, Image } from '@chakra-ui/react';
 import { useGlobal } from '../../../Context/GlobalDataProvider/GlobalProvider';
 import { useAdminProvider } from '../../../Context/AdminProvider/AdminProvider';
-import { collection, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react'
 import Statistics from './Component/Statistics';
-import { db } from '../../Firebase/firebase-config';
 import UserDetailCard from './Component/UserDetailCard';
+import { deleteDoc, doc } from 'firebase/firestore';
+import { db } from '../../Firebase/firebase-config';
 
 const AdminUsers = () => {
 
      const { showMsg } = useGlobal();
-     const { FindActiveUser } = useAdminProvider();
-     const [usersData, setUsersData] = useState([]);
-     const userCollectionRef = collection(db, "users")
+     const { globalData } = useAdminProvider();
+     console.log('globalData: ', globalData);
      const [showProfile, setShowProfile] = useState(false)
-     const [userProfile, setUserProfile] = useState({})
-     // * to get all the users from data base;
-     useEffect(() => {
-          // * for realtime update
-          const unsubscribe = onSnapshot(userCollectionRef, (snapShot) => {
-               var temp = [];
-               snapShot.docs.forEach((doc) => {
-                    temp.push({ id: doc.id, ...doc.data() })
-               })
-               setUsersData(temp)
-          }, (error) => console.log(error))
+     const [profileData, setProfileData] = useState({})
 
-          // * cleanup function
-          return unsubscribe
-     }, [])
 
-     // * detete the user
-     const DeleteUser = (user) => {
-          console.log('user: ', user);
-          const userDeleteRef = doc(db, 'users', user.id)
-          deleteDoc(userDeleteRef).then(() => {
-               showMsg(`${user.email} has been removed`, 'success')
-          }).catch(err => console.log(err))
-     }
-
-     // * Handle show details
-     const HandleShowDetail = (user) => {
-          setUserProfile(user)
+     // *to show the details of users
+     const HandleShowDetail = (profile) => {
           setShowProfile(v => !v)
+          setProfileData(profile);
      }
 
+     // *deleting the users
+     const DeleteUser = (item) => {
+          deleteDoc(doc(db, "users", item.id)).then(() => {
+               showMsg(`${item.username} has been deleted.`, 'success')
+          })
+     }
 
      return (
           <>
                <Box pos='relative'>
 
                     {/* Statistics */}
-                    <Statistics usersData={usersData} />
+                    <Statistics />
 
                     {/* UserDetailCard */}
-                    {showProfile && < UserDetailCard setShowProfile={setShowProfile} userProfile={userProfile} />}
+                    {showProfile && <UserDetailCard setShowProfile={setShowProfile} userProfile={profileData} />}
                     <Box>
                          <Heading textAlign={'center'} padding='5'>Users</Heading>
                          <Table>
+                              <TableCaption>Here you can see the user details</TableCaption>
                               <Thead bg='red.500' >
                                    <Tr>
                                         <Th>S.no</Th>
@@ -70,7 +54,7 @@ const AdminUsers = () => {
                                    </Tr>
                               </Thead>
                               <Tbody>
-                                   {usersData.map((data, i) => (
+                                   {globalData.users?.map((data, i) => (
                                         <Tr key={data.id}>
                                              <Td >{i + 1}</Td>
                                              <Td opacity={'.7'}>{data.id}</Td>

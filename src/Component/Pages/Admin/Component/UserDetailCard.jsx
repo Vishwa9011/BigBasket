@@ -6,7 +6,6 @@ const UserDetailCard = ({ setShowProfile, userProfile }) => {
 
 
      const { username, email, phone, gender, isActive, id, isAdmin, image } = userProfile
-     console.log('isAdmin: ', isAdmin);
 
 
      return (
