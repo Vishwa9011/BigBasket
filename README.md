@@ -9,7 +9,8 @@
 
 ### In this project we have
 
-1. Cart Page
-2. Category Page
-3. My orders
-4. Admin Pannel
+1. Landing Page
+2. Cart Page
+3. Category Page
+4. My orders
+5. Admin Pannel
