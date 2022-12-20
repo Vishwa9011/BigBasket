@@ -162,9 +162,9 @@ const Products = () => {
                                    <Box className='product-container' w={{ base: "", sm: "60%", md: '80%' }} p='2' overflowY={['none', '', 'scroll']} h='100%'>
                                         {/* card */}
                                         <Text textTransform={'capitalize'} fontWeight='semibold' py='2' fontSize={'2.5em'}>{tempParam}</Text>
-                                        <Grid w='100%' justifyContent='center' templateColumns={{ base: "repeat(1,1fr)", sm: 'repeat(1,1fr)', md: 'repeat(2,1fr)', lg: "repeat(3,1fr)" }} gap={['5', 5, 2, 3,]} >
+                                        <Grid w='100%' justifyContent='center' templateColumns={{ base: "repeat(1,1fr)", sm: 'repeat(1,1fr)', md: 'repeat(2,1fr)', lg: "repeat(3,1fr)" }} gap={['5', 5, 2, 6,]} >
                                              {(showFilterData ? filtered : data)?.map((el) => (
-                                                  <Box w='100%' key={el.id} className='product-card'>
+                                                  <Box w='100%' key={el.id} className='product-card' >
                                                        <Card data={el} setLoading={setLoading} />
                                                   </Box>
                                              ))}

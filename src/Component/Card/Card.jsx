@@ -13,6 +13,7 @@ import './Card.css'
 
 const Card = ({ data, setLoading }) => {
      const { image, price, title, id, mrp, discount, select_qty = 1, unit = 'kg', brand } = data;
+
      const navigate = useNavigate()
      const { showMsg } = useGlobal()
      const { currentUser } = useAuth()
@@ -48,10 +49,10 @@ const Card = ({ data, setLoading }) => {
 
      return (
           <>
-               <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card'>
+               <Box w='100%' minH={'380px'} p='4' borderRadius='10px' display={'flex'} flexDirection='column' justifyContent={'space-between'} className='card'>
                     <Box className='card-image-holder'>
                          <Box className='card-image' display='flex' justifyContent='center' alignItems='center' pos='relative'>
-                              <Image src={image} alt='' h={['50%', '50%', '70%']} w={['45%', '50%']} />
+                              <Image src={image} alt='' w='100px' />
                               <Box color='green' border='1px' borderRadius='2px' pos='absolute' left='10' bottom='0'><GoPrimitiveDot /></Box>
                          </Box>
                     </Box>

@@ -19,8 +19,8 @@ const AuthContextProvider = ({ children }) => {
      const [loading, setLoading] = useState(true);
      const [currentUser, setCurrentUser] = useState({})
      const [currentUserDetail, setCurrentUserDetail] = useState({})
+     console.log('currentUserDetail: ', currentUserDetail);
      var isAuth = useState(JSON.parse(localStorage.getItem('isAuth')) || false)
-     console.log('isAuth: ', isAuth);
 
      //* signup with email and password
      const signup = ({ email, password }) => {

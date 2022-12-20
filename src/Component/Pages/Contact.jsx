@@ -13,9 +13,7 @@ const Contact = () => {
 
      const SendContactForm = (e) => {
           e.preventDefault();
-          if (message.name == "" || message.email == "" || message.message == "") return
-
-          
+          if (message.name == "" || message.email == "" || message.message == "") return;
      }
 
      return (
