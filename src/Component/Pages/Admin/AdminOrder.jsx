@@ -47,7 +47,8 @@ const AdminOrder = () => {
                                         <Tr py='6'>
                                              <Th>S.no</Th>
                                              <Th>order Id</Th>
-                                             <Th>Email</Th>
+                                             <Th>Product Name</Th>
+                                             <Th>Customer Name</Th>
                                              <Th>Price</Th>
                                              <Th>Delivery Status</Th>
                                              <Th>Change Status</Th>
@@ -58,7 +59,8 @@ const AdminOrder = () => {
                                              <Tr key={i}>
                                                   <Td>{i + 1}</Td>
                                                   <Td opacity={'.7'}>{data.orderId}</Td>
-                                                  <Td>{data.title}</Td>
+                                                  <Td>{data.title.slice(0, 15)} {data.title.length >= 15 ? "..." : ""}</Td>
+                                                  <Td>{data.email}</Td>
                                                   <Td>{data.price}</Td>
                                                   <Td color={data.isPlaced ? 'green.500' : "red.500"}>{data.isPlaced ? 'Delivered' : 'On the way'}</Td>
                                                   <Td color={data.isPlaced ? 'green.500' : "red.500"}>

@@ -1,11 +1,11 @@
-import { Box, Heading, Image, Input, Text, Textarea } from '@chakra-ui/react'
-import React, { useState } from 'react'
-import './styles.css'
+import { Box, Heading, Image, Input, Text, Textarea, Button } from '@chakra-ui/react'
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
 import { doc, setDoc } from 'firebase/firestore';
 import { db } from '../Firebase/firebase-config';
-import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
-import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
-
+import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
+import './styles.css'
 const Contact = () => {
 
      const { showMsg } = useGlobal();
@@ -33,6 +33,13 @@ const Contact = () => {
 
      return (
           <Box display='flex' justifyContent='center' alignItems='center' w='100%' minH='100vh'>
+               <Link to='/'>
+                    <Button title='Goto home' bg='none' color='black' display={'flex'} className='gobackBtn BtnClickEffect' justifyContent='space-around' p='1' m='0' width={'120px'} border='px'
+                         alignItems='center' pos='absolute' top='4' left='4'>
+                         <Image src='/admin-images/arrow.png' boxSize='5' />
+                         <Text fontSize={'1.4em'} fontWeight='600' fontFamily=''>Go Back</Text>
+                    </Button>
+               </Link>
                <Box w='90%'>
                     <Box>
                          <Heading textAlign={'center'}>Contact Us</Heading>

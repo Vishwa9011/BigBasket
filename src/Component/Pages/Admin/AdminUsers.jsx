@@ -65,7 +65,7 @@ const AdminUsers = () => {
                                                   <Button color='red.600' border={'2px'} borderStyle={'dotted'} borderColor='red.500' onClick={() => HandleShowDetail(data)}>Veiw</Button>
                                              </Td>
                                              <Td>
-                                                  <Button color='blue.600' border={'2px'} borderStyle={'dotted'} borderColor='blue.500' onClick={() => DeleteUser(data)}>Delete User</Button>
+                                                  <Button color='blue.600' title={data.isAdmin ? "Admin can't be deleted" : "Delete User"} border={'2px'} borderStyle={'dotted'} borderColor='blue.500' disabled={data.isAdmin} onClick={() => DeleteUser(data)}>Delete User</Button>
                                              </Td>
                                         </Tr>
                                    ))}

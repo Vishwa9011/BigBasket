@@ -4,7 +4,6 @@ import { Box, Image, Button, Text } from '@chakra-ui/react'
 import { isAdmin } from '@firebase/util';
 const UserDetailCard = ({ setShowProfile, userProfile }) => {
 
-
      const { username, email, phone, gender, isActive, id, isAdmin, image } = userProfile
 
 
@@ -13,7 +12,11 @@ const UserDetailCard = ({ setShowProfile, userProfile }) => {
           <Box pos={'fixed'} w='450px' className='admin-detail-container'>
                <Box className='admin-detail'>
                     <Box mb='5'>
-                         <Image src={image || '/admin-images/man.png'} alt='' boxSize={'150px'} borderRadius='50%' />
+                         {
+                              image || gender ? < Image src={image || (gender === 'male' ? `/admin-images/man.png` : gender == 'female' ? '/admin/woman.png' : "")} alt='' boxSize={'150px'} borderRadius='50%' />
+                                   :
+                                   <Image src='https://static.thenounproject.com/png/55168-200.png' alt='' filter={'invert(70%)'} />
+                         }
                     </Box>
                     <Box>
                          <Text>Id: </Text>

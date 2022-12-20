@@ -41,6 +41,14 @@ const SideBar = () => {
                               </ListItem>
                          </NavLink>
 
+                         <NavLink to='/admin/messages' className={({ isActive }) => (isActive ? 'admin-active-link' : "")}>
+                              <ListItem>
+                                   <Box>
+                                        <Image src='/admin-images/message.png' /> <Text>Messages</Text>
+                                   </Box>
+                              </ListItem>
+                         </NavLink>
+
                          <NavLink to='/admin/about' className={({ isActive }) => (isActive ? 'admin-active-link' : "")}>
                               <ListItem>
                                    <Box>

@@ -20,3 +20,35 @@ h2 {
 .contact-form * {
      font-family: 'Roboto Mono', monospace;
 }
+
+
+.gobackBtn {
+     padding: 5px;
+     border-radius: 5px;
+     transition: all 400ms;
+     color: black !important;
+     animation: 2s slow-mo linear;
+     border: 2px solid transparent;
+     background: transparent !important;
+     animation: slow 1s linear infinite alternate-reverse both;
+     animation-play-state: running;
+}
+
+@keyframes slow {
+     from {
+          left: 20px;
+     }
+
+     to {
+          left: 30px;
+     }
+}
+
+.gobackBtn:hover {
+     color: black !important;
+     border-radius: 5px;
+     background: transparent;
+     border: 2px solid yellow;
+     box-shadow: 0 0 2px rgb(212, 212, 0);
+     animation-play-state: paused;
+}
