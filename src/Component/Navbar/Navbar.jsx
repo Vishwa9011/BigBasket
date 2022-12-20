@@ -95,7 +95,7 @@ const Navbar = () => {
                                                        {currentUserDetail.isAdmin &&
                                                             <NavLink to='/admin' state={'/admin'}>
                                                                  <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }} >
-                                                                      <Image src='/admin2.png' alt='' boxSize='25px' />
+                                                                      <Image src='/admin.png' alt='' boxSize='25px' />
                                                                       <Text as='span' fontSize='1rem' ml='3'>Admin Pannel</Text>
                                                                  </ListItem>
                                                             </NavLink>
@@ -114,6 +114,14 @@ const Navbar = () => {
                                                             <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
                                                                  <Image src="/myorder1.png" alt='' boxSize='25px' />
                                                                  <Text as='span' fontSize='1rem' ml='3'>My Orders</Text>
+                                                            </ListItem>
+                                                       </NavLink>
+
+                                                       {/* Orders */}
+                                                       <NavLink to='/contact' state={'contact'}>
+                                                            <ListItem display='flex' p='2' px='4' borderBottom='1px' borderColor='gray.100' _hover={{ background: "gray.100", color: "black" }}>
+                                                                 <Image src="/email.png" alt='' boxSize='25px' />
+                                                                 <Text as='span' fontSize='1rem' ml='3'>Contact Me</Text>
                                                             </ListItem>
                                                        </NavLink>
 

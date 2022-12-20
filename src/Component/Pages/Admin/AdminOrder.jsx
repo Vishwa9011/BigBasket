@@ -61,7 +61,7 @@ const AdminOrder = () => {
                                                   <Td opacity={'.7'}>{data.orderId}</Td>
                                                   <Td>{data.title.slice(0, 15)} {data.title.length >= 15 ? "..." : ""}</Td>
                                                   <Td>{data.email}</Td>
-                                                  <Td>{data.price}</Td>
+                                                  <Td>₹ {parseInt(data.price)} /-</Td>
                                                   <Td color={data.isPlaced ? 'green.500' : "red.500"}>{data.isPlaced ? 'Delivered' : 'On the way'}</Td>
                                                   <Td color={data.isPlaced ? 'green.500' : "red.500"}>
                                                        <Button color='green.600' border={'2px'} borderStyle={'dotted'} borderColor='green.500' onClick={() => ToggleDeliveryStatus(data)}>

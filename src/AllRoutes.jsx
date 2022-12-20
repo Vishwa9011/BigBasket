@@ -20,7 +20,7 @@ const AllRoutes = () => {
                <Route path='/admin/*' element={<PrivateRoute><AdminPanel /></PrivateRoute>} />
                <Route path='/myorders' element={<PrivateRoute><MyOrders /></PrivateRoute>} />
                <Route path='/products/:id' element={<Products />} />
-               <Route path='/contactus' element={<Contact />} />
+               <Route path='/contact' element={<Contact />} />
                <Route path='*' element={<PageNotFound />} />
           </Routes>
      )

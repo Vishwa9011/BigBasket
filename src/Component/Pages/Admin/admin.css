@@ -90,8 +90,31 @@
      max-width: fit-content;
 }
 
+/* admin-main */
+
+.admin-main {
+     width: 100%;
+     height: 100vh;
+     position: sticky !important;
+     top: 0;
+     left: 0;
+}
+
+.admin-main-container {
+     height: 100vh;
+     overflow-y: scroll;
+     scrollbar-width: 0;
+}
+
+.admin-main-container::-webkit-scrollbar {
+     display: none;
+}
+
+
 /* Side bar List */
 .admin-sidebar {
+     position: sticky;
+     top: 0;
      padding-right: 2px;
      border-right: 2px solid rgb(226, 226, 226);
 }
