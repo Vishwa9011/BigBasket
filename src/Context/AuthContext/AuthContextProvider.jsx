@@ -23,7 +23,7 @@ const AuthContextProvider = ({ children }) => {
 
      //* signup with email and password
      const signup = ({ email, password }) => {
-          setLoading(true)
+          setLoading(true);
           // * signup and the user in database
           createUserWithEmailAndPassword(auth, email, password)
                .then(({ user }) => {
@@ -32,8 +32,8 @@ const AuthContextProvider = ({ children }) => {
                     setDoc(userRef, { email, password, isAdmin: false, isActive: true }).then(() => {
                          localStorage.setItem('isAuth', true);
                          showMsg("Successfully Registered", 'success')
-                         setLoading(false)
-                         navigate("/", "/")
+                         setLoading(false);
+                         navigate("/", "/");
                     })
                }).catch(error => {
                     setLoading(false)
@@ -128,14 +128,6 @@ const AuthContextProvider = ({ children }) => {
           }
           return unsubs;
      }, [currentUser])
-
-     // // * to tell the server this person is logined
-     // useEffect(() => {
-     //      if (currentUser?.uid) {
-     //           const userRef = doc(db, 'users', currentUser?.uid);
-     //           setDoc(userRef, { ...currentUserDetail, isActive: true });
-     //      }
-     // }, [currentUserDetail])
 
 
       // * if you are inside the cart and you reload the page the it will login you

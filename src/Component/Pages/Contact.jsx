@@ -1,44 +1,72 @@
-import { Box, Heading, Input, Text, Textarea } from '@chakra-ui/react'
+import { Box, Heading, Image, Input, Text, Textarea } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import './styles.css'
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../Firebase/firebase-config';
+import { useAuth } from '../../Context/AuthContext/AuthContextProvider';
+import { useGlobal } from '../../Context/GlobalDataProvider/GlobalProvider';
 
 const Contact = () => {
 
-
+     const { showMsg } = useGlobal();
+     const { currentUser } = useAuth();
      const [message, setMessage] = useState({ name: "", email: "", message: "" });
 
+     // * handle input feilds data.
      const HandleChange = (e) => {
           setMessage(prev => ({ ...prev, [e.target.name]: e.target.value }))
      }
 
+     // * send contact detail from 
      const SendContactForm = (e) => {
           e.preventDefault();
           if (message.name == "" || message.email == "" || message.message == "") return;
+          const messageId = Date.now();
+          const userContactRef = doc(db, "messages", `@${messageId}`);
+          setDoc(userContactRef, { ...message, userId: currentUser?.uid })
+               .then(() => {
+                    showMsg("Thanks for your feedback", 'success')
+                    setMessage({ name: "", email: "", message: "" })
+               })
+               .catch(err => console.log(err));
      }
 
      return (
-          <Box>
-               <Box w='60%' m='auto' mt='20'>
+          <Box display='flex' justifyContent='center' alignItems='center' w='100%' minH='100vh'>
+               <Box w='90%'>
                     <Box>
                          <Heading textAlign={'center'}>Contact Us</Heading>
                     </Box>
-                    <form className='contact-form' onSubmit={SendContactForm}>
-                         <Box mt='4'>
-                              <Text>Name</Text>
-                              <Input name='name' placeholder='Enter Your Name' onChange={HandleChange} />
+
+                    {/* <Box></Box> */}
+
+                    <Box display='flex'>
+                         <Box display={'flex'} w='40%' >
+                              <Image src='https://img.freepik.com/free-vector/contact-center-abstract-concept_335657-3032.jpg?w=2000' />
+                              {/* <Image src='https://img.freepik.com/free-vector/email-marketing-internet-chatting-24-hours-support-get-touch-initiate-contact-contact-us-feedback-online-form-talk-customers-concept_335657-25.jpg?w=2000'
+                                   w={'300px'}
+                              /> */}
                          </Box>
-                         <Box mt='4'>
-                              <Text>Email</Text>
-                              <Input type='email' name='email' placeholder='Enter Your Email' onChange={HandleChange} />
+                         <Box w='100%'>
+                              <form className='contact-form' onSubmit={SendContactForm}>
+                                   <Box mt='4'>
+                                        <Text>Name</Text>
+                                        <Input name='name' value={message.name} placeholder='Enter Your Name' onChange={HandleChange} />
+                                   </Box>
+                                   <Box mt='4'>
+                                        <Text>Email</Text>
+                                        <Input type='email' value={message.email} name='email' placeholder='Enter Your Email' onChange={HandleChange} />
+                                   </Box>
+                                   <Box mt='4'>
+                                        <Text>Message</Text>
+                                        <Textarea placeholder='Write something here...' value={message.message} h='150px' name='message' onChange={HandleChange} />
+                                   </Box>
+                                   <Box mt='4' display={'flex'} justifyContent='flex-end'>
+                                        <Input type='submit' w='fit-content' className='BtnClickEffect' borderRadius={'20px'} value='Send Message' bg='red.500' color='white' fontSize={'1.2em'} />
+                                   </Box>
+                              </form>
                          </Box>
-                         <Box mt='4'>
-                              <Text>Message</Text>
-                              <Textarea placeholder='Write something here...' name='message' onChange={HandleChange} />
-                         </Box>
-                         <Box mt='4' display={'flex'} justifyContent='flex-end'>
-                              <Input type='submit' w='fit-content' className='BtnClickEffect' borderRadius={'20px'} value='Send Message' bg='red.500' color='white' fontSize={'1.2em'} />
-                         </Box>
-                    </form>
+                    </Box>
                </Box>
           </Box>
      )
