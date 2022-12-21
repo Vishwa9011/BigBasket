@@ -260,3 +260,10 @@ tbody>tr:hover {
 .admin-detail>div>p:last-child {
      width: 70%;
 }
+
+
+/* read message */
+
+.admin-read-message {
+     font-family: 'Roboto Mono', monospace;
+}

@@ -25,7 +25,9 @@ const AdminDashboard = () => {
                                    </Tr>
                               </Thead>
                               <Tbody>
-                                   {globalData.users?.map((data, i) => (
+                                   {
+                                        globalData?.users &&
+                                        globalData.users?.map((data, i) => (
                                         <Tr key={data.id}>
                                              <Td>{i + 1}</Td>
                                              <Td opacity={'.7'}>{data.id}</Td>

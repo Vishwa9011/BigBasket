@@ -1,11 +1,10 @@
-import { AlertDialog, AlertDialogBody, Button, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, } from '@chakra-ui/react'
+import { AlertDialog, AlertDialogBody, Button, Text, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, } from '@chakra-ui/react'
 import React from 'react';
 
-const Alert = ({ isOpen, onClose, totalPrice, CheckoutCart }) => {
-     const cancelRef = React.useRef()
-
+const Alert = ({ isOpen, onClose, totalPrice, BtnText, msg, data = "", text, execution }) => {
+     const cancelRef = React.useRef() 
      const HandleCheckout = () => {
-          CheckoutCart()
+          execution()
           onClose()
      }
 
@@ -15,20 +14,26 @@ const Alert = ({ isOpen, onClose, totalPrice, CheckoutCart }) => {
                <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
                     <AlertDialogOverlay>
                          <AlertDialogContent>
-                              <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-                                   Total : ₹{totalPrice}
-                              </AlertDialogHeader>
+                              {totalPrice ? 
+                                   <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                                        Total : ₹{totalPrice}
+                                   </AlertDialogHeader>
+                                   :
+                                   <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                                        {text}
+                                   </AlertDialogHeader>
+                              }
 
                               <AlertDialogBody>
-                                   Are you sure? You want to Checkout.
+                                   {msg} {(data ? (<Text as='span' fontWeight='semibold'>{data.name || data.email}</Text>) : "")}.
                               </AlertDialogBody>
 
                               <AlertDialogFooter>
                                    <Button ref={cancelRef} onClick={onClose}>
-                                        Continue Shopping
+                                        Cancel
                                    </Button>
                                    <Button colorScheme='red' onClick={HandleCheckout} ml={3}>
-                                        Checkout
+                                        {BtnText}
                                    </Button>
                               </AlertDialogFooter>
                          </AlertDialogContent>

@@ -13,12 +13,11 @@ import './Card.css'
 
 const Card = ({ data, setLoading }) => {
      const { image, price, title, id, mrp, discount, select_qty = 1, unit = 'kg', brand } = data;
-
      const navigate = useNavigate()
      const { showMsg } = useGlobal()
      const { currentUser } = useAuth()
      const { setCartCountChange } = useProvider()
-     const [item, setItem] = useState({ ...data })
+     const [item, setItem] = useState({ ...data, selected_qty_purchase: 1 })
      const isAuth = JSON.parse(localStorage.getItem('isAuth')) || false
      const usersCollectionRef = collection(db, `cart/${currentUser?.email}/cartData`)
 
@@ -44,7 +43,7 @@ const Card = ({ data, setLoading }) => {
      // * add data to cart
      const postDataToCart = () => {
           setLoading(true)
-          return addDoc(usersCollectionRef, item)
+          return addDoc(usersCollectionRef, { ...item })
      }
 
      return (

@@ -16,8 +16,9 @@ export const FilterReducer = (state, action) => {
 
 // * to calculate the total price
 export const calcTotalPrice = (data) => {
+     console.log('data: ', data);
      return data?.reduce((start, item) => {
-          return start + (+item.price);
+          return start + (+item.price * (+item.selected_qty_purchase));
      }, 0)
 }
 
@@ -29,9 +30,17 @@ export const calcTotalSavings = (data) => {
 // * to calculate the total mrp
 const calcTotalMrp = (data) => {
      return data?.reduce((start, item) => {
-          return start + (+item.mrp);
+          return start + (+item.mrp * (+item.selected_qty_purchase));
      }, 0)
 }
+
+// * to calculate total item in cart
+export const calcTotalItem = (data) => {
+     return data?.reduce((start, item) => {
+          return start + (+item.selected_qty_purchase)
+     }, 0)
+}
+
 
 // * Sort data based on price
 export const FilterPrice = (data, value) => {

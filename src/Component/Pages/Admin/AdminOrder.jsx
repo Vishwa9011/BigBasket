@@ -1,7 +1,7 @@
 import { useAdminProvider } from '../../../Context/AdminProvider/AdminProvider';
 import React, { useEffect, useState } from 'react'
 import Statistics from './Component/Statistics';
-import { Box, Table, Thead, Heading, Th, Td, Tr, Tbody, TableContainer, TableCaption, Button } from '@chakra-ui/react';
+import { Box, Table, Thead, Heading, Th, Td, Tr, Tbody, TableContainer, TableCaption, Button, Text } from '@chakra-ui/react';
 import './admin.css'
 import { setDoc, collection, doc, updateDoc } from 'firebase/firestore';
 import { db } from '../../Firebase/firebase-config';
@@ -9,7 +9,7 @@ import { useGlobal } from '../../../Context/GlobalDataProvider/GlobalProvider';
 
 const AdminOrder = () => {
 
-     const { showMsg } = useGlobal();
+     const { showMsg, capitalize } = useGlobal();
      const { globalData } = useAdminProvider()
 
 
@@ -21,14 +21,14 @@ const AdminOrder = () => {
      }
 
      useEffect(() => {
-          // * to calculate the total price
-          const calcTotalPrice = (data) => {
+          if (globalData.orders) {
+               // * to calculate the total price
+               const calcTotalPrice = (data) => {
                return data?.reduce((start, item) => {
                     return start + (+item.price);
                }, 0)
+               }
           }
-
-          console.log(calcTotalPrice(globalData.orders))
      }, [globalData])
 
 
@@ -55,11 +55,14 @@ const AdminOrder = () => {
                                         </Tr>
                                    </Thead>
                                    <Tbody>
-                                        {globalData.orders?.map((data, i) => (
+                                        {globalData?.orders && globalData.orders?.map((data, i) => (
                                              <Tr key={i}>
                                                   <Td>{i + 1}</Td>
                                                   <Td opacity={'.7'}>{data.orderId}</Td>
-                                                  <Td>{data.title.slice(0, 15)} {data.title.length >= 15 ? "..." : ""}</Td>
+                                                  <Td>
+                                                       <Text as='span'> {capitalize(data.title.slice(0, 15))}</Text>
+                                                       <Text as='span'> {data.title.length >= 15 ? "..." : ""}</Text>
+                                                  </Td>
                                                   <Td>{data.email}</Td>
                                                   <Td>₹ {parseInt(data.price)} /-</Td>
                                                   <Td color={data.isPlaced ? 'green.500' : "red.500"}>{data.isPlaced ? 'Delivered' : 'On the way'}</Td>

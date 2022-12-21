@@ -1,9 +1,10 @@
-import React from 'react'
-import { Box, Container, Grid, HStack, Stack, Link, Heading, Text, Input, Image, Spacer, Divider } from '@chakra-ui/react'
+import { Box, Container, Grid, HStack, Stack, Heading, Text, Input, Image, Spacer, Divider } from '@chakra-ui/react'
 import { BsYoutube, BsTwitter } from 'react-icons/bs'
 import { AiFillInstagram } from 'react-icons/ai'
 import { FaFacebookSquare } from 'react-icons/fa'
 import { SiMinutemailer } from 'react-icons/si'
+import { Link } from 'react-router-dom'
+import React from 'react'
 import './Footer.css'
 
 
@@ -22,21 +23,21 @@ const Footer = () => {
                     <Grid py={10} templateColumns={{ sm: "repeat(2,1fr)", md: 'repeat(3,1fr)', lg: 'repeat(4,1fr)' }} w='90%' m='auto'>
                          <Stack align={'flex-start'} px='5'>
                               <Heading fontSize={['1.7em', '1.5em', '2em']}>Company</Heading>
-                              <Link href={'#'}>About us</Link>
-                              <Link href={'#'}>Blog</Link>
-                              <Link href={'/cart'}>Cart</Link>
-                              <Link href={'/contact'}>Contact us</Link>
-                              <Link href={'#'}>Pricing</Link>
-                              <Link href={'#'}>Testimonials</Link>
+                              <Link to={'#'}>About us</Link>
+                              <Link to={'#'}>Blog</Link>
+                              <Link to={'/cart'}>Cart</Link>
+                              <Link to={'/contact'}>Contact Me</Link>
+                              <Link to={'#'}>Pricing</Link>
+                              <Link to={'#'}>Testimonials</Link>
                          </Stack>
 
                          <Stack textAlign={'left'} px='5' display={['none', 'none', 'block', 'block']}>
                               <Heading fontSize={['1.7em', '1.5em', '2em']} >Support</Heading>
-                              <Link href={'#'}>Help Center</Link>
-                              <Link href={'#'}>Terms of Service</Link>
-                              <Link href={'#'}>Legal</Link>
-                              <Link href={'#'}>Privacy Policy</Link>
-                              <Link href={'#'}>Satus</Link>
+                              <Link to={'#'}>Help Center</Link>
+                              <Link to={'#'}>Terms of Service</Link>
+                              <Link to={'#'}>Legal</Link>
+                              <Link to={'#'}>Privacy Policy</Link>
+                              <Link to={'#'}>Satus</Link>
                          </Stack>
 
                          <Stack direction='column' px='5' display={['none', 'none', 'none', 'block']}>

@@ -9,8 +9,8 @@ import './styles.css'
 const Contact = () => {
 
      const { showMsg } = useGlobal();
-     const { currentUser } = useAuth();
-     const [message, setMessage] = useState({ name: "", email: "", message: "" });
+     const { currentUser, currentUserDetail } = useAuth();
+     const [message, setMessage] = useState({ name: currentUserDetail?.username || '', email: currentUserDetail?.email, message: "" });
 
      // * handle input feilds data.
      const HandleChange = (e) => {
@@ -20,7 +20,9 @@ const Contact = () => {
      // * send contact detail from 
      const SendContactForm = (e) => {
           e.preventDefault();
-          if (message.name == "" || message.email == "" || message.message == "") return;
+          if (message.name == "" || message.email == "" || message.message == "") {
+               return showMsg("Please fill all the required feilds.")
+          }
           const messageId = Date.now();
           const userContactRef = doc(db, "messages", `@${messageId}`);
           setDoc(userContactRef, { ...message, userId: currentUser?.uid })
@@ -50,15 +52,12 @@ const Contact = () => {
                     <Box display='flex'>
                          <Box display={'flex'} w='40%' >
                               <Image src='https://img.freepik.com/free-vector/contact-center-abstract-concept_335657-3032.jpg?w=2000' />
-                              {/* <Image src='https://img.freepik.com/free-vector/email-marketing-internet-chatting-24-hours-support-get-touch-initiate-contact-contact-us-feedback-online-form-talk-customers-concept_335657-25.jpg?w=2000'
-                                   w={'300px'}
-                              /> */}
                          </Box>
                          <Box w='100%'>
                               <form className='contact-form' onSubmit={SendContactForm}>
                                    <Box mt='4'>
                                         <Text>Name</Text>
-                                        <Input name='name' value={message.name} placeholder='Enter Your Name' onChange={HandleChange} />
+                                        <Input name='name' textTransform={'capitalize'} value={message.name} placeholder='Enter Your Name' onChange={HandleChange} />
                                    </Box>
                                    <Box mt='4'>
                                         <Text>Email</Text>

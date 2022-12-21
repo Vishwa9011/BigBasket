@@ -20,15 +20,10 @@ export default function Login() {
 
      const scrollPage = val => {
           console.log('val: ', val);
-
           authPage.current.scrollLeft += val;
      }
 
-     // * swapping from page
-     const setPage = () => {
-          setShowFront(v => !v)
-     }
- 
+
      return (
           <>   
                {loading && <Loader />}

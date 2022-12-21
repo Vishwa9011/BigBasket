@@ -18,9 +18,26 @@ const GlobalProvider = ({ children }) => {
           })
      }
  
+     const capitalize = (value, type = '#') => {
+          if (!value) return
+          value = value.trim();
+          // * ("*") all letters capitalize 
+          if (type == '*') {
+               const valueArr = value.split(" ");
+               // * capitalize each word in string
+               const resultArr = valueArr.map((val) => {
+                    return val.slice(0, 1).toUpperCase() + val.slice(1);
+               })
+               return resultArr.join(" ");
+          } // * {"#"} for only first letter capitalze
+          else if (type == '#') {
+               return value.slice(0, 1).toUpperCase() + value.slice(1);
+          }
+     }
+
 
      return (
-          <GlobalContext.Provider value={{ showMsg, showDataForCategory, setShowDataForCategory }}>
+          <GlobalContext.Provider value={{ showMsg, capitalize, showDataForCategory, setShowDataForCategory }}>
                {children}
           </GlobalContext.Provider>
      )

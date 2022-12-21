@@ -8,6 +8,7 @@ export const useAdminProvider = () => useContext(AdminContext);
 const AdminProvider = ({ children }) => {
 
      const [globalData, setGlobalData] = useState({ users: "", orders: "", activeUserCount: "" })
+     const [loaded, setLoaded] = useState(false)
      console.log('globalData: ', globalData);
 
 
@@ -43,7 +44,10 @@ const AdminProvider = ({ children }) => {
 
           // * cleanup function
           return unsubscribe
-     }, [])
+     }, [loaded])
+
+
+   
 
 
      const FindActiveUser = (items) => {
@@ -56,7 +60,7 @@ const AdminProvider = ({ children }) => {
 
 
      return (
-          <AdminContext.Provider value={{ globalData }}>
+          <AdminContext.Provider value={{ globalData, setLoaded }}>
                {children}
           </AdminContext.Provider>
      )

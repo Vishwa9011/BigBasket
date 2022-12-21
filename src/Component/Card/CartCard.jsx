@@ -36,7 +36,7 @@ const CartCard = ({ data, updateProduct, deleteProduct }) => {
                                    </Box>
                                    <Box textAlign='right' fontSize={['.6em', '.6em', '1em']}>
                                         <Text fontWeight='bold'>₹ {(+selected_qty_purchase * +price).toFixed(2)}</Text>
-                                        <Text color='yellowgreen' fontWeight='semibold'>Saved: ₹{+selected_qty_purchase * (+mrp - +price).toFixed(2)}</Text>
+                                        <Text color='yellowgreen' fontWeight='semibold'>Saved: ₹{(+selected_qty_purchase * (+mrp - +price)).toFixed(2)}</Text>
                                    </Box>
                               </Box>
                          </Box>

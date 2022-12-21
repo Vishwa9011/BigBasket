@@ -6,7 +6,7 @@ import React from 'react';
 import './Card.css';
 
 const OrderCard = ({ data, CancelOrder }) => {
-     var { image, price, title, id, mrp, discount, brand, isPlaced } = data;
+     var { image, price, title, id, mrp, discount, brand, isPlaced, selected_qty_purchase, unit = 'item', select_qty } = data;
      return (
           <>
                <Box w='100%' minH={'100%'} p='3' borderRadius='10px' className='card' display={'flex'} flexDirection='column' justifyContent={'space-between'}>
@@ -27,10 +27,12 @@ const OrderCard = ({ data, CancelOrder }) => {
                               <Text as='span' ml='2' >2303 Ratings</Text>
                          </Box>
                     </Box>
-
+                    <Box mt='2'>
+                         <Text fontSize='.7em' opacity='.7'>Qty : {select_qty} {unit}</Text>
+                    </Box>
                     <Box fontSize='.9em' mt='2' className='normalText'>
                          <Text as='span' textDecoration={'line-through'} fontSize='.7em' opacity='.7'>MRP ₹{mrp}</Text>
-                         <Text as='span' title={price} ml='3' fontWeight='semibold'>₹{parseInt(price)}.00</Text>
+                         <Text as='span' title={price} ml='3' fontWeight='semibold'>₹{parseInt(price)}.00 x {selected_qty_purchase} </Text>
                     </Box>
 
                     <Box display={'flex'} justifyContent='space-between' alignItems='center' mt='4'>

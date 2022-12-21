@@ -4,12 +4,11 @@ import AdminPanel from './Component/Pages/Admin/AdminPanel'
 import Products from './Component/Pages/Products'
 import MyOrders from './Component/Pages/MyOrders'
 import { Routes, Route } from 'react-router-dom'
+import Contact from './Component/Pages/Contact'
 import Login from './Component/Pages/Login'
 import Cart from './Component/Pages/Cart'
 import PrivateRoute from './PrivateRoute';
 import React from 'react'
-import AdminRoutes from './Component/Pages/Admin/AdminRoutes'
-import Contact from './Component/Pages/Contact'
 const AllRoutes = () => {
 
      return (
@@ -20,7 +19,7 @@ const AllRoutes = () => {
                <Route path='/admin/*' element={<PrivateRoute><AdminPanel /></PrivateRoute>} />
                <Route path='/myorders' element={<PrivateRoute><MyOrders /></PrivateRoute>} />
                <Route path='/products/:id' element={<Products />} />
-               <Route path='/contact' element={<Contact />} />
+               <Route path='/contact' element={<PrivateRoute><Contact /></PrivateRoute>} />
                <Route path='*' element={<PageNotFound />} />
           </Routes>
      )

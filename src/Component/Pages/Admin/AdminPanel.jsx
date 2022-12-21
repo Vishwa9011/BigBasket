@@ -7,6 +7,7 @@ import "./admin.css";
 import { Link } from 'react-router-dom';
 
 const AdminPanel = () => {
+
      return (
           <>
                <Box pos='relative'>
