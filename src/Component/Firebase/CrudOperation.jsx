@@ -22,7 +22,7 @@ const CrudOperation = () => {
      //      const newFeilds = { email: email }; //* updating the particular element
      //      await updateDoc(userDoc, newFeilds);  //* function to update
      // }
-
+  
      // const deleteUser = async (id) => {
      //      const userDoc = doc(db, "users", id);
      //      await deleteDoc(userDoc)

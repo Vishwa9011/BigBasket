@@ -10,9 +10,9 @@ import { ReadMessage } from './Component/ReadMessage'
 
 
 const FilterUserImage = (userId, users) => {
-     const temp = users.find((user) => user.id === userId)
-     const image = temp.image;
-     const gender = temp.gender;
+     const temp = users?.find((user) => user.id === userId)
+     const image = temp?.image;
+     const gender = temp?.gender;
      return { image, gender }
 }
 
@@ -37,10 +37,9 @@ const MessageCard = ({ msg }) => {
                <Box display='flex' minW='400px' justifyContent={'space-between'} alignItems='center' cursor={'pointer'} border={'1px'} w='fit-content' p='2' m='2' borderRadius={'10px'}>
                     <Box display='flex' alignItems={'center'} onClick={onOpen}>
                          <Box>
-                              {
-                                   image || gender ? < Image src={image || (gender === 'male' ? `/admin-images/man.png` : gender == 'female' ? '/admin/woman.png' : "")} alt='' boxSize={10} borderRadius='50%' />
+                              {(image || gender) ? <Image src={image || (gender === 'male' ? `/admin-images/man.png` : gender == 'female' ? '/admin-images/woman.png' : "")} alt='' boxSize={"40px"} borderRadius='50%' />
                                         :
-                                        <Image src='https://static.thenounproject.com/png/55168-200.png' alt='' filter={'invert(70%)'} />
+                                   <Image src='https://static.thenounproject.com/png/55168-200.png' alt='' boxSize={"40px"} filter={'invert(70%)'} />
                               }
                          </Box>
                          <Box border={'0px'} ml='5'>
