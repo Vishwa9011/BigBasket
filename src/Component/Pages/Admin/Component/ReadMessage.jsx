@@ -24,11 +24,12 @@ export function ReadMessage({ isOpen, onClose, msg, image, gender }) {
                          <ModalBody>
                               <Box>
                                    <Box display={'flex'} justifyContent='flex-start' alignItems={'center'}>
-                                        {
-                                             image || gender ? <Image src={image || (gender === 'male' ? `/admin-images/man.png` : gender == 'female' ? '/admin/woman.png' : "")} alt='' boxSize={10} borderRadius='50%' />
+                                        <Box>
+                                             {(image || gender) ? <Image src={image || (gender === 'male' ? `/admin-images/man.png` : gender == 'female' ? '/admin-images/woman.png' : "")} alt='' boxSize={"40px"} borderRadius='50%' />
                                                   :
-                                                  <Image src='https://static.thenounproject.com/png/55168-200.png' alt='' filter={'invert(70%)'} />
-                                        }
+                                                  <Image src='https://static.thenounproject.com/png/55168-200.png' alt='' boxSize={"40px"} filter={'invert(70%)'} />
+                                             }
+                                        </Box>
                                         <Box ml='3'>
                                              <Text>{capitalize(msg?.name, "*")}</Text>
                                              <Text fontWeight={'semibold'} cursor='pointer' _hover={{ textDecoration: "underline" }}>{msg?.email}</Text>
